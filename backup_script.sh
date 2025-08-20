@@ -11,5 +11,5 @@ PASSWORD="86mcrw!p10"  # Replace with your root password
 mysqldump -u $USER -p$PASSWORD $DATABASE > $BACKUP_DIR/$BACKUP_NAME
 
 # Cleanup old backups (older than 90 days)
-find $BACKUP_DIR -type f -name "*.sql" -mtime +90 -exec rm {} \;
+find $BACKUP_DIR -type f -name "*.sql" -mtime +30 -exec rm {} \;
 
