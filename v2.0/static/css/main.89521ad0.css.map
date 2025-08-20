@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.89521ad0.css","mappings":"AAAA,cAAc,CACd,oBAAoB,CACpB,mBAAmB,CAEnB,KACI,4BACJ","sources":["App.css"],"sourcesContent":["@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\nbody {\n    background: #f5f5f5!important;\n}\n"],"names":[],"sourceRoot":""}

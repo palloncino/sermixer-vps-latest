@@ -1,0 +1,43 @@
+{
+  "name": "quotation-sql-server-01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon server.js",
+    "start": "NODE_ENV=production node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.2.0",
+    "form-data": "^4.0.0",
+    "helmet": "^7.1.0",
+    "image-to-base64": "^2.2.0",
+    "jimp": "^0.22.12",
+    "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
+    "mailgun.js": "^10.2.1",
+    "marked": "^12.0.2",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.9.7",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.13",
+    "nodemon": "^3.1.0",
+    "pdfkit": "^0.15.0",
+    "puppeteer": "^22.7.1",
+    "sequelize": "^6.37.3",
+    "slugify": "^1.6.6",
+    "uuid": "^9.0.1",
+    "winston": "^3.13.0",
+    "winston-daily-rotate-file": "^5.0.0",
+    "xss-clean": "^0.1.4"
+  }
+}

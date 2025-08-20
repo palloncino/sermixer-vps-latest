@@ -1,0 +1,393 @@
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.mb-3 {
+  margin-bottom: 3rem;
+}
+
+.mb-4 {
+  margin-bottom: 4rem;
+}
+
+.container-heading-text {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.header {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.header-container img {
+  width: 100%;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.header-container-left-logo-container {
+  height: 100%;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.header-container-left-logo-container-logo {
+  height: 100%;
+}
+
+.header-container-left-logo-container-text {
+  font-size: 2.2rem;
+  font-weight: normal;
+  margin: 0;
+  line-height: 1.8rem;
+}
+
+.header-container-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.header-container-right-upper-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.header-container-right-lower-row {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.6rem;
+}
+
+.footer-container img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.table-v1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.table-v1-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  gap: 1rem;
+}
+
+.table-v1 .table-v1-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-v1 .table-v1-row:first-child {
+  padding-top: 0.5rem;
+}
+
+.table-v1 .table-v1-row:last-child {
+  margin-bottom: 0rem;
+}
+
+.table-v1-key {
+  flex: 2;
+  display: flex;
+}
+
+.table-v1-key.flex-right {
+  justify-content: flex-end;
+}
+
+.table-v1-value {
+  flex: 3;
+  display: flex;
+}
+
+.table-v2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.table-v2-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  gap: 1rem;
+}
+
+.table-v2-row-head {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-bottom: 1px solid;
+  padding: 0.5rem 0;
+  font-size: 0.8rem;
+}
+
+.table-v2-row-head-key-1 {
+  flex: 1;
+}
+
+.table-v2-row-head-key-2 {
+  flex: 1;
+  max-width: 120px;
+  text-align: right;
+}
+
+.table-v2 .table-v2-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-v2 .table-v2-row:first-child {
+  padding-top: 0.5rem;
+}
+
+.table-v2 .table-v2-row:last-child {
+  margin-bottom: 0rem;
+}
+
+.table-v2-cell-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.table-v2-price {
+  flex: 1;
+  max-width: 120px;
+  text-align: right;
+}
+
+.first-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.first-container-left-column {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.first-container-right-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.second-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.second-container-left-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.second-container-right-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.third-container {
+  border: 1px solid;
+  margin-top: 2rem;
+}
+
+.reduced-font {
+  font-size: 0.8rem;
+}
+
+.smaller-font {
+  font-size: 0.8rem;
+}
+
+#section-b {
+  font-size: 0.7rem;
+  line-height: 1rem;
+}
+
+#section-b h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+#section-b strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+#section-b p {
+  margin-bottom: 0.5rem;
+}
+
+#section-b ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#section-b li {
+  margin-bottom: 0.3rem;
+}
+
+#section-b div {
+  margin-bottom: 0.5rem;
+}
+
+.signature-section {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.signature-date {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.signatures {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.signature {
+  flex: 1;
+  padding: 20px;
+}
+
+.signature-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.signature-image {
+  width: 300px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.signature-placeholder {
+  width: 300px;
+  height: 100px;
+  border-bottom: 1px solid #000;
+}
+
+.page-break {
+  page-break-before: always;
+}
+
+.header-container img {
+  width: 100%;
+  max-height: 100px;
+  object-fit: contain;
+}
+.footer-container img {
+  width: 100%;
+  object-fit: contain;
+}
+.header {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.header-container-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: right;
+  margin-left: auto;
+}
+.header-container-right-upper-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+.header-container-right-lower-row {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.6rem;
+}
+.signature-section {
+  page-break-inside: avoid;
+}
+
+.header {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.header-container-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: right;
+  margin-left: auto;
+}
+.header-container-right-upper-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+.header-container-right-lower-row {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.6rem;
+}
+.signature-section {
+  page-break-inside: avoid;
+}
+.page-number {
+  position: absolute;
+  right: 40px;
+  bottom: 20px;
+  font-size: 12px;
+}
+.object-description-container {
+  margin: 2rem 0rem;
+}
+.object-description-container strong {
+  font-weight: bold;
+}
