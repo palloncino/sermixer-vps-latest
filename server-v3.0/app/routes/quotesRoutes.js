@@ -134,9 +134,40 @@ router.post("/create-quote/:hash", authMiddleware, async (req, res) => {
       document: updatedDocument,
     });
   } catch (error) {
-    Logger.error(`Error creating quote: ${error.message}`);
-    console.error(`Error creating quote: ${error.message}`);
-    res.status(400).json({ message: "Error processing request", error });
+    Logger.error(`Error creating quote: ${error.message}`, { 
+      stack: error.stack,
+      hash,
+      userId,
+      isConfirmation 
+    });
+    
+    // More specific error handling
+    let statusCode = 500;
+    let message = "Internal server error";
+    
+    if (error.message.includes("Document not found")) {
+      statusCode = 404;
+      message = "Document not found";
+    } else if (error.message.includes("Unauthorized") || error.message.includes("Permission denied")) {
+      statusCode = 401;
+      message = "Unauthorized access";
+    } else if (error.message.includes("PDF generation failed") || error.message.includes("Puppeteer")) {
+      statusCode = 500;
+      message = "PDF generation failed";
+    } else if (error.message.includes("Storage") || error.message.includes("ENOENT")) {
+      statusCode = 500;
+      message = "File storage error";
+    }
+    
+    res.status(statusCode).json({ 
+      message,
+      error: process.env.NODE_ENV === "development" ? {
+        details: error.message,
+        stack: error.stack
+      } : {
+        details: error.message
+      }
+    });
   }
 });
 

@@ -59,10 +59,16 @@ export async function generatePDF(quote, isConfirmation) {
     company: quote.company
   });
 
-  const browser = await getBrowser();
-  const page = await browser.newPage();
+  let browser;
+  let page;
 
   try {
+    browser = await getBrowser();
+    page = await browser.newPage();
+
+    if (!page) {
+      throw new Error("Failed to create new browser page");
+    }
     // Select header and footer images based on company name
     const isSermixer = String(quote.company).toLowerCase() === 'sermixer';
     const headerFile = path.resolve(process.env.IMAGES_FOLDER_PATH, isSermixer ? 'sermixer-head.png' : 's2-head.png');
@@ -79,7 +85,7 @@ export async function generatePDF(quote, isConfirmation) {
     const cssContent = await fs.promises.readFile(cssPath, "utf8");
 
   // Convert business signature to base64
-  let base64BusinessSignature = null;
+  let businessSignatureUrl = null;
   const possibleExtensions = ["png", "jpg", "jpeg"];
   for (const ext of possibleExtensions) {
     const signaturePath = path.resolve(process.env.IMAGES_FOLDER_PATH, `BUSINESS_SIGNATURE.${ext}`);
@@ -89,9 +95,9 @@ export async function generatePDF(quote, isConfirmation) {
       continue;
     }
     try {
-      const base64Image = await convertImagePathToBase64(signaturePath);
+      const base64Image = await toBase64(signaturePath);
       if (base64Image) {
-        base64BusinessSignature = base64Image;
+        businessSignatureUrl = dataUrl(base64Image, signaturePath);
         break;
       }
     } catch (error) {
@@ -102,13 +108,8 @@ export async function generatePDF(quote, isConfirmation) {
   // Function to convert Markdown to HTML
   const convertMarkdownToHtml = (markdown) => {
     const preprocessedMarkdown = markdown.replace(/\\n/g, '<br>'); // Replace \n with <br> tag
-    const markdownParsed = marked(preprocessedMarkdown);
-    return markdownParsed;
+    return mdToSafeHtml(preprocessedMarkdown);
   };
-
-  // Read CSS from file
-  const cssPath = path.resolve(__dirname, "styles.css");
-  const cssContent = fs.readFileSync(cssPath, "utf8");
 
   // Add signature specific styles
   const additionalStyles = `
@@ -142,10 +143,13 @@ export async function generatePDF(quote, isConfirmation) {
     const productDescriptionHtml = convertMarkdownToHtml(product.description);
 
     // Check if the product image URL is valid (not null, empty, or undefined)
-    let base64ProductImage = '';
+    let productImageUrl = null;
     if (product.imgUrl) {
       const productImagePath = path.resolve(process.env.IMAGES_FOLDER_PATH, path.basename(product.imgUrl));
-      base64ProductImage = await convertImagePathToBase64(productImagePath);
+      const base64Image = await toBase64(productImagePath);
+      if (base64Image) {
+        productImageUrl = dataUrl(base64Image, productImagePath);
+      }
     }
 
     const componentsHtml = product.components.filter(component => component.included).map((component) => {
@@ -162,7 +166,7 @@ export async function generatePDF(quote, isConfirmation) {
             <!-- <div>${componentDescriptionHtml}</div> -->
           </div>
           <div class="table-v2-price">
-            <div>€${formatPrice(componentPrice)}</div>
+            <div>${formatPrice(componentPrice)}</div>
           </div>
         </div>
       `;
@@ -171,12 +175,12 @@ export async function generatePDF(quote, isConfirmation) {
     const productPrice = product.discountedPrice || product.price;
 
     return `
-      <div class="second-container mb-4" style="${index > 0 ? 'page-break-before: always;' : ''}">
+      <div class="second-container mb-4 product-section" ${index > 0 ? 'style="break-before: page;"' : ''}>
         <div class="second-container-left-column">
           <div class="container-heading-text">Prodotto</div>
-          ${base64ProductImage ? `
+          ${productImageUrl ? `
           <div class="second-container-left-column-image-container">
-            <img style="width: 100%; object-fit: contain;" src="data:image/jpeg;base64,${base64ProductImage}">
+            <img style="width: 100%; object-fit: contain;" src="${productImageUrl}">
           </div>` : ''}
           <br />
           <div style="font-weight: bold; font-size: 1.2rem; color: red;">
@@ -186,7 +190,7 @@ export async function generatePDF(quote, isConfirmation) {
             <div class="table-v1-row">
               <div class="table-v1-key">PREZZO BASE</div>
               <div class="table-v1-value" style="justify-content: flex-start;">
-                €${formatPrice(productPrice)}
+                ${formatPrice(productPrice)}
               </div>
             </div>
           </div>
@@ -211,7 +215,7 @@ export async function generatePDF(quote, isConfirmation) {
   // Determine which section to include
   const contractSection = isSermixer ? condizioni_di_contratto_sermixer : condizioni_di_contratto_s2;
 
-  // HTML template for the PDF
+  // HTML template for the PDF with Paged.js support
   const htmlContent = `
   <!DOCTYPE html>
   <html lang="en">
@@ -220,8 +224,79 @@ export async function generatePDF(quote, isConfirmation) {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Quote PDF</title>
       <style>
+        /* Paged-media CSS for proper pagination */
+        @page {
+          size: A4;
+          margin: 18mm 14mm 18mm 14mm;
+          @top-center { content: element(print-header); }
+          @bottom-center { content: element(print-footer); }
+        }
+
+        /* CSS Variables for consistent spacing */
+        :root { 
+          --s1: 2mm; 
+          --s2: 4mm; 
+          --s3: 6mm; 
+          --s4: 8mm; 
+          --s6: 12mm; 
+        }
+
+        /* Running elements for headers/footers */
+        header.print-header { 
+          position: running(print-header); 
+          width: 100%;
+          text-align: center;
+          padding: 0 20px;
+        }
+        footer.print-footer { 
+          position: running(print-footer); 
+          width: 100%;
+          text-align: center;
+          padding: 0 20px;
+        }
+
         ${cssContent}
         ${additionalStyles}
+
+        /* Enhanced pagination styles */
+        body { 
+          font-size: 11pt; 
+          line-height: 1.35; 
+          print-color-adjust: exact; 
+          -webkit-print-color-adjust: exact; 
+        }
+        
+        h1, h2, h3, .container-heading-text { 
+          margin: 0 0 var(--s3) 0; 
+          break-after: avoid-page; 
+        }
+        
+        .first-container, .second-container, .payment-terms-section, .object-description-container { 
+          break-inside: avoid; 
+          padding: var(--s1) 0;
+        }
+        
+        .table-v1-row, .table-v2-row { 
+          break-inside: avoid; 
+          padding: var(--s1) 0; 
+        }
+        
+        img { 
+          display: block; 
+          max-width: 100%; 
+          height: auto; 
+          break-inside: avoid; 
+        }
+
+        .product-section {
+          widows: 2; 
+          orphans: 2;
+        }
+
+        .signature-section {
+          break-inside: avoid;
+          margin-top: var(--s6);
+        }
         .header-container img {
           width: ${isSermixer ? '100%' : 'auto'};
           max-height: ${isSermixer ? '100px' : '120px'};
@@ -257,6 +332,24 @@ export async function generatePDF(quote, isConfirmation) {
       </style>
     </head>
     <body>
+      <!-- Running header element -->
+      <header class="print-header">
+        ${headerUrl ? `<img src="${headerUrl}" style="${isSermixer ? 'width: 100%; max-height: 140px; object-fit: contain;' : 'width: auto; max-height: 100px; object-fit: contain;'}" />` : ''}
+      </header>
+
+      <!-- Running footer element -->
+      <footer class="print-footer">
+        ${isSermixer
+          ? (footerUrl ? `<img src="${footerUrl}" style="width: 100%; object-fit: contain;" />` : '')
+          : `<div style="font-size: 9px; line-height: 1.4; text-align: center;">
+               <div>S2 TRUCK SERVICE SRL a Socio Unico - Via Edison, 4 - 31020 VILLORBA (TV)</div>
+               <div>C.F. e P.I. 02263610228 - Sede legale: Via degli Artigiani, 15 - 38057 PERGINE VALSUGANA (TN)</div>
+               <div>Tel. 0422-919871 - Fax 0422-919890 - e-mail: info@s2truckservice.it - WWW.S2TRUCKSERVICE.IT</div>
+             </div>`
+        }
+        <div class="page-number">Pagina <span class="pageNumber"></span> di <span class="totalPages"></span></div>
+      </footer>
+
       <div class="content">
         <div class="header">
           <div class="header-container-right" style="${isSermixer ? '' : 'flex: 1;'}">
@@ -296,7 +389,7 @@ export async function generatePDF(quote, isConfirmation) {
               SUBTOTALE<br/><span style="font-size: 0.8rem; font-style: italic;">a voi riservato</span>
             </div>
             <div class="table-v1-value" style="justify-content: flex-end; font-weight: bold;">
-              €${formatPrice(quote.TOTAL_WITH_DISCOUNT)}
+              ${formatPrice(quote.TOTAL_WITH_DISCOUNT)}
             </div>
           </div>
           <div class="table-v1-row">
@@ -304,7 +397,7 @@ export async function generatePDF(quote, isConfirmation) {
               PREZZO TOTALE<br/><span style="font-size: 0.8rem; font-style: italic;">+ iva 22%</span>
             </div>
             <div class="table-v1-value" style="justify-content: flex-end; font-weight: bold;">
-              €${formatPrice(quote.TOTAL_ALL_WITH_TAXES)}
+              ${formatPrice(quote.TOTAL_ALL_WITH_TAXES)}
             </div>
           </div>
         </div>
@@ -329,8 +422,8 @@ export async function generatePDF(quote, isConfirmation) {
             </div>
             <div class="signature">
               <div class="signature-title">Firma fornitore</div>
-              ${base64BusinessSignature ? `
-                <img class="signature-image" src="data:image/png;base64,${base64BusinessSignature}" alt="Business Signature" />
+              ${businessSignatureUrl ? `
+                <img class="signature-image" src="${businessSignatureUrl}" alt="Business Signature" />
               ` : `
                 <div class="signature-placeholder"></div>
               `}
@@ -342,48 +435,82 @@ export async function generatePDF(quote, isConfirmation) {
   </html>
 `;
 
-  const page = await browser.newPage();
   await page.setContent(htmlContent, {
-    waitUntil: "domcontentloaded",
+    waitUntil: "load",
   });
 
+  // Inject Paged.js from node_modules (ES modules compatible)
+  const pagedJsPath = path.resolve(__dirname, "../node_modules/pagedjs/dist/paged.polyfill.js");
+  console.log(`Loading Paged.js from: ${pagedJsPath}`);
+  
+  try {
+    await page.addScriptTag({ 
+      path: pagedJsPath
+    });
+    console.log("Paged.js script loaded successfully");
+  } catch (error) {
+    console.error("Failed to load Paged.js:", error);
+    throw new Error(`Paged.js loading failed: ${error.message}`);
+  }
+
+  // Wait until Paged.js finishes laying out pages (with timeout)
+  await page.evaluate(() => new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      reject(new Error("Paged.js rendering timeout after 30 seconds"));
+    }, 30000);
+    
+    document.addEventListener("pagedjs:rendered", () => {
+      clearTimeout(timeout);
+      resolve();
+    }, { once: true });
+    
+    // Fallback: if Paged.js doesn't fire the event, resolve anyway after a short delay
+    setTimeout(() => {
+      clearTimeout(timeout);
+      console.log("Paged.js event not fired, proceeding without it");
+      resolve();
+    }, 5000);
+  }));
+
+  // Generate PDF with Paged.js pagination (no Chromium header/footer)
   const pdfBuffer = await page.pdf({
     format: "A4",
     printBackground: true,
-    margin: {
-      top: "160px", // Increase top margin to make space for header
-      bottom: "140px", // Increase bottom margin to make space for footer
-      right: "40px",
-      left: "40px",
-    },
-    displayHeaderFooter: true,
-    headerTemplate: headerUrl
-      ? `<div style="width: 100%; text-align: ${isSermixer ? "center" : "start"}; padding: 0 20px;">
-           <img src="${headerUrl}" style="${isSermixer ? 'width: 100%; max-height: 140px; object-fit: contain;' : 'width: auto; max-height: 100px; object-fit: contain;'}" />
-         </div>`
-      : `<div></div>`,
-    footerTemplate: isSermixer
-      ? (footerUrl 
-         ? `<div style="width: 100%; text-align: center;"><img src="${footerUrl}" style="width: 100%; object-fit: contain;" /></div>` 
-         : `<div></div>`)
-      : `<div style="width: 100%; padding: 0 40px; text-align: center; font-size: 10px; position: relative;">
-           <div style="width: auto; margin: 40px auto; text-align: center;">
-             <div style="font-size: 9px; line-height: 1.4;">S2 TRUCK SERVICE SRL a Socio Unico - Via Edison, 4 - 31020 VILLORBA (TV)</div>
-             <div style="font-size: 9px; line-height: 1.4;">C.F. e P.I. 02263610228 - Sede legale: Via degli Artigiani, 15 - 38057 PERGINE VALSUGANA (TN)</div>
-             <div style="font-size: 9px; line-height: 1.4;">Tel. 0422-919871 - Fax 0422-919890 - e-mail: info@s2truckservice.it - WWW.S2TRUCKSERVICE.IT</div>
-           </div>
-           <div class="page-number" style="margin-top: 10px;">Pagina <span class="pageNumber"></span> di <span class="totalPages"></span></div>
-         </div>`,
-
-
-
+    margin: { 
+      top: "0", 
+      bottom: "0", 
+      left: "0", 
+      right: "0" 
+    }, // margins come from @page now
+    displayHeaderFooter: false
   });
 
     return pdfBuffer;
+  } catch (error) {
+    console.error("PDF Generation Error:", error);
+    
+    // Provide more specific error messages
+    if (error.message.includes("require is not defined")) {
+      throw new Error("PDF generation failed: ES module compatibility issue");
+    } else if (error.message.includes("pagedjs")) {
+      throw new Error("PDF generation failed: Paged.js loading error");
+    } else if (error.message.includes("Cannot find package")) {
+      throw new Error(`PDF generation failed: Missing dependency - ${error.message}`);
+    } else if (error.message.includes("Navigation failed")) {
+      throw new Error("PDF generation failed: Browser navigation error");
+    } else if (error.message.includes("Protocol error")) {
+      throw new Error("PDF generation failed: Browser protocol error");
+    } else {
+      throw new Error(`PDF generation failed: ${error.message}`);
+    }
   } finally {
     // Ensure the page is closed even if pdf() throws
-    try { 
-      await page.close(); 
-    } catch {}
+    if (page) {
+      try { 
+        await page.close(); 
+      } catch (closeError) {
+        console.error("Error closing page:", closeError);
+      }
+    }
   }
 }
