@@ -53,36 +53,48 @@ const DocumentManagementPanel: React.FC<{ handleChosenRevision: (revision: Revis
     };
 
     return (
-        <Box sx={{ width: '100%', height: '100%', padding: 2 }}>
-            <Tabs
-                value={value}
-                onChange={handleChange}
-                aria-label="document management tabs"
-                variant="fullWidth"
-                sx={{
-                    '& .MuiTabs-indicator': { backgroundColor: PALETTE.Blue },
-                    '& .MuiTab-root': { backgroundColor: 'transparent', color: PALETTE.Black3 },
-                    '& .Mui-selected': { backgroundColor: 'transparent', color: PALETTE.Black3, fontWeight: 'bold' }
+        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Box 
+                sx={{ 
+                    position: 'sticky',
+                    top: 0,
+                    zIndex: 10,
+                    backgroundColor: '#fff',
+                    borderBottom: '1px solid #e0e0e0',
+                    paddingX: 2,
+                    paddingTop: 2
                 }}
             >
-                {/* Adding Badge to Actions Tab */}
-                <Tab
-                    label={
-                        <Badge
-                            color="error"
-                            variant={changeLogs.length > 0 ? 'dot' : 'standard'}
-                            overlap="rectangular"
-                        >
-                            {t('Actions')}
-                        </Badge>
-                    }
-                />
-                {theActor?.type === "employee" && <Tab label={t('Revisions')} />}
-                {theActor?.type === "employee" && <Tab label={t('PDFs')} />}
-                {theActor?.type === "employee" && <Tab label={t('Notes')} />}
-            </Tabs>
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    aria-label="document management tabs"
+                    variant="fullWidth"
+                    sx={{
+                        '& .MuiTabs-indicator': { backgroundColor: PALETTE.Blue },
+                        '& .MuiTab-root': { backgroundColor: 'transparent', color: PALETTE.Black3 },
+                        '& .Mui-selected': { backgroundColor: 'transparent', color: PALETTE.Black3, fontWeight: 'bold' }
+                    }}
+                >
+                    {/* Adding Badge to Actions Tab */}
+                    <Tab
+                        label={
+                            <Badge
+                                color="error"
+                                variant={changeLogs.length > 0 ? 'dot' : 'standard'}
+                                overlap="rectangular"
+                            >
+                                {t('Actions')}
+                            </Badge>
+                        }
+                    />
+                    {theActor?.type === "employee" && <Tab label={t('Revisions')} />}
+                    {theActor?.type === "employee" && <Tab label={t('PDFs')} />}
+                    {theActor?.type === "employee" && <Tab label={t('Notes')} />}
+                </Tabs>
+            </Box>
 
-            <Box sx={{ marginTop: 2 }}>
+            <Box sx={{ flex: 1, overflow: 'auto', padding: 2 }}>
                 <TabPanel value={value} index={0}>
                     <ActionsTab />
                 </TabPanel>

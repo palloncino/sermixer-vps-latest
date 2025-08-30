@@ -1,22 +1,65 @@
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper, Tooltip } from '@mui/material';
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Tooltip } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import DescriptionIcon from '@mui/icons-material/Description';
 import styled from 'styled-components';
 import { useDocumentContext } from 'state/documentContext';
+import { dateText } from '../../../utils/date-text';
 
-const StyledTableRow = styled(TableRow)`
-    cursor: pointer;
-    &:hover {
-        background-color: #f0f0f0; /* Light gray hover effect */
+const StyledTableContainer = styled.div`
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fff;
+    overflow: hidden;
+`;
+
+const StyledTable = styled(Table)`
+    & .MuiTableHead-root {
+        background-color: #f8f9fa;
+    }
+    
+    & .MuiTableCell-head {
+        font-weight: 700;
+        font-size: 0.875rem;
+        color: #333;
+        border-bottom: 2px solid #e0e0e0;
+        padding: 12px 16px;
+    }
+    
+    & .MuiTableCell-body {
+        border-bottom: 1px solid #f0f0f0;
+        padding: 8px 16px;
     }
 `;
 
-const NameCell = styled(TableCell)`
-    max-width: 250px; /* Adjust the width to control overflow */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; /* Ellipsis for long names */
+const CompactTableRow = styled(TableRow)`
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+        background-color: #f5f5f5;
+    }
+    
+    &:last-child .MuiTableCell-body {
+        border-bottom: none;
+    }
+`;
+
+const PdfItemContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 0;
+`;
+
+const PdfNameRow = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+`;
+
+const PdfDateRow = styled.div`
+    padding-left: 32px; /* Align with text after icon */
 `;
 
 const PDFPreviewGrid: React.FC = () => {
@@ -34,48 +77,67 @@ const PDFPreviewGrid: React.FC = () => {
 
     const renderPdfTable = (pdfList, title) => (
         <>
-            <Box my={2}>
-                <Typography textAlign="center" variant="h6" sx={{ fontWeight: 'bold' }}>
+            <Box my={3}>
+                <Typography textAlign="center" variant="h6" sx={{ fontWeight: 'bold', fontSize: '1.1rem', color: '#333' }}>
                     {t(title)}
                 </Typography>
             </Box>
-            <TableContainer component={Paper} sx={{ borderRadius: '12px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
-                <Table>
+            <StyledTableContainer>
+                <StyledTable>
                     <TableHead>
                         <TableRow>
-                            <TableCell>{t('Name')}</TableCell>
-                            <TableCell>{t('Timestamp')}</TableCell>
+                            <TableCell>{t('Documents')}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {pdfList.length > 0 ? (
                             pdfList.map((pdf, index) => (
-                                <StyledTableRow key={index} onClick={() => window.open(pdf.url, '_blank')}>
-                                    <NameCell component="th" scope="row">
-                                        <Box display="flex" alignItems="center">
-                                            <DescriptionIcon sx={{ fontSize: 30, mr: 1 }} />
-                                            <Tooltip title={pdf.name}>
-                                                <Typography variant="subtitle1" noWrap>
-                                                    {pdf.name}
+                                <CompactTableRow key={index} onClick={() => window.open(pdf.url, '_blank')}>
+                                    <TableCell component="th" scope="row">
+                                        <PdfItemContainer>
+                                            <PdfNameRow>
+                                                <DescriptionIcon sx={{ fontSize: 20, color: '#666' }} />
+                                                <Tooltip title={pdf.name}>
+                                                    <Typography 
+                                                        variant="subtitle1" 
+                                                        sx={{ 
+                                                            fontWeight: 500, 
+                                                            wordBreak: 'break-word',
+                                                            lineHeight: 1.3
+                                                        }}
+                                                    >
+                                                        {pdf.name}
+                                                    </Typography>
+                                                </Tooltip>
+                                            </PdfNameRow>
+                                            <PdfDateRow>
+                                                <Typography 
+                                                    variant="caption" 
+                                                    sx={{ 
+                                                        color: '#888', 
+                                                        fontSize: '0.75rem',
+                                                        fontStyle: 'italic'
+                                                    }}
+                                                >
+                                                    {dateText(pdf.timestamp)}
                                                 </Typography>
-                                            </Tooltip>
-                                        </Box>
-                                    </NameCell>
-                                    <TableCell>{new Date(pdf.timestamp).toLocaleString()}</TableCell>
-                                </StyledTableRow>
+                                            </PdfDateRow>
+                                        </PdfItemContainer>
+                                    </TableCell>
+                                </CompactTableRow>
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={2}>
-                                    <Typography variant="body1" gutterBottom>
+                                <TableCell>
+                                    <Typography variant="body1" sx={{ textAlign: 'center', color: '#888', py: 3 }}>
                                         {t('NoResult')}
                                     </Typography>
                                 </TableCell>
                             </TableRow>
                         )}
                     </TableBody>
-                </Table>
-            </TableContainer>
+                </StyledTable>
+            </StyledTableContainer>
         </>
     );
 

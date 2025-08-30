@@ -463,79 +463,81 @@ export default ActionsTab;
 const ActionsContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     max-width: 400px;
     margin: auto;
 `;
 
 const ActionGroup = styled(Box)`
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 `;
 
 const ButtonsGrid = styled(Box)`
     display: grid;
     grid-template-columns: repeat(2, 1fr); // Two columns
-    gap: 16px; // Space between buttons
+    gap: 8px; // Reduced space between buttons
 `;
 
 const ActionButton = styled(Button)`
-    padding: 8px; // Smaller padding for smaller text
-    font-size: 0.875rem; // Smaller font size
+    padding: 6px 8px; // More compact padding
+    font-size: 0.8rem; // Slightly smaller font
     font-weight: bold;
-    border-radius: 8px; // Rounded corners
+    border-radius: 6px; // Smaller radius
     transition: background-color 0.3s, transform 0.2s;
-    text-overflow: ellipsis; // Enable ellipsis
-    overflow: hidden; // Hide overflow
-    white-space: nowrap; // Prevent wrapping
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    min-height: 36px; // Consistent button height
 
     &:hover {
-        transform: scale(1.05); // Slightly enlarge on hover
+        transform: scale(1.02); // Reduced hover scale
     }
 `;
 
 const FlatActionButton = styled(Button)`
-    padding: 8px;
-    font-size: 0.875rem;
+    padding: 6px 8px; // More compact padding
+    font-size: 0.8rem; // Slightly smaller font
     font-weight: bold;
-    border-radius: 8px;
+    border-radius: 6px; // Smaller radius
     transition: background-color 0.3s;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    box-shadow: none !important; // Remove all shadows
+    min-height: 36px; // Consistent button height
+    box-shadow: none !important;
     
     &:hover {
-        box-shadow: none !important; // Remove hover shadows
+        box-shadow: none !important;
     }
     
     &:active {
-        box-shadow: none !important; // Remove active shadows
+        box-shadow: none !important;
     }
     
     &.MuiButton-contained {
-        box-shadow: none !important; // Remove contained button shadows
+        box-shadow: none !important;
     }
 `;
 
 const ChangesContainer = styled.div`
-    margin-top: 24px;
+    margin-top: 16px;
 `;
 
 const StatusSection = styled.div`
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 `;
 
 const StatusDisplayContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 `;
 
 const StatusItem = styled.div<{ active: boolean }>`
     display: flex;
     align-items: center;
-    padding: 8px 12px;
-    border-radius: 6px;
+    padding: 6px 10px;
+    border-radius: 4px;
     background-color: ${({ active }) => (active ? '#f8f9fa' : '#fbfbfb')};
     border: 1px solid ${({ active }) => (active ? '#e3f2fd' : '#f0f0f0')};
     transition: all 0.2s ease;
@@ -565,6 +567,7 @@ const RejectButton = styled(Button)`
     color: #666;
     background-color: #f5f5f5;
     transition: all 0.3s ease;
+    margin-bottom: 100px;
     
     &:hover {
         opacity: 1;
