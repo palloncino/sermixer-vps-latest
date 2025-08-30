@@ -20,6 +20,10 @@ import {
     Typography
 } from '@mui/material';
 import StatusCell from 'components/DocumentsList/StatusCell';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
+import PendingIcon from '@mui/icons-material/Pending';
+import DoneIcon from '@mui/icons-material/Done';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
@@ -29,6 +33,45 @@ import { useDocumentContext } from '../../../state/documentContext';
 import { useAppState } from '../../../state/stateContext';
 import ChangeLogList from './ChangeLogList';
 import { ChangeLogItem } from '../../../types';
+
+// Comprehensive status display component
+const ComprehensiveStatusDisplay: React.FC<{ statuses: any }> = ({ statuses }) => {
+    const { t } = useTranslation();
+    
+    const allPossibleStatuses = [
+        { key: 'CLIENT_VIEWED_DOC', icon: CheckCircleIcon, color: '#10B981', label: 'Client Viewed Document' },
+        { key: 'YOUR_TURN', icon: PendingIcon, color: '#F59E0B', label: 'Your Turn' },
+        { key: 'FINALIZED', icon: DoneIcon, color: '#059669', label: 'Finalized' },
+        { key: 'REJECTED', icon: CancelIcon, color: '#DC2626', label: 'Rejected' }
+    ];
+
+    return (
+        <StatusDisplayContainer>
+            {allPossibleStatuses.map((statusConfig) => {
+                const isActive = statuses[statusConfig.key] || false;
+                const IconComponent = statusConfig.icon;
+                
+                return (
+                    <Tooltip key={statusConfig.key} title={t(statusConfig.key)} arrow>
+                        <StatusItem active={isActive}>
+                            <IconComponent 
+                                fontSize="small" 
+                                style={{ 
+                                    color: isActive ? statusConfig.color : '#E0E0E0',
+                                    marginRight: '8px'
+                                }} 
+                            />
+                            <StatusLabel active={isActive}>
+                                {t(statusConfig.key)}
+                            </StatusLabel>
+                            {isActive && <CheckIcon fontSize="small" style={{ color: statusConfig.color, marginLeft: 'auto' }} />}
+                        </StatusItem>
+                    </Tooltip>
+                );
+            })}
+        </StatusDisplayContainer>
+    );
+};
 
 const ActionsTab: React.FC = () => {
     const { t } = useTranslation();
@@ -139,10 +182,10 @@ const ActionsTab: React.FC = () => {
     return (
         <ActionsContainer>
             {actor?.type === 'employee' && (
-                <ChangesContainer>
+                <StatusSection>
                     <Typography variant="h6" gutterBottom>{t('Status')}</Typography>
-                    <StatusCell statuses={updatedDocumentData?.status || {}} />
-                </ChangesContainer>
+                    <ComprehensiveStatusDisplay statuses={updatedDocumentData?.status || {}} />
+                </StatusSection>
             )}
 
             {updatedDocumentData?.status.REJECTED ? (
@@ -155,7 +198,7 @@ const ActionsTab: React.FC = () => {
                     {actor?.type === 'employee' && (
                         <>
                             <Box display="flex" alignItems="center">
-                                <Tooltip title={t('RevisionCreationExplanation')} arrow>
+                                <Tooltip title="A revision saves a snapshot of the current document version that you can return to later. Add a descriptive message to remember what changes were made." arrow>
                                     <InfoIcon sx={{ mr: 1, cursor: 'pointer' }} />
                                 </Tooltip>
                                 <FormControlLabel
@@ -181,56 +224,77 @@ const ActionsTab: React.FC = () => {
                             </Box>
                         </>
                     )}
-                    <ButtonsGrid>
-
-                        <Tooltip title={hasChanges ? isRevision ? t('SaveOneRevision') : t('SaveChangesDesc') : t('NoChanges')}>
-                            <ActionButton
-                                variant={hasChanges ? 'contained' : 'outlined'}
-                                onClick={handleSaveDocument}
-                                startIcon={<SaveIcon />}
-                            >
-                                {isRevision ? t('SaveRevision') : t('SaveChanges')}
-                            </ActionButton>
-                        </Tooltip>
-
-                        {hasChanges && (
-                            <Tooltip title={t('DiscardChangesDesc')}>
+                    {/* Editor Section */}
+                    <ActionGroup>
+                        <Typography variant="overline" sx={{ fontWeight: 600, color: 'text.secondary', mb: 1 }}>
+                            Editor
+                        </Typography>
+                        <ButtonsGrid>
+                            <Tooltip title={hasChanges ? isRevision ? t('SaveOneRevision') : t('SaveChangesDesc') : t('NoChanges')}>
                                 <ActionButton
-                                    variant="outlined"
-                                    onClick={handleDiscardChanges}
-                                    startIcon={<DeleteIcon />}
-                                    color="error"
+                                    variant={hasChanges ? 'contained' : 'outlined'}
+                                    onClick={handleSaveDocument}
+                                    startIcon={<SaveIcon />}
                                 >
-                                    {t('DiscardChanges')}
+                                    {isRevision ? t('SaveRevision') : t('SaveChanges')}
                                 </ActionButton>
                             </Tooltip>
-                        )}
 
-                        {!updatedDocumentData?.status.FINALIZED && (
-                            <Tooltip title={t('ConfirmDocumentDescription')}>
-                                <ActionButton
-                                    variant="contained"
-                                    startIcon={<CheckIcon />}
-                                    onClick={() => handleOpenDialog(confirmDocument)}
-                                    color="success"
-                                >
-                                    {t('ConfirmDocument')}
-                                </ActionButton>
-                            </Tooltip>
-                        )}
-
-                        {actor?.type === 'employee' && (
-                            <>
-                                <Tooltip title={t('HandleGeneratePDFDescription')}>
+                            {hasChanges && (
+                                <Tooltip title={t('DiscardChangesDesc')}>
                                     <ActionButton
+                                        variant="outlined"
+                                        onClick={handleDiscardChanges}
+                                        startIcon={<DeleteIcon />}
+                                        color="error"
+                                    >
+                                        {t('DiscardChanges')}
+                                    </ActionButton>
+                                </Tooltip>
+                            )}
+                        </ButtonsGrid>
+                    </ActionGroup>
+
+                    {/* PDFs Section */}
+                    <ActionGroup>
+                        <Typography variant="overline" sx={{ fontWeight: 600, color: 'text.secondary', mb: 1 }}>
+                            PDFs
+                        </Typography>
+                        <ButtonsGrid>
+                            {actor?.type === 'employee' && (
+                                <Tooltip title="Generate a PDF copy of the current document">
+                                    <FlatActionButton
                                         variant="contained"
                                         startIcon={<DescriptionIcon />}
                                         onClick={() => handleOpenDialog(generatePDF)}
                                     >
                                         {t('GeneratePDF')}
-                                    </ActionButton>
+                                    </FlatActionButton>
                                 </Tooltip>
+                            )}
 
+                            {!updatedDocumentData?.status.FINALIZED && (
+                                <Tooltip title="Confirm and finalize the document - changes the status and creates a confirmation PDF">
+                                    <FlatActionButton
+                                        variant="contained"
+                                        startIcon={<CheckIcon />}
+                                        onClick={() => handleOpenDialog(confirmDocument)}
+                                        color="success"
+                                    >
+                                        {t('ConfirmDocument')}
+                                    </FlatActionButton>
+                                </Tooltip>
+                            )}
+                        </ButtonsGrid>
+                    </ActionGroup>
+
+                    {/* Share Section */}
+                    {actor?.type === 'employee' && (
+                        <ActionGroup>
+                            <Typography variant="overline" sx={{ fontWeight: 600, color: 'text.secondary', mb: 1 }}>
+                                Share
+                            </Typography>
+                            <ButtonsGrid>
                                 <Tooltip title={t('ShareDocumentDescription', { otp: updatedDocumentData?.otp })}>
                                     <ActionButton
                                         variant="contained"
@@ -240,11 +304,9 @@ const ActionsTab: React.FC = () => {
                                         {t('ShareDocument')}
                                     </ActionButton>
                                 </Tooltip>
-
-
-                            </>
-                        )}
-                    </ButtonsGrid>
+                            </ButtonsGrid>
+                        </ActionGroup>
+                    )}
                 </>
             )}
 
@@ -279,7 +341,6 @@ const ActionsTab: React.FC = () => {
             <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth maxWidth="sm">
                 <DialogTitle>{t('ConfirmAction')}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText sx={{ mb: 2 }}>{t('AreYouSure')}</DialogContentText>
                     {hasChanges && (
                         <Box sx={{ 
                             mt: 2, 
@@ -407,6 +468,10 @@ const ActionsContainer = styled.div`
     margin: auto;
 `;
 
+const ActionGroup = styled(Box)`
+    margin-bottom: 24px;
+`;
+
 const ButtonsGrid = styled(Box)`
     display: grid;
     grid-template-columns: repeat(2, 1fr); // Two columns
@@ -428,8 +493,65 @@ const ActionButton = styled(Button)`
     }
 `;
 
+const FlatActionButton = styled(Button)`
+    padding: 8px;
+    font-size: 0.875rem;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    box-shadow: none !important; // Remove all shadows
+    
+    &:hover {
+        box-shadow: none !important; // Remove hover shadows
+    }
+    
+    &:active {
+        box-shadow: none !important; // Remove active shadows
+    }
+    
+    &.MuiButton-contained {
+        box-shadow: none !important; // Remove contained button shadows
+    }
+`;
+
 const ChangesContainer = styled.div`
     margin-top: 24px;
+`;
+
+const StatusSection = styled.div`
+    margin-bottom: 24px;
+`;
+
+const StatusDisplayContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+`;
+
+const StatusItem = styled.div<{ active: boolean }>`
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background-color: ${({ active }) => (active ? '#f8f9fa' : '#fbfbfb')};
+    border: 1px solid ${({ active }) => (active ? '#e3f2fd' : '#f0f0f0')};
+    transition: all 0.2s ease;
+    cursor: pointer;
+    
+    &:hover {
+        background-color: #f5f5f5;
+        border-color: #e0e0e0;
+    }
+`;
+
+const StatusLabel = styled.span<{ active: boolean }>`
+    font-size: 0.875rem;
+    font-weight: ${({ active }) => (active ? '600' : '400')};
+    color: ${({ active }) => (active ? '#333' : '#888')};
+    flex: 1;
 `;
 
 const RejectButton = styled(Button)`
@@ -450,12 +572,10 @@ const RejectButton = styled(Button)`
         color: #d32f2f;
         background-color: #fff;
         transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(211, 47, 47, 0.2);
     }
     
     &:active {
         transform: translateY(0);
-        box-shadow: 0 2px 4px rgba(211, 47, 47, 0.3);
     }
     
     .MuiButton-startIcon {

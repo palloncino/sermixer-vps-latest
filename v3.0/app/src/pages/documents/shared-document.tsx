@@ -97,9 +97,31 @@ const Sidebar = styled(Box)`
     width: 25%;
     height: calc(100vh - 80px);
     overflow-y: auto;
+    overflow-x: hidden;
     background: #fff;
     min-width: 400px;
     border-radius: 10px;
     border: 1px solid #e0e0e0;
+    
+    /* Improved scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 transparent;
+    
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: #c1c1c1;
+        border-radius: 3px;
+        
+        &:hover {
+            background-color: #a8a8a8;
+        }
+    }
 `;
 

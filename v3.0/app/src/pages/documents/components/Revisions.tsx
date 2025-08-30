@@ -20,6 +20,11 @@ const RevisionButton = styled(Button)`
     padding: 1rem;
     background-color: ${({ active }) => (active ? '#f5f5f5' : 'unset')}; /* Optional slight background change */
     border: 1px solid ${({ active }) => (active ? 'transparent' : '#ccc')};
+    
+    &:hover {
+        background-color: #f5f5f5 !important; /* Light grey hover background */
+        color: inherit !important; /* Keep text color */
+    }
 `;
 
 const RevisionText = styled(Typography)`

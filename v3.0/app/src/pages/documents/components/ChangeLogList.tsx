@@ -10,12 +10,6 @@ interface ChangeLogListProps {
 const ChangeLogList: React.FC<ChangeLogListProps> = ({ changeLogs }) => {
   const { updatedDocumentData, simpleChanges, hasSimpleChanges } = useDocumentContext();
 
-
-
-
-
-
-
   const parseDetailsString = (details: string) => {
     const fromMatch = details.match(/__from__(.*?)__to__/);
     const toMatch = details.match(/__to__(.*)$/);
