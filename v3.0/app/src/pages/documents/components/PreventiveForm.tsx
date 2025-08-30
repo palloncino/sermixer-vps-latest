@@ -94,13 +94,6 @@ const ProductItem = memo(({
     formatPrice: (price: number) => string;
     priceStyles: any;
 }) => {
-    console.log('🎨 PERFORMANCE: Rendering ProductItem', {
-        productIndex,
-        productName: product.name,
-        productId: product.id,
-        timestamp: Date.now()
-    });
-
     return (
         <ProductBox key={product.id}>
             <Tooltip title={t("RemoveProduct")} arrow>
@@ -384,7 +377,6 @@ const ProductItem = memo(({
                 <Grid item xs={12} md={8}>
                     {/* Product Description */}
                     <Box mb={2}>
-                        <Typography variant="subtitle1">{t("Description")}</Typography>
                         <MarkdownEditor
                             value={product.description || ""}
                             onChange={(value) => handleInputChange(productIndex, 'description', value)}
@@ -393,15 +385,6 @@ const ProductItem = memo(({
                     </Box>
 
                     {/* Product Price Summary */}
-                    {(() => {
-                        console.log('💰 PERFORMANCE: Rendering ProductPriceSummary', {
-                            productIndex,
-                            productName: product.name,
-                            componentsCount: product.components?.length || 0,
-                            timestamp: Date.now()
-                        });
-                        return null;
-                    })()}
                     <ProductPriceSummary
                         product={product}
                         components={product.components || []}
@@ -578,15 +561,7 @@ const PaymentTermsSection = memo(({
 ));
 
 const PreventiveForm: FC<{ activeRevisionLabel: string | null, revisionData: DocumentDataDataType, user?: UserType }> = memo(({ activeRevisionLabel, revisionData }) => {
-    // 🚀 PERFORMANCE: Track render count with useRef
-    const renderCountRef = useRef(0);
-    renderCountRef.current += 1;
-    console.log('🔄 PreventiveForm RENDER', {
-        timestamp: new Date().toISOString(),
-        activeRevisionLabel,
-        productsCount: (revisionData as any)?.data?.addedProducts?.length || 0,
-        renderCount: renderCountRef.current
-    });
+    // Performance tracking removed
 
     const { t } = useTranslation();
     const { showMessage } = useFlashMessage();
@@ -645,11 +620,6 @@ const PreventiveForm: FC<{ activeRevisionLabel: string | null, revisionData: Doc
 
     // 🚀 PERFORMANCE: Memoize filtered products to avoid unnecessary filtering
     const filteredProducts = useMemo(() => {
-        console.log('📊 PERFORMANCE: filteredProducts useMemo recalculating', {
-            searchTerm,
-            allProductsCount: allProducts?.length || 0,
-            timestamp: Date.now()
-        });
         if (!searchTerm) return allProducts;
         return allProducts.filter(product =>
             product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -658,11 +628,8 @@ const PreventiveForm: FC<{ activeRevisionLabel: string | null, revisionData: Doc
     }, [searchTerm, allProducts]);
 
     const handleInputChange = useCallback((index: number, field: string, value: string | number) => {
-        console.log('⚡ PERFORMANCE: handleInputChange called', {
-            index, field, value,
-            productsCount: products.length,
-            timestamp: Date.now()
-        });
+
+        
         const updatedProducts = [...products];
         const numericValue = typeof value === 'string' ? parseFloat(value) : value;
         updatedProducts[index] = {
@@ -671,20 +638,19 @@ const PreventiveForm: FC<{ activeRevisionLabel: string | null, revisionData: Doc
         };
 
         setProducts(updatedProducts);
+
         updateNestedDocumentField(['data', 'addedProducts'], updatedProducts);
     }, [products, updateNestedDocumentField]);
 
     const handleComponentsChange = useCallback((productIndex: number, updatedComponents: ComponentType[]) => {
-        console.log('⚡ PERFORMANCE: handleComponentsChange called', {
-            productIndex,
-            componentsCount: updatedComponents.length,
-            timestamp: Date.now()
-        });
+
+        
         const updatedProducts = products.map((product, i) =>
             i === productIndex ? { ...product, components: updatedComponents } : product
         );
 
         setProducts(updatedProducts);
+
         updateNestedDocumentField(['data', 'addedProducts'], updatedProducts);
     }, [products, updateNestedDocumentField]);
 
@@ -702,10 +668,6 @@ const PreventiveForm: FC<{ activeRevisionLabel: string | null, revisionData: Doc
     }, []);
 
     const handleSelectProduct = useCallback((selectedProduct: ProductType) => {
-        console.log('Active Change: Product added', {
-            productName: selectedProduct.name,
-            productId: selectedProduct.id
-        });
         const updatedProducts = [...products, selectedProduct];
 
         setProducts(updatedProducts);
@@ -759,17 +721,12 @@ const PreventiveForm: FC<{ activeRevisionLabel: string | null, revisionData: Doc
     );
 
     const handlePaymentTermsChange = useCallback((value: string) => {
-        console.log('Active Change: Payment terms updated (local only)');
         setLocalPaymentTerms(value); // Update local state immediately for responsiveness
         // Only update the document state after user stops typing for 500ms
         debouncedPaymentUpdate(value);
     }, [debouncedPaymentUpdate]);
 
     const toggleComponentsExpanded = useCallback((productIndex: number) => {
-        console.log('⚡ PERFORMANCE: toggleComponentsExpanded called', {
-            productIndex,
-            timestamp: Date.now()
-        });
         setExpandedComponents(prev => ({
             ...prev,
             [productIndex]: !prev[productIndex]
@@ -829,10 +786,6 @@ const PreventiveForm: FC<{ activeRevisionLabel: string | null, revisionData: Doc
                     </Box>
                 ) : (
                     (() => {
-                        console.log('🏭 PERFORMANCE: Rendering products list', {
-                            productsCount: products.length,
-                            timestamp: Date.now()
-                        });
                         return products.map((product, productIndex) => (
                             <ProductItem
                                 key={product.id}

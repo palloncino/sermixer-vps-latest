@@ -10,6 +10,8 @@ interface ChangeLogListProps {
 const ChangeLogList: React.FC<ChangeLogListProps> = ({ changeLogs }) => {
   const { updatedDocumentData } = useDocumentContext();
 
+
+
   const parseDetailsString = (details: string) => {
     const fromMatch = details.match(/__from__(.*?)__to__/);
     const toMatch = details.match(/__to__(.*)$/);
@@ -22,6 +24,7 @@ const ChangeLogList: React.FC<ChangeLogListProps> = ({ changeLogs }) => {
 
   const formatChangeDetails = (change: ChangeLogItem) => {
     const { property, details, timestamp } = change;
+    
     const { fromValue, toValue } = parseDetailsString(details);
 
     // Skip logging if both fromValue and toValue are null, or they are the same
@@ -83,22 +86,55 @@ const ChangeLogList: React.FC<ChangeLogListProps> = ({ changeLogs }) => {
     };
   };
 
+  // Group changes by product
+  const groupedChanges = changeLogs.reduce((groups: { [productName: string]: any[] }, change) => {
+    const formattedChange = formatChangeDetails(change);
+    if (!formattedChange) return groups; // Skip if no valid change
+
+    const { property } = change;
+    let productName = 'General Changes';
+
+    // Extract product name from property path
+    if (property.includes('data.addedProducts')) {
+      const productMatch = property.match(/data\.addedProducts\[(\d+)\]/);
+      const productIndex = productMatch ? parseInt(productMatch[1]) : null;
+      
+      if (productIndex !== null && updatedDocumentData?.data?.addedProducts?.[productIndex]) {
+        const baseName = updatedDocumentData.data.addedProducts[productIndex].name || `Product ${productIndex + 1}`;
+        // Create unique identifier using index + name to handle duplicate product names
+        productName = `${baseName} (#${productIndex + 1})`;
+      }
+    }
+
+    if (!groups[productName]) {
+      groups[productName] = [];
+    }
+    groups[productName].push({ ...formattedChange, change });
+    return groups;
+  }, {});
+
   return (
     <List dense>
-      {changeLogs.map((change, index) => {
-        const formattedChange = formatChangeDetails(change);
-        if (!formattedChange) return null; // Skip if no valid change
-        const { primary, secondary } = formattedChange;
-
-        return (
-          <ListItem key={index}>
-            <ListItemText
-              primary={primary}
-              secondary={secondary}
-            />
-          </ListItem>
-        );
-      })}
+      {Object.entries(groupedChanges).map(([productName, changes]) => (
+        <div key={productName}>
+          {/* Product header - only show if there are multiple products */}
+          {Object.keys(groupedChanges).length > 1 && (
+            <ListItem sx={{ fontWeight: 'bold', bgcolor: 'grey.100', mt: 1 }}>
+              <ListItemText primary={productName} />
+            </ListItem>
+          )}
+          
+          {/* Changes for this product */}
+          {changes.map((item, index) => (
+            <ListItem key={`${productName}-${index}`} sx={{ pl: Object.keys(groupedChanges).length > 1 ? 4 : 2 }}>
+              <ListItemText
+                primary={item.primary}
+                secondary={item.secondary}
+              />
+            </ListItem>
+          ))}
+        </div>
+      ))}
     </List>
   );
 };

@@ -39,10 +39,18 @@ export const useDocument = (): DocumentContextType => {
       const data = await request({
         url: `${process.env.REACT_APP_API_URL}/docs/get-document/${hash}`,
       });
+      console.log('🔍 DEBUG: getDocument setting original data', {
+        hash,
+        dataKeys: data ? Object.keys(data) : 'no data',
+        hasData: !!data.data,
+        timestamp: new Date().toISOString()
+      });
+      
       setOriginalDocumentData(_.cloneDeep(data));
       setUpdatedDocumentData(_.cloneDeep(data));
       setError(null);
       setChangeLogs([]);
+      
       return data;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred while fetching the document');
@@ -215,15 +223,21 @@ export const useDocument = (): DocumentContextType => {
   }, [originalDocumentData]);
 
   const updateNestedDocumentField = useCallback((path: string[], value: any) => {
+
+    
     setUpdatedDocumentData(prevDoc => {
-      if (!prevDoc) return null;
+      if (!prevDoc) {
+        return null;
+      }
       const newDoc = _.cloneDeep(prevDoc);
       _.set(newDoc, path, value);
+      
       const newChangeLogs = generateChangeLogs(originalDocumentData as DocumentDataType, newDoc);
+      
       setChangeLogs(newChangeLogs);
       return newDoc;
     });
-  }, [originalDocumentData, updatedDocumentData]);
+  }, [originalDocumentData]);
 
   const updateDocumentDataFromRevision = (revision: Revision) => {
     setUpdatedDocumentData(prevData => ({

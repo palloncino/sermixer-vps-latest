@@ -37,24 +37,40 @@ const comparisonRules = {
 };
 
 function generateChangeLogs(originalData: DocumentDataType, currentData: DocumentDataType): ChangeLogItem[] {
+
+
   const changes: ChangeLogItem[] = [];
   const now = new Date();
+
+  function createChangeLogItem(path: string, originalValue: any, currentValue: any): ChangeLogItem {
+    const action = getActionLabel(path, originalData, currentData);
+    
+    // Only apply safeToZero for numeric fields (price, discount, quantity)
+    const isNumericField = path.includes('price') || path.includes('discount') || path.includes('quantity');
+    const processedOriginalValue = isNumericField ? safeToZero(originalValue) : originalValue;
+    const processedCurrentValue = isNumericField ? safeToZero(currentValue) : currentValue;
+    
+    return {
+      property: path,
+      originalValue: processedOriginalValue,
+      newValue: processedCurrentValue,
+      timestamp: safeDateText(new Date().toISOString()), // Use safeDateText for consistent formatting
+      action,
+      details: `__from__${JSON.stringify(originalValue)}__to__${JSON.stringify(currentValue)}`,
+      label: action, // Use action as label for now
+    };
+  }
 
   function compareValues(path: string, originalValue: any, currentValue: any) {
     const propertyName = path.split('.').pop();
     const rule = comparisonRules[propertyName] || ((a: any, b: any) => !_.isEqual(a, b));
 
+
+
     if (rule(originalValue, currentValue)) {
       if (!_.isObject(originalValue) || !_.isObject(currentValue) || 
           (Array.isArray(originalValue) && Array.isArray(currentValue) && originalValue.length !== currentValue.length)) {
-        const changeLogItem: ChangeLogItem = {
-          property: path,
-          originalValue: safeToZero(originalValue),
-          newValue: safeToZero(currentValue),
-          timestamp: safeDateText(now.toISOString()), // Use safeDateText for consistent formatting
-          action: getActionLabel(path, originalData, currentData),
-          details: `__from__${JSON.stringify(safeToZero(originalValue), null, 2)}__to__${JSON.stringify(safeToZero(currentValue), null, 2)}`
-        };
+        const changeLogItem: ChangeLogItem = createChangeLogItem(path, originalValue, currentValue);
         changes.push(changeLogItem);
       }
     }
@@ -88,20 +104,9 @@ function generateChangeLogs(originalData: DocumentDataType, currentData: Documen
     }
   }
 
-  function createChangeLogItem(path: string, originalValue: any, currentValue: any): ChangeLogItem {
-    const action = getActionLabel(path, originalData, currentData);
-    
-    return {
-      property: path,
-      originalValue: safeToZero(originalValue),
-      newValue: safeToZero(currentValue),
-      timestamp: new Date().toISOString(), // Use ISO string for consistent formatting
-      action,
-      details: `__from__${JSON.stringify(originalValue)}__to__${JSON.stringify(currentValue)}`,
-    };
-  }
-
   compareObjects('', originalData, currentData);
+
+
 
   return changes;
 }
