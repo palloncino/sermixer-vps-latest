@@ -1,0 +1,13 @@
+export const STATUSES = {
+  CLIENT_VIEWED_DOC: "CLIENT_VIEWED_DOC",
+  YOUR_TURN: "YOUR_TURN",
+  FINALIZED: "FINALIZED", 
+  REJECTED: "REJECTED", 
+};
+
+export const INITIAL_STATUSES = {
+  CLIENT_VIEWED_DOC: false,
+  YOUR_TURN: false,
+  FINALIZED: false,
+  REJECTED: false,
+}

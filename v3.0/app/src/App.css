@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background: #f5f5f5!important;
+}
+
+/* Dashboard specific fixes */
+.dashboard-container {
+    overflow-y: auto !important;
+    height: 100vh !important;
+    transform: none !important;
+    position: relative !important;
+}
+
+.dashboard-container * {
+    overflow: visible !important;
+}
+
+/* Override the StyledLayout transform for dashboard */
+.dashboard-container {
+    transform: translateY(0) !important;
+    margin-top: 0 !important;
+}

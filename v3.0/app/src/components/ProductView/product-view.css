@@ -1,0 +1,41 @@
+.product-view {
+  display: flex;
+  align-items: flex-start; /* Align items at the start of the container */
+}
+
+.image-container {
+  flex: 1; /* Take up one third of available space */
+  margin-right: 20px; /* Add spacing between image container and text content */
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px; /* Rounded corners for the image */
+}
+
+.text-content {
+  flex: 3; /* Take up the remaining two thirds of available space */
+}
+
+.product-title,
+.product-category,
+.product-description,
+.product-price {
+  margin: 10px 0; /* Spacing for readability */
+}
+
+.product-actions {
+  margin-top: 20px; /* Additional space above the actions */
+}
+
+/* Separate final links */
+.edit-product-btn,
+.back-btn {
+  margin-right: 10px; /* Add margin between the buttons */
+}
+
+.edit-product-btn:hover,
+.back-btn:hover {
+  text-decoration: underline; /* Underline the links on hover */
+}

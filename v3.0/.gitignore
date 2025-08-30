@@ -1,0 +1,13 @@
+# app
+app/node_modules/
+app/build/
+app/.env.local
+app/.env.remote
+
+# server
+server/node_modules/
+server/.env
+
+#extras
+info
+TODOs.md

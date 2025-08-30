@@ -1,0 +1,2934 @@
+[
+    {
+        "id": 13,
+        "name": "VASCA POSTERIORE TKE T5",
+        "description": "Ribaltabile posteriore con cilindro di sollevamento frontale; cassa autoportante poligonale; sponda posteriore apribile idraulicamente con Sistema DUAL – CONTROL; sia BASCULANTE che ad ALA DI GABBIANO ad una altezza di 700 mm\\noltre il filo superior sponda; sistema di utilizzo e sicurezza conformi alle direttive macchine; velocità di sollevamento 25 sec x1000 giri/min; impianto idraulico a bassa pressione; Cilindro idraulico telescopico a 4 sfili di sollevamento frontale con Sistema di apertura idraulico della sponda posteriorre; spessore fondo: basic 6 mm; spessore sponde: basic 4 mm; cassetta porta attrezzi inox montato lateralmente al contro telaio; cassetta porta attrezzi supplementare inox media; parafanghi singoli posteriori in PVC rinforzato in kit; protezione salva cabina predisposto per copri carico; apertura sponda posteriore idraulica ad ala di gabbiano con Sistema dual – control; sabbiatura allestimento; strisce riflettenti laterali e posteriori; barra para incastro omologata manuale; prolunga scarico in finitrice smontabile; verniciatura monocolore con serigrafie standard adesive; protezione laterali per il veicolo in abbinamento; copricarico – spinnaker a commando elettrico con telecomando.",
+        "price": "47730.00",
+        "category": "Vasche",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1717066757413-image.jpg",
+        "components": [
+            {
+                "name": "MOTO VIBRATORE ELETTRICO CON COMANDO IN CABINA",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "BARRA PARAINCASTRO CON SOLLEVAMENTO IDRAULICO",
+                "price": "1360.00",
+                "description": ""
+            },
+            {
+                "name": "CASSETTA ATTREZZI INOX GRANDE SUPPLEMENTARE",
+                "price": "442.00",
+                "description": ""
+            },
+            {
+                "name": "SERBATOIO GASOLIO SUPPLEMENTARE",
+                "price": "450.00",
+                "description": ""
+            },
+            {
+                "name": "MAIALINO PER GASOLIO",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "TANICA LAVA MANI DA 25 LT",
+                "price": "153.00",
+                "description": ""
+            },
+            {
+                "name": "AUMENTO SPESSORI DA 6/4 A 8/6",
+                "price": "2550.00",
+                "description": ""
+            },
+            {
+                "name": "AUMENTO SPESSORI DA 6/4 A 10/8",
+                "price": "5950.00",
+                "description": ""
+            },
+            {
+                "name": "2 LUCI LED LAMPEGGIANTI POSTERIORI",
+                "price": "340.00",
+                "description": ""
+            },
+            {
+                "name": "FORNITURA PARAFANGHI SINGOLI ANTERIORI IN KIT",
+                "price": "195.00",
+                "description": ""
+            },
+            {
+                "name": "CAPPOTTINA IN ACCIAIO PROTEZIONE DEL TELO",
+                "price": "1020.00",
+                "description": ""
+            },
+            {
+                "name": "GANCIO DI SERVIZIO SULLA TRAVERSA POSTERIORE",
+                "price": "125.00",
+                "description": ""
+            },
+            {
+                "name": "GANCIO DI SICUREZZA A VITE SPONDA POSTERIORE",
+                "price": "187.00",
+                "description": ""
+            },
+            {
+                "name": "CARTER DI PROTEZIONE GANCIO TRAINO POSTERIORE",
+                "price": "635.00",
+                "description": ""
+            },
+            {
+                "name": "TUBAZIONE ALIMENTAZIONE IDRAULICA PER RIMORCHIO",
+                "price": "1910.00",
+                "description": ""
+            },
+            {
+                "name": "SECONDO CILINDRO IDRAULICO DI SOLLEVAMENTO IN LINEA (VERSIONE T5)",
+                "price": "2800.00",
+                "description": ""
+            },
+            {
+                "name": "T5 - APERTURA IDRAULICA SPONDA LATERALE SINISTRA H400 + SOPRA SPONDA BASCULANTE",
+                "price": "8920.00",
+                "description": ""
+            },
+            {
+                "name": "DIVISIONE SPONDE LATERALI CON MONTANTE CENTRALE ASPORTABILE (VERSIONE T5)",
+                "price": "850.00",
+                "description": ""
+            },
+            {
+                "name": "CAMALEONTE - DISPOSITIVO IDRAULICO DI MOVIMENTAZIONE DELLE SPONDE LATERALI (2 sponde)",
+                "price": "8925.00",
+                "description": ""
+            },
+            {
+                "name": "CAMALEONTE - DISPOSITIVO IDRAULICO DI MOVIMENTAZIONE DELLE SPONDE LATERALI (1 sponda)",
+                "price": "6970.00",
+                "description": ""
+            },
+            {
+                "name": "APERTURA SPONDE DIVISIONE LATERALI ANCHE A LIBRO (UNA COPPIA) - T5",
+                "price": "1870.00",
+                "description": ""
+            },
+            {
+                "name": "APERTURA SPONDE DIVISIONE LATERALI ANCHE A LIBRO (2 COPPIE) -T5",
+                "price": "3740.00",
+                "description": ""
+            },
+            {
+                "name": "COPRICARICO CON TELO IGNIFUGO PER TRASPORTO ASFALTO",
+                "price": "1700.00",
+                "description": ""
+            },
+            {
+                "name": "EXTRA PREZZO VARIAZIONE CARATTERISTICHE LAMIERE DA HB450 AD HARDOX 500",
+                "price": "850.00",
+                "description": ""
+            },
+            {
+                "name": "PARAFANGHI POSTERIORI ACCIAIO INOX - SFUSI",
+                "price": "1020.00",
+                "description": ""
+            },
+            {
+                "name": "PARAFANGHI POSTERIORI INTERI SAGOMATI IN ACCIAIO - SFUSI",
+                "price": "880.00",
+                "description": ""
+            },
+            {
+                "name": "PROLUNGA SCARICO IN FINITRICE IDRAULICA NEW",
+                "price": "2550.00",
+                "description": ""
+            },
+            {
+                "name": "RINFORZATURA CASSA PER CARICHI GRAVOSI QUANDO 10/8",
+                "price": "3400.00",
+                "description": ""
+            },
+            {
+                "name": "FODERATURA SPONDE LATERALI PER PARETI INTERNE LISCE",
+                "price": "1870.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA CASSA BICOLORE + SERIGRAFIE ADESIVE",
+                "price": "1275.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA SPECIALE ANTI CORROSIONE NEBBIA SALINA DEL CONTRO TELAIO",
+                "price": "1020.00",
+                "description": ""
+            },
+            {
+                "name": "16 mc",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "18 mc",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "19 mc",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "20 mc",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "21 mc",
+                "price": 0,
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-05-30T10:59:17.000Z",
+        "updatedAt": "2024-09-02T15:16:59.000Z"
+    },
+    {
+        "id": 14,
+        "name": "BETONIERA CIFA RY 1300 SCARRABILE",
+        "description": "Betoniera RY 1300\\nCapacità nominale: 12 mc\\nVolume geometrico:17.4mc\\nVelocità di rotazione:14 rpm\\nDiametro tamburo: 2350 mm\\nn. 4 rulli\\nContalitri 0-500\\nDOTAZIONI DI SERIE:\\nTelaio di base diritto o sagomato (30MnB5)\\nProtezione antiusura eliche 25x8 mm\\nDue passi d’uomo\\nDoppi rulli di rotolamento diam. 250 mm con supporto a bilancino\\nCanala di scarico ribaltabile 1500mm + 900mm\\nVersione con serbatoio acqua non pressurizzato:\\n• Serbatoio acqua 1200 litri\\n• Pompa alza canala idraulica\\n• Scambiatore di calore\\nContatore acqua\\nDue lance di lavaggio (una a terra con innesto rapido, una sulla pedana scaletta)\\nInnesto rapido acqua da ambo i lati\\nManometro rilevamento consistenza calcestruzzo\\nDue tronchi canala supplementari, con supporti di fissaggio su controtelaio\\nEliche sbordate, a quattro principi nel punto di scarico\\nLamiere antiusura su tramoggia di carico e canala di scarico\\nUnità completamente sabbiata e protetta con fondo antiruggine\\nLampeggiante posteriore\\nParafanghi monoasse in plastica con paraspruzzi CIFA\\nPompa acqua e cilindro alza canala, azionati idraulicamente attraverso un distributore\\nBarra posteriore paraincastro ribaltabile omologata\\nPulsanti di emergenza Start/Stop per motore automezzo\\n* Un faro illuminazione a led posteriore\\n* Telecamera posteriore con monitor in cabina\\n* rispetta EN 12609\\n Tamburo ed eliche\\nIl tamburo è progettato secondo le specifiche internazionali e la norma DIN 459. Acciaio speciale resistente all’usura (450HB) nel tamburo (4 mm) e nelle eliche (3 mm) per massimizzare la durata\\ndella betoniera.",
+        "price": "42690.00",
+        "category": "CIFA",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1717135133154-image.jpg",
+        "components": [
+            {
+                "name": "BETONIERA MONTATA SU CAMION DA CIFA",
+                "price": "5760.00",
+                "description": "Nota: nella configurazione montata su automezzo sono inclusi,\n- Montaggio su automezzo\n- Parafanghi singoli in plastica (BPLTAN)\n- Cardano (BCARDA)\n- Ancoraggi inclusi bulloni (BANCBU)\n- parametrizzazione (BSI)\n- Barre paraincastro (BRIBAL)\n- Barre paraciclisti (BCICLI)\n- verniciatura ad un colore (BMOCOL)\n- Luci laterali - Omologata ECC per circolazione stradale (BLULAT)\n"
+            },
+            {
+                "name": "BETONIERE PER SISTEMA SCARRABILE",
+                "price": "0.00",
+                "description": "Nota:\n- SONO ESCLUSI dalla fornitura: barra paraincastro posteriore, barre paraciclisti, parafanghi in plastica tandem posteriore, collaudo su autoveicolo, collaudo per immatricolazione circolazione stradale;\n- NOTA: l'altezza massimo del filo superiore del telaio del veicolo, compreso il telaio dell'attrezzatura scarrabile, non deve superare 1200 mm da terra\n"
+            },
+            {
+                "name": "Collaudo autobetoniera - mercato Italia PREZZO NETTO",
+                "price": "840.00",
+                "description": ""
+            },
+            {
+                "name": "Omologazione europea (DEKRA - non necessaria per mercato Italia)",
+                "price": "1460.00",
+                "description": ""
+            },
+            {
+                "name": "CIFA VISTA 4.0 Ready [Disponibile solo per versioni CSD Advanced]",
+                "price": "6060.00",
+                "description": ""
+            },
+            {
+                "name": "CIFA VISTA - Installazione e due anni di licenza per il sistema di monitoraggio da remoto (Disponibile solo con CSD Advanced)",
+                "price": "4250.00",
+                "description": ""
+            },
+            {
+                "name": "Parafango singolo in plastica + paraspruzzi per tandem posteriore",
+                "price": "1090.00",
+                "description": ""
+            },
+            {
+                "name": "Parafango in acciaio + paraspruzzi per tandem posteriore",
+                "price": "1090.00",
+                "description": ""
+            },
+            {
+                "name": "parafango in alluminio mandorlato 3+2mm + paraspruzzi per tandem posteriore",
+                "price": "2050.00",
+                "description": ""
+            },
+            {
+                "name": "parafango in alluminio liscio 5 mm + paraspruzzi per tandem posteriore",
+                "price": "2950.00",
+                "description": ""
+            },
+            {
+                "name": "giunto cardanico + giunto sgancio rapido (per versione scarrabile)",
+                "price": "2300.00",
+                "description": ""
+            },
+            {
+                "name": "nebulizzatore pneumatico con lancia per protezione preventiva, capacità 16 l",
+                "price": "550.00",
+                "description": ""
+            },
+            {
+                "name": "serbatoio in alluminio da 800 l più scambiatore con serbatoio olio 30 l",
+                "price": "1730.00",
+                "description": ""
+            },
+            {
+                "name": "n. 1 tronco canala aggiuntivo in plastiva",
+                "price": "120.00",
+                "description": ""
+            },
+            {
+                "name": "n. 1 tronco canala aggiuntivo in acciaio zincato",
+                "price": "280.00",
+                "description": ""
+            },
+            {
+                "name": "n. 2 tronchi canala aggiuntivi in acciaio zincato",
+                "price": "260.00",
+                "description": ""
+            },
+            {
+                "name": "2 fari illuminazione a LED posteriori",
+                "price": "560.00",
+                "description": ""
+            },
+            {
+                "name": "1 faro illuminazione a LED posteriore (sotto scaletta) + due fari LED su tramoggia di scarico",
+                "price": "950.00",
+                "description": ""
+            },
+            {
+                "name": "telecamera posteriore collegata al monitor originale del camion",
+                "price": "-380.00",
+                "description": ""
+            },
+            {
+                "name": "tamburo light in hardox 450HB - 4mm",
+                "price": "3700.00",
+                "description": ""
+            },
+            {
+                "name": "dispositivo antipolvere tappo \"EKOS\"",
+                "price": "2580.00",
+                "description": ""
+            },
+            {
+                "name": "manometro supplementare posizionato nella parte anteriore",
+                "price": "170.00",
+                "description": ""
+            },
+            {
+                "name": "cassetta protezione in INOX pulsantiera posteriore CSD 2.0",
+                "price": "160.00",
+                "description": ""
+            },
+            {
+                "name": "logo personalizzato",
+                "price": "550.00",
+                "description": ""
+            },
+            {
+                "name": "bicolore (come da configuratore CIFA)",
+                "price": "600.00",
+                "description": ""
+            },
+            {
+                "name": "3 colori",
+                "price": "1150.00",
+                "description": ""
+            },
+            {
+                "name": "Serbatoio acqua in alluminio pressurizzato, capacità 600 lt.",
+                "price": "630.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-05-31T05:58:53.000Z",
+        "updatedAt": "2024-09-12T09:58:35.000Z"
+    },
+    {
+        "id": 15,
+        "name": "VASCA POSTERIORE TKE S5",
+        "description": "Ribaltabile posteriore con cilindro di sollevamento frontale; cassa autoportante poligonale; sponda posteriore apribile idraulicamente con Sistema DUAL – CONTROL; sia BASCULANTE che ad ALA DI GABBIANO ad una altezza di 700 mm oltre il filo superiore sponda; sistema di utilizzo e sicurezza conformi alle direttive macchine; velocità di sollevamento 25 sec x1000 giri/min;impianto idraulico a bassa pressione; Cilindro idraulico telescopico a 4 sfili di sollevamento frontale con Sistema di apertura idraulico della sponda posteriorre; spessore fondo: basic 6 mm; spessore sponde: basic 4 mm; cassetta porta attrezzi inox montato lateralmente al contro telaio; cassetta porta attrezzi supplementare inox media; parafanghi singoli posteriori in PVC rinforzato in kit; protezione salva cabina predisposto per copri carico; apertura sponda posteriore idraulica ad ala di gabbiano con Sistema dual – control; sabbiatura allestimento; strisce riflettenti laterali e posteriori; barra para incastro omologata manuale; prolunga scarico in finitrice smontabile; verniciatura monocolore con serigrafie standard adesive; pinne verniciate acciaio; protezione laterali per il veicolo in abbinamento; copricarico – spinnaker a commando elettrico con telecomando.",
+        "price": "42300.00",
+        "category": "Vasche",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1723023345619-image.jpg",
+        "components": [
+            {
+                "name": "MOTO VIBRATORE ELETTRICO CON COMANDO IN CABINA",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "BARRA PARAINCASTRO CON SOLLEVAMENTO IDRAULICO",
+                "price": "1360.00",
+                "description": ""
+            },
+            {
+                "name": "CASSETTA ATTREZZI INOX GRANDE SUPPLEMENTARE",
+                "price": "442.00",
+                "description": ""
+            },
+            {
+                "name": "SERBATOIO GASOLIO SUPPLEMENTARE",
+                "price": "450.00",
+                "description": ""
+            },
+            {
+                "name": "MAIALINO PER GASOLIO",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "TANICA LAVA MANI DA 25 LT",
+                "price": "153.00",
+                "description": ""
+            },
+            {
+                "name": "AUMENTO SPESSORIDA 6/4 A 8/6",
+                "price": "2550.00",
+                "description": ""
+            },
+            {
+                "name": "AUMENTO SPESSORI DA 6/4 A 10/8",
+                "price": "5950.00",
+                "description": ""
+            },
+            {
+                "name": "2 LUCI LED LAMPEGGIANTI POSTERIORI",
+                "price": "340.00",
+                "description": ""
+            },
+            {
+                "name": "FORNITURA PARAFANGHI SINGOLI ANTERIORI IN KIT",
+                "price": "195.00",
+                "description": ""
+            },
+            {
+                "name": "PINNE E CARTER DI POTENZIONE IN ACCIAIO INOX",
+                "price": "1700.00",
+                "description": ""
+            },
+            {
+                "name": "CAPPOTTINA IN ACCIAIO PROTEZIONE DEL TELO",
+                "price": "1020.00",
+                "description": ""
+            },
+            {
+                "name": "GANCIO DI SERVIZIO SULLA TRAVERSA POSTERIORE",
+                "price": "125.00",
+                "description": ""
+            },
+            {
+                "name": "GANCI SICUREZZA A VITE SPONDA POSTERIORE",
+                "price": "187.00",
+                "description": ""
+            },
+            {
+                "name": "CARTER DI PROTEZIONE GANCIO TRAINO POSTERIORE",
+                "price": "635.00",
+                "description": ""
+            },
+            {
+                "name": "TUBAZIONE ALIMENTAZIONE IDRAULICA PER RIMORCHIO",
+                "price": "1910.00",
+                "description": ""
+            },
+            {
+                "name": "SDOPPIAMENTO IMPIANTO IDRAULICO DI APERTURA SPONDA POSTERIORE",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "SOLLEVAMENTO IDRAULICO TETTUCCIO PARACABINA (SCARRABILE)",
+                "price": "1530.00",
+                "description": ""
+            },
+            {
+                "name": "APERTURA SPONDA POSTERIORE TRIPLA (BASCULANTE-ALA GABBIANO-BANDIERA)",
+                "price": "3825.00",
+                "description": ""
+            },
+            {
+                "name": "CHIUSURA STAGNA SPONDA POSTERIORE CON GUARNIZIONE PNEUMATICA",
+                "price": "2550.00",
+                "description": ""
+            },
+            {
+                "name": "CHIUSURA STAGNA SPONDA POSTERIORE NON PNEUMATICA ",
+                "price": "1870.00",
+                "description": ""
+            },
+            {
+                "name": "CHIUSURA SPONDA EVO CON GANCI IDRAULICI",
+                "price": "2125.00",
+                "description": ""
+            },
+            {
+                "name": "COIBENTAZIONE ESTERNA VASCA (PARETI LATERALI E SPONDA POSTERIORE)",
+                "price": "10200.00",
+                "description": ""
+            },
+            {
+                "name": "COIBENTAZIONE ESTERNA VASCA TOTALE",
+                "price": "15300.00",
+                "description": ""
+            },
+            {
+                "name": "COIBENTAZIONE ESTERNA VASCA SOLO PARETI LATERALI ",
+                "price": "8500.00",
+                "description": ""
+            },
+            {
+                "name": "COPRICARICO CON TELO IGNIFUGO PER TRASPORTO ASFALTO",
+                "price": "1700.00",
+                "description": ""
+            },
+            {
+                "name": "EXTRA PREZZO VARIAZIONE CARATTERISTICHE LAMIERE DA HB450 AD HARDX 500",
+                "price": "850.00",
+                "description": ""
+            },
+            {
+                "name": "PARAFANGHI POSTERIORI ACCIAIO INOX - SFUSI",
+                "price": "1020.00",
+                "description": ""
+            },
+            {
+                "name": "PARAFANGHI POSTERIORI INTERI SAGOMATI IN ACCIAIO - SFUSI",
+                "price": "880.00",
+                "description": ""
+            },
+            {
+                "name": "PROLUNGA SCARICO IN FINITRICE IDRAULICA NEW",
+                "price": "2550.00",
+                "description": ""
+            },
+            {
+                "name": "RINFORZATURA CASSA PER CARICHI GRAVOSI QUANDO 10/8",
+                "price": "3400.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA CASSA BICOLORE + SERIGRAFIE ADESIVE",
+                "price": "1275.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA SPECIALE ANTI CORROSIONE NEBBIA SALINA DEL CONTRO TELAIO",
+                "price": "1020.00",
+                "description": ""
+            },
+            {
+                "name": "16 mc",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "18 mc",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "19 mc",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "20 mc",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "21 mc",
+                "price": 0,
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-05-31T07:09:22.000Z",
+        "updatedAt": "2024-09-02T15:14:58.000Z"
+    },
+    {
+        "id": 16,
+        "name": "VASCA POSTERIORE TKE P6 EVO",
+        "description": "Ribaltabile posteriore con cilindro di sollevamento frontale; cassa autoportante poligonale; sponda posteriore apribile idraulicamente con Sistema DUAL – CONTROL; sia BASCULANTE che ad ALA DI GABBIANO ad una altezza di 700 mm oltre il filo superiore sponda; sistema di utilizzo e sicurezza conformi alle direttive macchine; velocità di sollevamento 25 sec x1000 giri/min; nimpianto idraulico a bassa pressione; Cilindro idraulico telescopico a 4 sfili di sollevamento frontale con Sistema di apertura idraulico della sponda posteriorre; spessore fondo: basic 6 mm; spessore sponde: basic 4 mm; cassetta porta attrezzi inox montato lateralmente al contro telaio; cassetta porta attrezzi supplementare inox media; parafanghi singoli posteriori in PVC rinforzato in kit; protezione salva cabina predisposto per copri carico; apertura sponda posteriore idraulica ad ala di gabbiano con Sistema dual – control; sabbiatura allestimento; strisce riflettenti laterali e posteriori; barra para incastro omologata manuale; prolunga scarico in finitrice smontabile; verniciatura monocolore con serigrafie standard adesive; protezione laterali per il veicolo in abbinamento; copricarico – spinnaker a commando elettrico con telecomando.",
+        "price": "43150.00",
+        "category": "Vasche",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722955600621-image.jpg",
+        "components": [
+            {
+                "name": "MOTO VIBRATORE ELETTRICO CON COMANDO IN CABINA",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "BARRA PARAINCASTRO CON SOLLEVAMENTO IDRAULICO",
+                "price": "1360.00",
+                "description": ""
+            },
+            {
+                "name": "CASSETTA ATTREZZI INOX GRANDE SUPPLEMENTARE",
+                "price": "442.00",
+                "description": ""
+            },
+            {
+                "name": "SERBATOIO GASOLIO SUPPLEMENTARE",
+                "price": "450.00",
+                "description": ""
+            },
+            {
+                "name": "MAIALINO PER GASOLIO",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "TANICA LAVA MANI DA 25 LT",
+                "price": "153.00",
+                "description": ""
+            },
+            {
+                "name": "RINFORZI LATERALI SPONDE COSTOLATURE SAGOMATE",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "SPONDA POSTERIORE APRIBILE LIBRO",
+                "price": "425.00",
+                "description": ""
+            },
+            {
+                "name": "SPESSORI  8/6",
+                "price": "2550.00",
+                "description": "AUMENTO SPESSORI DA 6/4 A 8/6"
+            },
+            {
+                "name": "SPESSORI 10/8",
+                "price": "5950.00",
+                "description": "AUMENTO SPESSORI DA 6/4 A 10/8"
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-05-31T07:20:57.000Z",
+        "updatedAt": "2024-08-21T12:38:32.000Z"
+    },
+    {
+        "id": 17,
+        "name": "VASCA POSTERIORE TKE P6 EXP",
+        "description": "Ribaltabile posteriore con cilindro di sollevamento frontale; cassa autoportante poligonale; sponda posteriore apribile idraulicamente con Sistema DUAL – CONTROL; sia BASCULANTE che ad ALA DI GABBIANO ad una altezza di 700 mm oltre il filo superiore sponda; sistema di utilizzo e sicurezza conformi alle direttive macchine; velocità di sollevamento 25 sec x1000 giri/min; impianto idraulico a bassa pressione; Cilindro idraulico telescopico a 4 sfili di sollevamento frontale con Sistema di apertura idraulico della sponda posteriorre; spessore fondo: basic 6 mm; spessore sponde: basic 4 mm; cassetta porta attrezzi inox montato lateralmente al contro telaio; cassetta porta attrezzi supplementare inox media; parafanghi singoli posteriori in PVC rinforzato in kit; protezione salva cabina predisposto per copri carico; apertura sponda posteriore idraulica ad ala di gabbiano con Sistema dual – control; sabbiatura allestimento; strisce riflettenti laterali e posteriori; barra para incastro omologata manuale; prolunga scarico in finitrice smontabile; verniciatura monocolore con serigrafie standard adesive; protezione laterali per il veicolo in abbinamento; copricarico – spinnaker a commando elettrico con telecomando.",
+        "price": "43150.00",
+        "category": "Vasche",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1723023387789-image.jpg",
+        "components": [
+            {
+                "name": "MOTO VIBRATORE ELETTRICO CON COMANDO IN CABINA",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "BARRA PARAINCASTRO CON SOLLEVAMENTO IDRAULICO",
+                "price": "1360.00",
+                "description": ""
+            },
+            {
+                "name": "CASSETTA ATTREZZI INOX GRANDE SUPPLEMENTARE",
+                "price": "442.00",
+                "description": ""
+            },
+            {
+                "name": "SERBATOIO GASOLIO SUPPLEMENTARE",
+                "price": "450.00",
+                "description": ""
+            },
+            {
+                "name": "MAIALINO PER GASOLIO",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "TANICA LAVA MANI DA 25 LT",
+                "price": "153.00",
+                "description": ""
+            },
+            {
+                "name": "RINFORZI LATERALI SPONDE COSTOLATURE SAGOMATE",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "SPONDA POSTERIORE APRIBILE LIBRO",
+                "price": "425.00",
+                "description": ""
+            },
+            {
+                "name": "SPESSORI  8/6",
+                "price": "2550.00",
+                "description": "AUMENTO SPESSORI DA 6/4 A 8/6"
+            },
+            {
+                "name": "SPESSORI 10/8",
+                "price": "5950.00",
+                "description": "AUMENTO SPESSORI DA 6/4 A 10/8"
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-05-31T07:25:10.000Z",
+        "updatedAt": "2024-08-21T12:39:42.000Z"
+    },
+    {
+        "id": 18,
+        "name": "VASCA POSTERIORE TKE S5 INTERCAMBIABILE",
+        "description": "Ribaltabile posteriore con cilindro di sollevamento frontale; cassa autoportante poligonale; sponda posteriore apribile idraulicamente con Sistema DUAL – CONTROL; sia BASCULANTE che ad ALA DI GABBIANO ad una altezza di 700 mm oltre il filo superiore sponda; sistema di utilizzo e sicurezza conformi alle direttive macchine; velocità di sollevamento 25 sec x1000 giri/min; impianto idraulico a bassa pressione; Cilindro idraulico telescopico a 4 sfili di sollevamento frontale con Sistema di apertura idraulico della sponda posteriorre; spessore fondo: basic 6 mm; spessore sponde: basic 4 mm; cassetta porta attrezzi inox montato lateralmente al contro telaio; cassetta porta attrezzi supplementare inox media; parafanghi singoli posteriori in PVC rinforzato in kit; protezione salva cabina predisposto per copri carico; apertura sponda posteriore idraulica ad ala di gabbiano con Sistema dual – control; sabbiatura allestimento; strisce riflettenti laterali e posteriori; barra para incastro omologata manuale; prolunga scarico in finitrice smontabile; verniciatura monocolore con serigrafie standard adesive; pinne verniciate acciaio; protezione laterali per il veicolo in abbinamento; copricarico – spinnaker a commando elettrico con telecomando.",
+        "price": "42300.00",
+        "category": "Vasche",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1723023218944-image.jpg",
+        "components": [
+            {
+                "name": "MOTO VIBRATORE ELETTRICO CON COMANDO IN CABINA",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "BARRA PARAINCASTRO CON SOLLEVAMENTO IDRAULICO",
+                "price": "1360.00",
+                "description": ""
+            },
+            {
+                "name": "CASSETTA ATTREZZI INOX GRANDE SUPPLEMENTARE",
+                "price": "442.00",
+                "description": ""
+            },
+            {
+                "name": "SERBATOIO GASOLIO SUPPLEMENTARE",
+                "price": "450.00",
+                "description": ""
+            },
+            {
+                "name": "MAIALINO PER GASOLIO",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "TANICA LAVA MANI DA 25 LT",
+                "price": "153.00",
+                "description": ""
+            },
+            {
+                "name": "AUMENTO SPESSORI DA 6/4 A 8/6",
+                "price": "2550.00",
+                "description": ""
+            },
+            {
+                "name": "AUMENTO SPESSORI DA 6/4 A 10/8",
+                "price": "5950.00",
+                "description": ""
+            },
+            {
+                "name": "2 LUCI LAMPEGGIANTI POSTERIORI",
+                "price": "340.00",
+                "description": ""
+            },
+            {
+                "name": "FORNITURA PARAFANGHI SINGOLI ANTERIORI IN KIT",
+                "price": "195.00",
+                "description": ""
+            },
+            {
+                "name": "PINNE E CARTER DI POTENZIONE IN ACCIAIO INOX",
+                "price": "1700.00",
+                "description": ""
+            },
+            {
+                "name": "CAPPOTTINA IN ACCIAIO PROTEZIONE DEL TELO",
+                "price": "1020.00",
+                "description": ""
+            },
+            {
+                "name": "GANCIO DI SERVIZIO SULLA TRAVERSA POSTERIORE",
+                "price": "125.00",
+                "description": ""
+            },
+            {
+                "name": "GANCIO DI SICUREZZA A VITE SPONDA POSTERIORE",
+                "price": "187.00",
+                "description": ""
+            },
+            {
+                "name": "CARTER DI PROTEZIONE GANCIO TRAINO POSTERIORE",
+                "price": "635.00",
+                "description": ""
+            },
+            {
+                "name": "TUBAZIONE ALIMENTAZIONE IDRAULICA PER RIMORCHIO",
+                "price": "1910.00",
+                "description": ""
+            },
+            {
+                "name": "SDOPPIAMENTO IMPIANTO IDRAULICO DI APERTURA SPONDA POSTERIORE",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "SOLLEVAMENTO IDRAULICO TETTUCCIO PARACABINA (SCARRABILE)",
+                "price": "1530.00",
+                "description": ""
+            },
+            {
+                "name": "APERTURA SPONDA POSTERIORE TRIPLA (BASCULANTE - ALA GABBIANO - BANDIERA)",
+                "price": "3825.00",
+                "description": ""
+            },
+            {
+                "name": "CHIUSURA STAGNA SPONDA POSTERIORE CON GUARNIZIONE PNEUMATICA",
+                "price": "2550.00",
+                "description": ""
+            },
+            {
+                "name": "CHIUSURA STAGNA SPONDA POSTERIORE NON PNEUMATICA",
+                "price": "1870.00",
+                "description": ""
+            },
+            {
+                "name": "CHIUSURA SPONDA EVO CON GANCI IDRAULICI",
+                "price": "2125.00",
+                "description": ""
+            },
+            {
+                "name": "COIBENTAZIONE ESTERNA VASCA (PARETI LATERALI E SPONDA POSTERIORE)",
+                "price": "10200.00",
+                "description": ""
+            },
+            {
+                "name": "COIBENTAZIONE ESTERNA VASCA TOTALE",
+                "price": "15300.00",
+                "description": ""
+            },
+            {
+                "name": "COIBENTAZIONE ESTERNA VASCA SOLO PARETI LATERALI",
+                "price": "8500.00",
+                "description": ""
+            },
+            {
+                "name": "COPRICARICO CON TELO IGNIFUGO PER TRASPORTO ASFALTO",
+                "price": "1700.00",
+                "description": ""
+            },
+            {
+                "name": "EXTRA PREZZO VARIAZIONE CARATTERISTICHE LAMIERE DA HB450 AD HARDX 500",
+                "price": "850.00",
+                "description": ""
+            },
+            {
+                "name": "PARAFANGHI POSTERIORI ACCIAIO INOX - SFUSI",
+                "price": "1020.00",
+                "description": ""
+            },
+            {
+                "name": "PARAFANGHI POSTERIORI INTERI SAGOMATI IN ACCIAIO - SFUSI",
+                "price": "880.00",
+                "description": ""
+            },
+            {
+                "name": "PROLUNGA SCARICO IN FINITRICE IDRAULICA NEW",
+                "price": "2550.00",
+                "description": ""
+            },
+            {
+                "name": "RINFORZATURA CASSA PER CARICHI GRAVOSI QUANDO 10/8",
+                "price": "3400.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA CASSA BICOLORE + SERIGRAFIE ADESIVE",
+                "price": "1275.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA SPECIALE ANTI CORROSIONE NEBBIA SALINA DEL CONTRO TELAIO",
+                "price": "1020.00",
+                "description": ""
+            },
+            {
+                "name": "16 mc",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "18 mc",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "19 mc",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "20 mc",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "21 mc",
+                "price": 0,
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-05-31T07:28:24.000Z",
+        "updatedAt": "2024-09-02T15:16:05.000Z"
+    },
+    {
+        "id": 20,
+        "name": "BETONIERA CIFA RY 1300 ADVANCE MONTATA SU AUTOCARRO 2025-1",
+        "description": "**Dotazione di serie**\r\nTelaio di base diritto o sagomato (S500MC)\r\nProtezione antiusura eliche 25x8 mm\r\nDue passi d’uomo\r\nDoppi rulli di rotolamento diam. 250 mm con supporto a bilancino\r\nCanala di scarico ribaltabile 1500mm+900mm\r\nVersione con serbatoio acqua non pressurizzato:\r\n• Serbatoio acqua 1200 litri\r\n• Pompa alza canala idraulica\r\n• Scambiatore di calore\r\nContatore acqua\r\nDue lance di lavaggio (una a terra con innesto rapido, una sulla\r\npedana scaletta)\r\nInnesto rapido acqua da ambo i lati\r\nManometro rilevamento consistenza calcestruzzo\r\nDue tronchi canala supplementari, con supporti di fissaggio\r\nsu controtelaio\r\nEliche sbordate, a quattro principi nel punto di scarico\r\nLamiere antiusura su tramoggia di carico e canala di scarico\r\nUnità completamente sabbiata e protetta con fondo antiruggine\r\nLampeggiante posteriore\r\nParafanghi monoasse in plastica con paraspruzzi CIFA\r\nPompa acqua e cilindro alza canala, azionati idraulicamente\r\nattraverso un distributore\r\nBarra posteriore paraincastro ribaltabile omologata\r\nPulsanti di emergenza Start/Stop per motore automezzo\r\n* Un faro illuminazione a led posteriore\r\n* Telecamera posteriore con monitor in cabina\r\n* rispetta EN 12609\r\n\r\n**Tamburo ed eliche**\r\nIl tamburo è progettato secondo le specifiche internazionali e la \r\nnorma DIN 459. Acciaio speciale resistente all’usura (30MnB5) nel \r\ntamburo (4 mm) e nelle eliche (4 mm) per massimizzare la durata \r\n della betoniera.",
+        "price": "42690.00",
+        "category": "CIFA",
+        "company": "s2_truck_service",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1720678877051-image.jpg",
+        "components": [
+            {
+                "name": "Montaggio su camion con PTO BMON",
+                "price": "5940.00",
+                "description": "\"Nota: nella configurazione montata su automezzo sono inclusi,\n- Montaggio su automezzo\n- Parafanghi singoli in plastica (BPLTAN)\n- Cardano (BCARDA)\n- Ancoraggi inclusi bulloni (BANCBU)\n- parametrizzazione (BSI)\n- Barre paraincastro (BRIBAL)\n- Barre paraciclisti (BCICLI)\n- verniciatura ad un colore (BMOCOL)\n- Luci laterali - Omologata ECC per circolazione stradale (BLULAT)\"\t\t\t\n"
+            },
+            {
+                "name": "Collaudo autobetoniera - mercato Italia PREZZO NETTO",
+                "price": "870.00",
+                "description": ""
+            },
+            {
+                "name": "CIFA VISTA 4.0 Ready  BVISTP",
+                "price": "6250.00",
+                "description": ""
+            },
+            {
+                "name": "Pompa acqua alta pressione (16 l/min. 220 bar) + lancia di lavaggio BALTPR",
+                "price": "2050.00",
+                "description": ""
+            },
+            {
+                "name": "Pompa acqua alta pressione (16 l/min. 220 bar) + lancia di lavaggio con avvolgitubo BALTAV",
+                "price": "3250.00",
+                "description": ""
+            },
+            {
+                "name": "Nebulizzatore pneumatico con lancia per protezione preventiva, capacità 16 l (obbligo aggiunta BATTPN)",
+                "price": "550.00",
+                "description": ""
+            },
+            {
+                "name": "Connessione pneumatica posteriore. (obbligatorio con BINO50 o BNEB16)",
+                "price": "210.00",
+                "description": ""
+            },
+            {
+                "name": "N° 2 tronchi canala aggiuntivi in acciaio zincato BACCI2",
+                "price": "260.00",
+                "description": ""
+            },
+            {
+                "name": "N°2 tronchi canala come standard, in sostituzione a tronchi canala in acciaio zincato",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "N°2 tronchi canala aggiuntivi in plastica BPOLY2",
+                "price": "190.00",
+                "description": ""
+            },
+            {
+                "name": "Canala sfilabile idraulica mod. \"SL45\" composta da 3 tronchi sfilabili, lunghezza massima 4,5 m.",
+                "price": "4590.00",
+                "description": ""
+            },
+            {
+                "name": "Canala di scarico conica con terminale ø 200 mm BCO200",
+                "price": "360.00",
+                "description": ""
+            },
+            {
+                "name": "Canala di scarico ribaltabile 1500 + 600 mm B150R6",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "Telecamera posteriore collegata al monitor originale del camion BRETSO",
+                "price": "-380.00",
+                "description": ""
+            },
+            {
+                "name": "Tamburo light in Hardox 450HB - 4 mm BRYB45",
+                "price": "3700.00",
+                "description": ""
+            },
+            {
+                "name": "Dispositivo antipolvere Tappo \"EKOS\" BTEKOS",
+                "price": "2580.00",
+                "description": ""
+            },
+            {
+                "name": "Impianto centralizzato manuale per ingrassaggio rulli e pista di rotolamento BINGRU",
+                "price": "740.00",
+                "description": ""
+            },
+            {
+                "name": "Manometro supplementare posizionato nella parte anteriore BMANSU",
+                "price": "170.00",
+                "description": ""
+            },
+            {
+                "name": "Cassetta porta oggetti in plastica sciolta (500x350x470 mm) BPL500",
+                "price": "290.00",
+                "description": ""
+            },
+            {
+                "name": "Kit angolo Cieco KITBS",
+                "price": "5520.00",
+                "description": ""
+            },
+            {
+                "name": "Verniciatura Bicolore (come da configuratore CIFA) B2COL *escluso metallizzato",
+                "price": "600.00",
+                "description": ""
+            },
+            {
+                "name": "Verniciatura 3 colori B3COL *escluso metallizzato",
+                "price": "1150.00",
+                "description": ""
+            },
+            {
+                "name": "Connessione per controllo via cavo in cabina BCONNC",
+                "price": "420.00",
+                "description": ""
+            },
+            {
+                "name": "Scaletta scorrevole in alluminio Compliant EN12609 BSCAAO",
+                "price": "1950.00",
+                "description": ""
+            },
+            {
+                "name": "Serbatoio acqua in alluminio pressurizzato, capacità 600 lt.",
+                "price": "630.00",
+                "description": "Serbatoio acqua in alluminio pressurizzato, capacità 600 lt.\nBP60A3"
+            },
+            {
+                "name": "",
+                "price": 0,
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-07-11T06:21:17.000Z",
+        "updatedAt": "2024-08-27T08:14:54.000Z"
+    },
+    {
+        "id": 33,
+        "name": "SISTEMA INTERCAMBIABILE CRISTALLO MULTITRUCK AUTOMATICO",
+        "description": "Unità di comando: Distributore elettro – idraulico, valvola\r\nModulare, pressostato valvola d’emergenza, deviatore \r\nelettrico, sensori, segnalazione luminosa in cabina e serbatoio\r\nolio standard LT.120 con filtro olio;\r\nUnità di sollevamento: Cilindri di sollevamento flangiati, supporti telaio, valvola di blocco, tubi idraulici rigidi e ripartitore di flusso a 4 stadi.\r\nUnità di ancoraggio: ancoraggio meccanico, ancoraggio idraulico e trascinamento/bloccaggio idraulico\r\nAltri componenti: comando innesto presa di forza, filtro alta pressione,\r\nKit connessioni idrauliche; \r\nDocumentazione: libretto uso e manutenzione e certificazione CE.\r\n",
+        "price": "34000.00",
+        "category": "INTERCAMBIABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1721897246953-image.jpg",
+        "components": [
+            {
+                "name": "KIT PER ADATTTAMENTO BETONIERA",
+                "price": "5950.00",
+                "description": "Kit adattamento trasformazione CIFA composto da: kit ancoraggio meccanico Kit idraulico e minuteria + montaggio"
+            },
+            {
+                "name": "KIT PER CARROZZERIA VASCA RIBALTABILE",
+                "price": "5100.00",
+                "description": "Kit trasformazione carrozzeria per adattamento ribaltabile posteriore composto da: kit Ancoraggio meccanico, supporti e gambe zincati,\nkit idraulico e minuterie, montaggio"
+            },
+            {
+                "name": "KIT PER CARROZZERIA VASCA RIBALTABILE SPECIALE",
+                "price": "6800.00",
+                "description": "Kit trasformazione carrozzeria per adattamento ribaltabile posteriore composto da: kit Ancoraggio meccanico, supporti e gambe zincati,\nkit idraulico e minuterie, montaggio"
+            },
+            {
+                "name": "KIT CARROZZERIA SCARRABILE",
+                "price": "6800.00",
+                "description": "Kit trasformazione carrozzeria per adattamento scarrabile composto da: kit Ancoraggio meccanico, supporti e gambe zincati,\nkit idraulico e minuterie, montaggio"
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-07-25T08:47:26.000Z",
+        "updatedAt": "2024-08-05T10:50:42.000Z"
+    },
+    {
+        "id": 34,
+        "name": "SISTEMA INTERCAMBIABILE CRISTALLO MULTITRUCK ELETTRICO",
+        "description": "Unità di comando: centralina elettroidraulica, \r\nvalvola d’emergenza segnalazione luminosa in cabina \r\nUnità di sollevamento: Cilindri di sollevamento flangiati, supporti telaio, valvola di blocco, tubi idraulici rigidi e ripartitore di flusso a 4 stadi.\r\nUnità di ancoraggio: ancoraggio meccanico, ancoraggio idraulico e trascinamento/bloccaggio idraulico\r\nAltri componenti: comando innesto presa di forza, filtro alta\r\n pressione, kit connessioni idrauliche flessibili, kit raccorderia\r\nidraulica; \r\nDocumentazione: libretto uso e manutenzione e certificazione CE.\r\n",
+        "price": "33150.00",
+        "category": "INTERCAMBIABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1721897422050-image.jpg",
+        "components": [
+            {
+                "name": "KIT PER ADATTTAMENTO BETONIERA   ",
+                "price": "5950.00",
+                "description": "Kit adattamento trasformazione CIFA composto da: kit ancoraggio meccanico Kit idraulico e minuteria + montaggio"
+            },
+            {
+                "name": "KIT PER CARROZZERIA VASCA RIBALTABILE",
+                "price": "5100.00",
+                "description": "Kit trasformazione carrozzeria per adattamento ribaltabile posteriore composto da: kit Ancoraggio meccanico, supporti e gambe zincati,\nkit idraulico e minuterie, montaggio"
+            },
+            {
+                "name": "KIT PER CARROZZERIA VASCA RIBALTABILE SPECIALE",
+                "price": "6800.00",
+                "description": "Kit trasformazione carrozzeria per adattamento ribaltabile posteriore composto da: kit Ancoraggio meccanico, supporti e gambe zincati,\nkit idraulico e minuterie, montaggio"
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-07-25T08:50:22.000Z",
+        "updatedAt": "2024-07-25T08:50:22.000Z"
+    },
+    {
+        "id": 35,
+        "name": "SISTEMA INTERCAMBIABILE CRISTALLO MULTITRUCK MANUALE",
+        "description": "Unità di comando: distributore manuale, deviatore manuale, \r\nsensori, segnalazione luminosa in cabina e serbatoio olio\r\nstandard LT.120 con filtro olio;\r\nUnità di sollevamento: Cilindri di sollevamento flangiati, supporti telaio, valvola di blocco, tubi idraulici rigidi e ripartitore di flusso a 4 stadi.\r\nUnità di ancoraggio: ancoraggio meccanico, ancoraggio idraulico e trascinamento/bloccaggio idraulico\r\nAltri componenti: comando innesto presa di forza, filtro alta\r\n pressione, kit connessioni idrauliche flessibili; \r\nDocumentazione: libretto uso e manutenzione e certificazione CE.\r\n",
+        "price": "32300.00",
+        "category": "INTERCAMBIABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1721897548512-image.jpg",
+        "components": [
+            {
+                "name": "KIT PER ADATTTAMENTO BETONIERA",
+                "price": "5950.00",
+                "description": "Kit adattamento trasformazione CIFA composto da: kit ancoraggio meccanico Kit idraulico e minuteria + montaggio"
+            },
+            {
+                "name": "KIT PER CARROZZERIA VASCA RIBALTABILE",
+                "price": "5100.00",
+                "description": "Kit trasformazione carrozzeria per adattamento ribaltabile posteriore composto da: kit Ancoraggio meccanico, supporti e gambe zincati,\nkit idraulico e minuterie, montaggio"
+            },
+            {
+                "name": "KIT PER CARROZZERIA VASCA RIBALTABILE SPECIALE",
+                "price": "6800.00",
+                "description": "Kit trasformazione carrozzeria per adattamento ribaltabile posteriore composto da: kit Ancoraggio meccanico, supporti e gambe zincati,\nkit idraulico e minuterie, montaggio"
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-07-25T08:52:28.000Z",
+        "updatedAt": "2024-07-25T08:52:28.000Z"
+    },
+    {
+        "id": 38,
+        "name": "ATTREZZATURA SCARRABILE MEC SC 206",
+        "description": "",
+        "price": "32126.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722848410210-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:00:10.000Z",
+        "updatedAt": "2024-08-05T11:21:06.000Z"
+    },
+    {
+        "id": 39,
+        "name": "ATTREZZATURA SCARRABILE MEC SC 207",
+        "description": "",
+        "price": "34093.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722848670906-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:04:30.000Z",
+        "updatedAt": "2024-08-05T11:21:24.000Z"
+    },
+    {
+        "id": 40,
+        "name": "ATTREZZATURA SCARRABILE MEC SC 266",
+        "description": "",
+        "price": "33438.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722849057266-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:10:57.000Z",
+        "updatedAt": "2024-08-05T11:21:42.000Z"
+    },
+    {
+        "id": 41,
+        "name": "ATTREZZATURA SCARRABILE MEC SC 267",
+        "description": "",
+        "price": "35732.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722849209979-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:13:29.000Z",
+        "updatedAt": "2024-08-05T11:23:12.000Z"
+    },
+    {
+        "id": 42,
+        "name": "ATTREZZATURA SCARRABILE MEC SC 306",
+        "description": "",
+        "price": "36497.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722849358822-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:15:58.000Z",
+        "updatedAt": "2024-08-05T11:23:27.000Z"
+    },
+    {
+        "id": 43,
+        "name": "ATTREZZATURA SCARRABILE MEC SC 307",
+        "description": "",
+        "price": "38683.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722849634386-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:20:34.000Z",
+        "updatedAt": "2024-08-05T11:23:47.000Z"
+    },
+    {
+        "id": 44,
+        "name": "ATTREZZATURA SCARRABILE MEC SC 336",
+        "description": "",
+        "price": "39338.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722849769341-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:22:49.000Z",
+        "updatedAt": "2024-08-05T11:24:04.000Z"
+    },
+    {
+        "id": 45,
+        "name": "ATTREZZATURA SCARRABILE MEC SC 356",
+        "description": "",
+        "price": "50812.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722849900693-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:25:00.000Z",
+        "updatedAt": "2024-08-05T11:24:22.000Z"
+    },
+    {
+        "id": 46,
+        "name": "ATTREZZATURA SCARRABILE MEC SCK 206",
+        "description": "",
+        "price": "38246.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722850040258-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:27:20.000Z",
+        "updatedAt": "2024-08-05T11:24:47.000Z"
+    },
+    {
+        "id": 47,
+        "name": "ATTREZZATURA SCARRABILE MEC SCK 207",
+        "description": "",
+        "price": "40212.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722850395413-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:33:15.000Z",
+        "updatedAt": "2024-08-05T11:25:02.000Z"
+    },
+    {
+        "id": 48,
+        "name": "ATTREZZATURA SCARRABILE MEC SCK 266",
+        "description": "",
+        "price": "39557.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722850608059-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:36:48.000Z",
+        "updatedAt": "2024-08-05T11:25:17.000Z"
+    },
+    {
+        "id": 49,
+        "name": "ATTREZZATURA SCARRABILE MEC SCK 267",
+        "description": "",
+        "price": "41851.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722850819345-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto\n"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:40:19.000Z",
+        "updatedAt": "2024-08-05T11:25:30.000Z"
+    },
+    {
+        "id": 50,
+        "name": "ATTREZZATURA SCARRABILE MEC SCK 306",
+        "description": "",
+        "price": "43053.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722850940776-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato\n"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori\n"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto\n\n"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021\n"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:42:20.000Z",
+        "updatedAt": "2024-08-05T11:25:45.000Z"
+    },
+    {
+        "id": 51,
+        "name": "ATTREZZATURA SCARRABILE MEC SCK 307",
+        "description": "",
+        "price": "45239.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722851088023-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato\n\n"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto\n"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021\n"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:44:48.000Z",
+        "updatedAt": "2024-08-05T11:25:57.000Z"
+    },
+    {
+        "id": 52,
+        "name": "ATTREZZATURA SCARRABILE MEC SCK 336",
+        "description": "",
+        "price": "45895.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722851221236-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato\n"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori\n"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto\n"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021\n"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:47:01.000Z",
+        "updatedAt": "2024-08-05T11:26:11.000Z"
+    },
+    {
+        "id": 53,
+        "name": "ATTREZZATURA SCARRABILE SCK 356",
+        "description": "",
+        "price": "57368.00",
+        "category": "GANCIO_SCARRABILE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722851389851-image.jpg",
+        "components": [
+            {
+                "name": "ESCLUSIONE RULLO STABILIZZATORE PER ATTREZZATURE (18-30 TON)",
+                "price": "-1500.00",
+                "description": ""
+            },
+            {
+                "name": "ELEMENTO IDRAULICO SUPPLEMENTARE",
+                "price": "1038.00",
+                "description": "elemento idraulico supplementare per servizi ausiliari non attivato"
+            },
+            {
+                "name": "BLOCCAGGI SUPPLEMENTARI",
+                "price": "3662.00",
+                "description": "bloccaggi supplementari anteriori"
+            },
+            {
+                "name": "GANCIO REGOLABILE MANUALE",
+                "price": "1585.00",
+                "description": ""
+            },
+            {
+                "name": "SISTEMA RIGENERATIVO",
+                "price": "1093.00",
+                "description": "sistema rigenerativo per velocizzare la fase di ribaltamento a vuoto"
+            },
+            {
+                "name": "SICUREZZA GANCIO PNEUMATICA",
+                "price": "1038.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA",
+                "price": "1038.00",
+                "description": "verniciatura smalto bicomponente nella tinta grigio RAL 7021\n"
+            },
+            {
+                "name": "PIASTRE DI ANCORAGGIO",
+                "price": "1000.00",
+                "description": ""
+            },
+            {
+                "name": "CILINDRI BLOCCAGGIO BALESTRE",
+                "price": "1500.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-05T09:49:49.000Z",
+        "updatedAt": "2024-08-05T11:26:28.000Z"
+    },
+    {
+        "id": 54,
+        "name": "BETONPOMPA CIFA MK28L PB808 STEELTECH",
+        "description": "Dotazioni di serie:\r\nLinea compatta e armonica, studiata per montaggio su autotelai a 4 assi\r\nTelaio ad elevatissimo assorbimento torsionale, calcolato col Metodo ad \r\nElementi Finiti (FEM).\r\nDistribuzione carichi ideale per un migliore assetto di guida, in funzione\r\ndel relativo disassamento tra betoniera e braccio.\r\nStabilizzazione comandata idraulicamente da ogni lato della macchina \r\ncon doppio sfilo telescopico anteriore a sequenza automatica brevettata \r\ne stabilizzatori fissi posteriori.\r\nTamburo ad alta capacità di carico a fondo ellittico in acciaio ad alta\r\nresistenza all’usura in 30 MnB5.\r\nBraccio MK 28.4 L , 4 elementi, tubazione da 100 mm, ripiegamento a “Z”\r\nGruppi Pompanti CIFA, ad elevate prestazioni di aspirazione calcestruzzo \r\ne pompaggio, alto coefficiente di riempimento, geometrie ottimizzate \r\nper minori usure.\r\nParafanghi monoasse in polimero e paraspruzzi.\r\nComando braccio a mezzo di distributore proporzionale.\r\nSistema di supporto “BFC” Best-Flex Cifa, che consente ad un solo \r\noperatore di cambiare le tubazioni calcestruzzo con rapidità, facilità \r\ne sicurezza.\r\nRegolatore di portata calcestruzzo.\r\nDispositivo di sicurezza all’apertura della portella di scarico del \r\ncalcestruzzo.\r\nPompaggio silenzioso con elevate prestazioni: portata calcestruzzo\r\ndolce, continua e regolare.\r\nRiduzione 5”-4” lunghezza 3000 mm per diminuire pressioni\r\ndi pompaggio e usure.\r\n2 radiocomandi proporzionali Hetronic con doppia velocità di \r\nmovimento braccio, sintetizzatore per la ricerca automatica della \r\nfrequenza libera, manipolatori a 8 posizioni e variatore di portata. \r\nCavo d’emergenza da 20m.\r\n2 tronchi canala supplementari, con supporti di fissaggio su \r\ncontrotelaio.\r\nVibratore elettrico su griglia tramoggia, comandato a distanza.\r\nSistema di lubrificazione automatica ad olio dei pistoni pompanti.\r\nSistema di lubrificazione centralizzata del gruppo pompante.\r\nSistema di lubrificazione manuale supplementare per gruppo \r\npompante.\r\nPiastre di ripartizione carico per stabilizzatori, con relativo \r\nalloggiamento.\r\nFaro di illuminazione tramoggia gruppo pompante.\r\nAccessori per pulizia e lavaggio.\r\nSonda automatica di regolazione scarico betoniera in tramoggia.\r\nTubazioni calcestruzzo a doppio spessore con inserti in carburi di \r\ncromo ad alta resistenza all’usura CIFA Long Life.\r\nAnello di usura e piastra di usura con inserti in carburi di cromo ad alta \r\nresistenza all’usura.",
+        "price": "251720.00",
+        "category": "CIFA",
+        "company": "s2_truck_service",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722928162456-image.jpg",
+        "components": [
+            {
+                "name": "Tappo Ekos",
+                "price": "2580.00",
+                "description": "Tappo \"Ekos\" antipolvere per chiusura tamburo"
+            },
+            {
+                "name": "Canale ribaltabile",
+                "price": "240.00",
+                "description": " "
+            },
+            {
+                "name": "Verniciatura Bicolore",
+                "price": "750.00",
+                "description": ""
+            },
+            {
+                "name": "Scivolo INOX",
+                "price": "700.00",
+                "description": "Scivolo inox per protezione cilindri di scambio"
+            },
+            {
+                "name": "Nebulizzatore pneumatico 16 Lt.+ connessione impianto aria compressa aggiuntivo sulla base della pompa",
+                "price": "770.00",
+                "description": ""
+            },
+            {
+                "name": "Cifa Vista 4.0 Ready",
+                "price": "5660.00",
+                "description": "Installazione e due anni di licenza per il sistema di monitoraggio da remoto + certificazione 4.0 ready"
+            },
+            {
+                "name": "Collaudo",
+                "price": "870.00",
+                "description": "Collaudo autobetonpompa"
+            },
+            {
+                "name": "Shutt-off valve 4\"- Valvola pneumatica anti sgocciolamento a chiusura su terminale in gomma",
+                "price": "2090.00",
+                "description": ""
+            },
+            {
+                "name": "Porta tubi in alluminio su entrambi i lati con parafanghi monoasse in plastica e paraspruzzi + tubazione cls di base rialzata",
+                "price": "3500.00",
+                "description": ""
+            },
+            {
+                "name": "Cassetta porta oggetti aggiuntiva in plastica (500x350x470)",
+                "price": "300.00",
+                "description": ""
+            },
+            {
+                "name": "N°2 fari lavoro a LED su tramoggia di carico",
+                "price": "570.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-06T07:09:22.000Z",
+        "updatedAt": "2024-09-06T09:14:09.000Z"
+    },
+    {
+        "id": 55,
+        "name": "BETONPOMPA CIFA MK32L PB808 STEELTECH",
+        "description": "Dotazioni di serie\r\nLinea compatta e armonica, studiata per montaggio su autotelai a 4 assi.\r\nTelaio ad elevatissimo assorbimento torsionale, calcolato \r\ncol Metodo ad Elementi Finiti (FEM).\r\nDistribuzione carichi ideale per un migliore assetto di guida, \r\nin funzione del relativo disassamento tra betoniera e braccio.\r\nStabilizzazione comandata idraulicamente da ogni lato della \r\nmacchina con doppio sfilo telescopico anteriore a sequenza automatica \r\nbrevettata e stabilizzatori fissi posteriori.\r\nTamburo ad alta capacità di carico a fondo ellittico in acciaio ad \r\nalta resistenza all’usura in 30 MnB5.\r\nBraccio MK32L , 4 elementi, tubazione da 100 mm, ripiegamento a “Z”.\r\nGruppi Pompanti CIFA, ad elevate prestazioni di aspirazione \r\ncalcestruzzo e pompaggio, alto coefficiente di riempimento, \r\ngeometrie ottimizzate per minori usure.\r\nComando braccio a mezzo di distributore proporzionale.\r\nSistema di supporto “BFC” Best-Flex Cifa, che consente ad un solo \r\noperatore di cambiare le tubazioni calcestruzzo con rapidità, \r\nfacilità e sicurezza.\r\nRegolatore di portata calcestruzzo.\r\nDispositivo di sicurezza all’apertura della portella di scarico del \r\ncalcestruzzo.\r\nPompaggio silenzioso con elevate prestazioni: portata \r\ncalcestruzzo dolce, continua e regolare.\r\nRiduzione 5”-4” lunghezza 3000 mm per diminuire pressioni \r\ndi pompaggio e usure.\r\n2 radiocomandi proporzionali Hetronic con doppia velocità di \r\nmovimento braccio, sintetizzatore per la ricerca automatica \r\ndella frequenza libera, manipolatori a 8 posizioni e variatore di \r\nportata. Cavo d’emergenza da 20m.\r\nVibratore elettrico su griglia tramoggia, comandato a distanza.\r\nSistema di lubrificazione centralizzata del gruppo pompante.\r\nSistema di lubrificazione automatica ad olio dei pistoni pompanti.\r\nSistema di lubrificazione manuale supplementare per gruppo \r\npompante.\r\nPiastre di ripartizione carico per stabilizzatori, con relativo \r\nalloggiamento.\r\nFaro di illuminazione tramoggia gruppo pompante\r\nAccessori per pulizia e lavaggio.\r\nSonda automatica di regolazione scarico betoniera in tramoggia.\r\nTubazioni calcestruzzo a doppio spessore con inserti in carburi di \r\ncromo ad alta resistenza all’usura CIFA Long Life.\r\nAnello di usura e piastra di usura con inserti in carburi di cromo \r\nad alta resistenza all’usura.",
+        "price": "265250.00",
+        "category": "CIFA",
+        "company": "s2_truck_service",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722928740444-image.jpg",
+        "components": [
+            {
+                "name": "Verniciatura in 2 colori",
+                "price": "750.00",
+                "description": ""
+            },
+            {
+                "name": "Shutt-off Valve 4\"",
+                "price": "2090.00",
+                "description": "Valvola pneumatica anti sgocciolamento a chiusura su terminale in gomma"
+            },
+            {
+                "name": "Nebulizzatore",
+                "price": "550.00",
+                "description": "Nebulizzatore pneumatico 16 Lt."
+            },
+            {
+                "name": "Portatubi + parafanghi in alluminio",
+                "price": "4080.00",
+                "description": "Portatubi/gommoni in alluminio su entrambi i lati con parafanghi in alluminio e paraspruzzi + tubazione cls di base rialzata"
+            },
+            {
+                "name": "Controllo stabilità LSC",
+                "price": "8170.00",
+                "description": "Controllo stabilità Advance LSC Light Stability control"
+            },
+            {
+                "name": "Pompa acqua alta pressione",
+                "price": "3280.00",
+                "description": "Pompa acqua alta pressione + lancia lavaggio + avvogitubo con tubo da 15 mt."
+            },
+            {
+                "name": "cassetta porta oggetti aggiuntiva",
+                "price": 0,
+                "description": "Cassetta porta oggetti aggiuntiva in plastica (500x350x470)"
+            },
+            {
+                "name": "Telecamera posteriore connessa al monitor del Truck",
+                "price": "610.00",
+                "description": ""
+            },
+            {
+                "name": "N°2 Fari a Led su tramoggia di carico",
+                "price": "570.00",
+                "description": ""
+            },
+            {
+                "name": "Luce sul braccio",
+                "price": "1670.00",
+                "description": ""
+            },
+            {
+                "name": "Riduzione 5\"/4\" divisa in due sezioni (1500mm+1500mm)",
+                "price": "370.00",
+                "description": ""
+            },
+            {
+                "name": "Freno potenziato per la rotazione del braccio",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "Radiocomando HBC con 2 manipolatori fornito come standard ( In sostituzione del radiocomando Hetronic)",
+                "price": "640.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-06T07:19:00.000Z",
+        "updatedAt": "2024-09-06T08:27:11.000Z"
+    },
+    {
+        "id": 56,
+        "name": "BETONPOMPA CIFA MK25H PB607S7 CARBOTECH EASYTRONIC",
+        "description": "Dotazioni di serie\r\nBraccio MK25H, 4 elementi, tubazione da 100 mm, ripiegamento a “Z”\r\n3° e 4° segmento del braccio realizzato in materiale composito \r\nCARBOTECH.\r\nTelaio ad elevato assorbimento torsionale, calcolato \r\ncol Metodo ad Elementi Finiti (FEM).\r\nDistribuzione dei carichi ideale per un migliore assetto di guida \r\ndurante il trasporto.\r\nStabilizzazione comandata idraulicamente da ogni lato della \r\nmacchina con sfilo anteriore e stabilizzatori fissi posteriori.\r\nTamburo in acciao 30MnB5, spessore 4 mm (PB 607 S7).\r\nSerbatoio acqua da 600 litri inclusa pompa acqua (PB607S7)\r\nParafanghi monoasse in polimero e paraspruzzi.\r\nComando braccio a mezzo di distributore proporzionale.\r\nRegolatore di portata calcestruzzo.\r\nDispositivo di sicurezza all’apertura della portella di scarico del \r\ncalcestruzzo e della griglia tramoggia.\r\nGruppo pompante a circuito chiuso con gestione elettronica EPC.\r\nImpianto elettrico protetto contro le infiltrazioni d’acqua e le ossidazioni.\r\nParafanghi in plastica.\r\n2 Radiocomandi proporzionali Hetronic con doppia velocità di \r\nmovimento braccio, sintetizzatore per la ricerca automatica della \r\nfrequenza libera, variatore di portata, cavo d’emergenza da 20m.\r\n2 tronchi canala supplementari, con supporti di fissaggio su controtelaio\r\nVibratore elettrico su griglia tramoggia, comandato a distanza.\r\nSistema di lubrificazione centralizzata del gruppo pompante.\r\nSistema di lubrificazione automatica ad olio dei pistoni pompanti.\r\nPiastre di ripartizione carico per stabilizzatori, con relativo \r\nalloggiamento.\r\nFaro di illuminazione tramoggia gruppo pompante.\r\nAccessori per pulizia e lavaggio.\r\nSonda automatica di regolazione scarico betoniera in tramoggia.\r\nTubazioni calcestruzzo a doppio spessore con inserti in carburi di cromo \r\nad alta resistenza all’usura CIFA Long Life Pipes.\r\nAnello di usura e piastra di usura con inserti in carburi di cromo ad alta \r\nresistenza all’usura.",
+        "price": "243740.00",
+        "category": "CIFA",
+        "company": "s2_truck_service",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722929216067-image.jpg",
+        "components": [],
+        "discount": 0,
+        "createdAt": "2024-08-06T07:26:56.000Z",
+        "updatedAt": "2024-08-06T07:26:56.000Z"
+    },
+    {
+        "id": 57,
+        "name": "BETONPOMPA CIFA MK28L-5\" PB808 STEELTECH",
+        "description": "Dotazioni di serie\r\nBraccio MK28L , 4 elementi, tubazione da 125 mm, ripiegamento a “Z”.\r\nTelaio ad elevatissimo assorbimento torsionale, calcolato col Metodo ad Elementi Finiti (FEM).\r\nDistribuzione carichi ideale per un migliore assetto di guida, in funzione del relativo disassamento tra betoniera e braccio.\r\nStabilizzazione anteriore a sfilo e posteriore fissa con controlli idraulici su entrambi i lati .\r\nTamburo ad alta capacità di carico a fondo ellittico in acciaio 30MnB5 ad alta resistenza all’usura.\r\nSerbatoio acqua da 800 litri con pompa da 15 bar e 230 l/min.\r\nGruppi Pompanti CIFA, ad elevate prestazioni di aspirazione calcestruzzo e pompaggio, alto coefficiente di riempimento,  geometrie ottimizzate per minori usure.\r\nComando braccio a mezzo di distributore proporzionale.\r\nRegolatore di portata calcestruzzo.\r\nDispositivo di sicurezza all’apertura della griglia tramoggia e della portella di scarico del calcestruzzo.\r\nCablaggi e componenti elettrici protetti da infiltrazioni di acqua e corrosione.\r\nParafanghi monoasse in polimero e paraspruzzi.\r\n2 Radiocomandi proporzionali Hetronic con doppia velocità di movimento braccio, sintetizzatore per la ricerca automatica della frequenza libera, manipolatori a 8 posizioni e variatore di portata. \r\nCavo d’emergenza da 20m\r\n2° canale di scarico aggiuntive fissate sul controtelaio.\r\nVibratore elettrico su griglia tramoggia, comandato a distanza.\r\nSistema di lubrificazione centralizzata del gruppo pompante.\r\nSistema di lubrificazione automatica ad olio dei pistoni pompanti.\r\nSistema di lubrificazione manuale supplementare per gruppo pompante.\r\nPiastre di ripartizione carico per stabilizzatori, con relativo alloggiamento.\r\nFaro LED di illuminazione tramoggia gruppo pompante. \r\nAccessori per pulizia e lavaggio.\r\nSonda automatica di regolazione scarico betoniera in tramoggia.\r\nTubazioni calcestruzzo a doppio spessore con inserti in carburi di cromo ad alta resistenza all’usura CIFA Long Life.\r\nAnello di usura e piastra di usura con inserti in carburi di cromo ad alta resistenza all’usura.",
+        "price": "278760.00",
+        "category": "CIFA",
+        "company": "s2_truck_service",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1722929948556-image.jpg",
+        "components": [],
+        "discount": 0,
+        "createdAt": "2024-08-06T07:39:08.000Z",
+        "updatedAt": "2024-08-06T07:39:08.000Z"
+    },
+    {
+        "id": 58,
+        "name": "BETONIERA CIFA RY 1100 ADVANCE, MONTATA SU AUTOCARRO",
+        "description": "**Dotazione di serie**\r\nTelaio di base diritto o sagomato (S500MC)\r\nProtezione antiusura eliche 25x8 mm\r\nDue passi d’uomo\r\nDoppi rulli di rotolamento diam. 250 mm con supporto a bilancino\r\nCanala di scarico ribaltabile 1500mm+900mm\r\nVersione con serbatoio acqua non pressurizzato:\r\n• Serbatoio acqua 800 litri\r\n• Pompa alza canala idraulica\r\n• Scambiatore di calore\r\nContatore acqua\r\nDue lance di lavaggio (una a terra con innesto rapido, una sulla pedana scaletta)\r\nInnesto rapido acqua da ambo i lati\r\nManometro rilevamento consistenza calcestruzzo\r\nDue tronchi canala supplementari, con supporti di fissaggio su controtelaio\r\nEliche sbordate, a quattro principi nel punto di scarico\r\nLamiere antiusura su tramoggia di carico e canala di scarico\r\nUnità completamente sabbiata e protetta con fondo antiruggine\r\nLampeggiante posteriore\r\nParafanghi monoasse in plastica con paraspruzzi CIFA\r\nPompa acqua e cilindro alza canala, azionati idraulicamente attraverso un distributore\r\nBarra posteriore paraincastro ribaltabile omologata\r\nPulsanti di emergenza Start/Stop per motore automezzo\r\n* Un faro illuminazione a led posteriore\r\n* Telecamera posteriore con monitor in cabina\r\n* rispetta EN 12609\r\n\r\n**Tamburo ed eliche**\r\nIl tamburo è progettato secondo le specifiche internazionali e la norma DIN 459. Acciaio speciale resistente all’usura (30MnB5) nel tamburo (4 mm) e nelle eliche (4 mm) per massimizzare la durata della betoniera. ",
+        "price": "40600.00",
+        "category": "CIFA",
+        "company": "s2_truck_service",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1723012699221-image.jpg",
+        "components": [],
+        "discount": 0,
+        "createdAt": "2024-08-07T06:38:19.000Z",
+        "updatedAt": "2024-08-07T06:53:44.000Z"
+    },
+    {
+        "id": 59,
+        "name": "POMPA AUTOCARRATA CIFA K42L STEELTECH Presa di forza - Gruppo pompante: HP1606H (160 m³/h) EASYTRONIC SILVER",
+        "description": "**Dotazioni di serie**\r\nStabilizzazione anteriore tipo “X” telescopici a doppio sfilamento\r\ne posteriore a bandiera per un rapido e semplice posizionamento \r\nanche in spazi stretti\r\nMotorizzazione PTO o accoppiatore\r\nComando braccio a mezzo di distributore proporzionale \r\n“Load Sensing”\r\nDispositivo di sicurezza all’apertura della portella di scarico \r\ndel calcestruzzo e della griglia tramoggia\r\nDispositivo di emergenza per il gruppo pompante\r\n2 radiocomandi proporzionali Hetronic con 3 manipolatori\r\nCavo di emergenza per radiocomando da 20 m\r\nSerbatoio acqua in plastica con 600 litri di capacità\r\nPompa acqua a media pressione (50 Bar / 50 l/min)\r\nLuci led di illuminazione della stabilizzazione e della tramoggia\r\nTubazioni a doppio spessore con inserti di carburi di cromo su \r\ntutta la linea di tubazione\r\nAccessori di lavaggio\r\nAlta resistenza dei componenti maggiormente soggetti ad usura \r\n(valvola S, piastra di usura, anello di compensazione)\r\nDichiarazione di conformità fornita con il Manuale di uso \r\ne manutenzione",
+        "price": "392320.00",
+        "category": "CIFA",
+        "company": "s2_truck_service",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1723014281952-image.jpg",
+        "components": [],
+        "discount": 0,
+        "createdAt": "2024-08-07T07:04:41.000Z",
+        "updatedAt": "2024-08-07T07:04:41.000Z"
+    },
+    {
+        "id": 60,
+        "name": "VASCA S5 TKE SCARRABILE",
+        "description": "Ribaltabile posteriore con cilindro di sollevamento frontale; cassa autoportante poligonale; nsponda posteriore apribile idraulicamente con Sistema DUAL – CONTROL; sia BASCULANTE che ad ALA DI GABBIANO ad una altezza di 700 mm oltre il filo superiore sponda; sistema di utilizzo e sicurezza conformi alle direttive macchine; impianto idraulico Sollevamento cassa tramite scarrabile con Sistema di apertura idraulico della sponda posteriorre; spessore fondo: basic 6 mm; spessore sponde: basic 4 mm; apertura sponda posteriore idraulica ad ala di gabbiano con Sistema dual – control; sabbiatura allestimento; strisce riflettenti laterali e posteriori; prolunga scarico in finitrice smontabile; verniciatura monocolore con serigrafie standard adesive; pinne verniciate acciaio; protezione laterali per il veicolo in abbinamento; copricarico – spinnaker a commando elettrico con telecomando; gancio di incarramento perno diametro 55 con altezza 1450; travi da scorrimento da 200; rulli da sorrimento posteriori in acciaio diametro 200.",
+        "price": "34000.00",
+        "category": "Vasche",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1723124486009-image.jpg",
+        "components": [
+            {
+                "name": "TETTUCCIO IDRAULICO",
+                "price": "1870.00",
+                "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1723125952394-component-0.jpg",
+                "description": "tettuccio idraulico  obbligatorio per alloggiamento telo fuori cassa"
+            },
+            {
+                "name": "SPESSORI 8/6",
+                "price": "2550.00",
+                "description": "AUMENTO SPESSORI DA 6/4 A 8/6"
+            },
+            {
+                "name": "PINNE E CARTER DI POTENZIONE IN ACCIAIO INOX",
+                "price": "1700.00",
+                "description": ""
+            },
+            {
+                "name": "CHIUSURA STAGNA SPONDA POSTERIORE CON GUARNIZIONE PNEUMATICA",
+                "price": "2550.00",
+                "description": ""
+            },
+            {
+                "name": "CHIUSURA STAGNA SPONDA POSTERIORE NON  PNEUMATICA",
+                "price": "1870.00",
+                "description": ""
+            },
+            {
+                "name": "CHIUSURA SPONDA EVO CON GANCI IDRAULICI",
+                "price": "2125.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA CASSA BICOLORE + SERIGRAFIE ADESIVE",
+                "price": "1230.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-08T13:41:26.000Z",
+        "updatedAt": "2024-08-08T14:05:52.000Z"
+    },
+    {
+        "id": 61,
+        "name": "PIASTRA BUCHER PER LAMA DA NEVE",
+        "description": "",
+        "price": "4810.00",
+        "category": "LAVORAZIONI_VARIE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1723128840839-image.jpg",
+        "components": [
+            {
+                "name": "CAVO POTENZA CON SPINA MULETTO",
+                "price": "260.00",
+                "description": ""
+            },
+            {
+                "name": "FARI SUPPLEMENTARI SOPRA CANALA CON DEVIO A NORMA",
+                "price": "1950.00",
+                "description": ""
+            },
+            {
+                "name": "PROLUNGA PER COMANDO IN CABINA",
+                "price": "234.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-08T14:29:46.000Z",
+        "updatedAt": "2024-08-08T14:54:00.000Z"
+    },
+    {
+        "id": 62,
+        "name": "GRU CORMACH 39000 E8 HP",
+        "description": "- radiocomando;\r\n- rotazione continua,\r\n- scambiatore di calore;\r\n- limitatore di momento,\r\n- stabilizzatori gru base estendibili idraulicamente;\r\n- controllo continuo delle accelerazioni.",
+        "price": "112531.00",
+        "category": "GRU",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1724156738922-image.jpg",
+        "components": [
+            {
+                "name": "ROTAZIONE 360 GRADI",
+                "price": "-3568.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 1",
+                "price": "3474.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 2",
+                "price": "6484.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 5",
+                "price": "19775.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 1 TRAVERSA POSTERIORE 70.23",
+                "price": "1410.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 1 TRAVERSA POSTERIORE 96.48",
+                "price": "1410.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 2 TRAVERSA POSTERIORE 96.48",
+                "price": "1986.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 5 TRAVERSA POSTERIORE 96.48",
+                "price": "3991.00",
+                "description": ""
+            },
+            {
+                "name": "ESTENSIONE IDRAULICA XL",
+                "price": "5248.00",
+                "description": ""
+            },
+            {
+                "name": "STABILIZZATORE ANTERIORE SX GIREVOLE 180 GRADI",
+                "price": "2510.00",
+                "description": ""
+            },
+            {
+                "name": "STABILIZZATORE ANTERIORE DX GIREVOLE 180 GRADI",
+                "price": "2510.00",
+                "description": ""
+            },
+            {
+                "name": "TRAVERSA TIPO 70.23 SENZA ESTENSIONE",
+                "price": "4087.00",
+                "description": ""
+            },
+            {
+                "name": "TRAVERSA TIPO 96.48 CON ESTENSIONE IDRAULICA",
+                "price": "7283.00",
+                "description": ""
+            },
+            {
+                "name": "VERICELLO TIPO A2500S CON ROTAZIONE A 360 GRADI",
+                "price": "17547.00",
+                "description": ""
+            },
+            {
+                "name": "VERICELLO TIPO A2500S CON ROTAZIONE CONTINUA",
+                "price": "18290.00",
+                "description": ""
+            },
+            {
+                "name": "VERICELLO TIPO BW1500 CON ROTAZIONE A 360 GRADI",
+                "price": "16673.00",
+                "description": ""
+            },
+            {
+                "name": "VERICELLO TIPO BW1500 CON ROTAZIONE CONTINUA",
+                "price": "17416.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO VERICELLO OBBLIGATORIO TIPO EI250",
+                "price": "3159.00",
+                "description": ""
+            },
+            {
+                "name": "SOSPENSIONE PER ATTACCAMENTO",
+                "price": "1558.00",
+                "description": ""
+            },
+            {
+                "name": "N. 1 FUNZIONE EXTRA IN PUNTA CON ROTAZIONE A 360 GRADI",
+                "price": "4250.00",
+                "description": ""
+            },
+            {
+                "name": "N. 2 FUNZIONI EXTRA IN PUNTA CON ROTAZIONE A 360 GRADI",
+                "price": "8701.00",
+                "description": ""
+            },
+            {
+                "name": "N. 1 FUNZIONE EXTRA IN PUNTA CON ROTAZIONE CONTINUA",
+                "price": "4875.00",
+                "description": ""
+            },
+            {
+                "name": "N. 2 FUNZIONI EXTRA IN PUNTA CON ROTAZIONE CONTINUA",
+                "price": "8926.00",
+                "description": ""
+            },
+            {
+                "name": "N.1 PIASTRA DI APPOGGIO PIEDINI",
+                "price": "487.00",
+                "description": ""
+            },
+            {
+                "name": "N.2 PIASTRE DI APPOGGIO PIEDINI",
+                "price": "974.00",
+                "description": ""
+            },
+            {
+                "name": "N.3 PIASTRE DI APPOGGIO PIEDINI",
+                "price": "1461.00",
+                "description": ""
+            },
+            {
+                "name": "N.4 PIASTRE DI APPOGGIO PIEDINI",
+                "price": "1948.00",
+                "description": ""
+            },
+            {
+                "name": "DOPPIO LIMITATORE DI CARICO",
+                "price": "2106.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-20T12:02:27.000Z",
+        "updatedAt": "2024-08-21T12:36:41.000Z"
+    },
+    {
+        "id": 63,
+        "name": "INSTALLAZIONE GRU SU TELAIO SCATOLATO",
+        "description": "Istallazione GRU  su telaio integrato o scatolato\r\n\r\n- Collegamento idraulico;\r\n- Collegamento elettrico;\r\n- ricarica olio;\r\n- Parametrizzazione autocarro con allestimento;\r\n",
+        "price": "10000.00",
+        "category": "LAVORAZIONI_VARIE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1724241770205-image.jpg",
+        "components": [
+            {
+                "name": "POMPA A PORTATA VARIABILE 75 LT",
+                "price": "3600.00",
+                "description": ""
+            },
+            {
+                "name": "POMPA A PORTATA VARIABILE 92 LT",
+                "price": "3800.00",
+                "description": ""
+            },
+            {
+                "name": "POMPA A PORTATA FISSA 60 LT",
+                "price": "1150.00",
+                "description": ""
+            },
+            {
+                "name": "POMPA A PORTATA FISSA 80 LT",
+                "price": "1500.00",
+                "description": ""
+            },
+            {
+                "name": "POMPA A PORTATA FISSA 100 LT",
+                "price": "1800.00",
+                "description": ""
+            },
+            {
+                "name": "TELAIO SANDWICH",
+                "price": "6500.00",
+                "description": ""
+            },
+            {
+                "name": "TELAIO INTEGRATO",
+                "price": "6000.00",
+                "description": ""
+            },
+            {
+                "name": "POMPA A PORTATA VARIABILE 120 LT",
+                "price": "4100.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-21T09:02:29.000Z",
+        "updatedAt": "2024-08-21T12:02:50.000Z"
+    },
+    {
+        "id": 64,
+        "name": "VASCA TECNOKAR MODELLO T5 PER ALLESTIMENTO GRU",
+        "description": "Ribaltabile posteriore con cilindro di sollevamento frontale; cassa autoportante poligonale; sponda posteriore apribile idraulicamente con Sistema DUAL – CONTROL; sia BASCULANTE che ad ALA DI GABBIANO ad una altezza di 700 mm\\noltre il filo superior sponda; sistema di utilizzo e sicurezza conformi alle direttive macchine; velocità di sollevamento 25 sec x1000 giri/min; impianto idraulico a bassa pressione; Cilindro idraulico telescopico a 4 sfili di sollevamento frontale con Sistema di apertura idraulico della sponda posteriorre; spessore fondo: basic 6 mm; spessore sponde: basic 4 mm; cassetta porta attrezzi inox montato lateralmente al contro telaio; cassetta porta attrezzi supplementare inox media; parafanghi singoli posteriori in PVC rinforzato in kit; protezione salva cabina predisposto per copri carico; apertura sponda posteriore idraulica ad ala di gabbiano con Sistema dual – control; sabbiatura allestimento; strisce riflettenti laterali e posteriori; barra para incastro omologata manuale; prolunga scarico in finitrice smontabile; verniciatura monocolore con serigrafie standard adesive; protezione laterali per il veicolo in abbinamento; copricarico – spinnaker a commando elettrico con telecomando.",
+        "price": "31000.00",
+        "category": "Vasche",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1724233024012-image.jpg",
+        "components": [
+            {
+                "name": "CASSETTA ATTREZZI INOX GRANDE SUPPLEMENTARE",
+                "price": "442.00",
+                "description": ""
+            },
+            {
+                "name": "TANICA LAVA MANI DA 25 LT",
+                "price": "153.00",
+                "description": ""
+            },
+            {
+                "name": "AUMENTO SPESSORI DA 6/4 A 8/6",
+                "price": "2550.00",
+                "description": ""
+            },
+            {
+                "name": "2 LUCI LED LAMPEGGIANTI POSTERIORI",
+                "price": "340.00",
+                "description": ""
+            },
+            {
+                "name": "T5 - APERTURA IDRAULICA SPONDA LATERALE SINISTRA H400 + SOPRA SPONDA BASCULANTE",
+                "price": "8920.00",
+                "description": ""
+            },
+            {
+                "name": "DIVISIONE SPONDE LATERALI CON MONTANTE CENTRALE ASPORTABILE (VERSIONE T5)",
+                "price": "850.00",
+                "description": ""
+            },
+            {
+                "name": "CAMALEONTE - DISPOSITIVO IDRAULICO DI MOVIMENTAZIONE DELLE SPONDE LATERALI (1 sponda)",
+                "price": "6970.00",
+                "description": ""
+            },
+            {
+                "name": "CAMALEONTE - DISPOSITIVO IDRAULICO DI MOVIMENTAZIONE DELLE SPONDE LATERALI (2 sponde)",
+                "price": "8925.00",
+                "description": ""
+            },
+            {
+                "name": "PARAFANGHI POSTERIORI ACCIAIO INOX - SFUSI",
+                "price": "510.00",
+                "description": ""
+            },
+            {
+                "name": "PARAFANGHI POSTERIORI INTERI SAGOMATI IN ACCIAIO - SFUSI",
+                "price": "440.00",
+                "description": ""
+            },
+            {
+                "name": "FODERATURA SPONDE LATERALI PER PARETI INTERNE LISCE",
+                "price": "1870.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA CASSA BICOLORE + SERIGRAFIE ADESIVE",
+                "price": "1275.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA SPECIALE ANTI CORROSIONE NEBBIA SALINA DEL CONTRO TELAIO",
+                "price": "1020.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-21T09:22:04.000Z",
+        "updatedAt": "2024-08-22T12:05:07.000Z"
+    },
+    {
+        "id": 65,
+        "name": "PIANALE SERMIXER CON RAMPE (PSR)",
+        "description": " Dimensione interna escluse rampe mm7200 (DA DEFINIRE) x2550\r\nCon pavimentazione esterna in lamiera striata mm8 \r\nParte centrale lamiera striata mm8 \r\nAnteriore salva gabina lamiera liscia mm3 \r\nBordo laterale lamiera di contenimento da mm15 saldata a filo pianale\r\nSbalzo posteriore inclinato in 3 punti per agevolare la salita sulle rampe \r\nAll interno dello sbalzo posteriore verrà ricavato una vasca per alloggiamento braccio \r\nEscavatore con rinforzo piastre da 10 mm \r\nRampe posteriori con doppia apertura in 2 pezzi lg.5000 x 600 secondo pezzo più corto \r\nNr 1 cassetto INOX lato  DX posteriore \r\nNr 2 fari LED posteriori \r\nCostruzione paraurto posteriore con doppia fanaleria al LED\r\nSabbiatura + granigliatura e verniciatura fondo 2 mani bicomponente eposidico, monocolore\r\n2 mani bicomponente verniciatura lucida vostri colori sociali \r\n2 blocchi di ferma cingolo amovibili anteriormente\r\nDoppia fanaleria posteriore a LED \r\nTarga ripetitrice  \r\n",
+        "price": "42000.00",
+        "category": "PIANALE_TRASPORTO_MACCHINE",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1724854493411-image.jpg",
+        "components": [
+            {
+                "name": "NR. 4 ANELLI LEGA CARICO PER LATO, A SCOMPARSA NEL PIANALE LATERALE ",
+                "price": "306.00",
+                "description": ""
+            },
+            {
+                "name": "NR. 4 ANELLI LEGA CARICO INTERNI LUNGO LE BOCCOLE, PER FERMI ESCAVATORI",
+                "price": "306.00",
+                "description": ""
+            },
+            {
+                "name": "CAVALLETTO PORTA TUBI",
+                "price": "476.00",
+                "description": ""
+            },
+            {
+                "name": "SENZA TRAVERSINI",
+                "price": 0,
+                "description": ""
+            },
+            {
+                "name": "GIRO SPONDE IN LEGA DI ALLUMINIO DIVISE IN 2 PEZZI H 400",
+                "price": "2040.00",
+                "description": ""
+            },
+            {
+                "name": "NR.2 BOCCOLE PER LATO PER STANTI",
+                "price": "425.00",
+                "description": ""
+            },
+            {
+                "name": "NR. 4 STANTI EXTE LEGGERI IN ALLUMINIO",
+                "price": "2516.00",
+                "description": ""
+            },
+            {
+                "name": "CAVALLETTO CENTRO PIANALE PER SUPPORTO TUBI CON DUE LEGA CARICO SUL PIANALE",
+                "price": "765.00",
+                "description": ""
+            },
+            {
+                "name": "TRAVERSA INSERIBILE TRA LE RAMPE ALL’INTERNO PORTA TUBI",
+                "price": "144.00",
+                "description": ""
+            },
+            {
+                "name": "NR. 1 CASSETTO INOX LATO  SX POSTERIORE",
+                "price": "493.00",
+                "description": ""
+            },
+            {
+                "name": "NR 2 FARI LED DIETRO LA CABINA",
+                "price": "850.00",
+                "description": ""
+            },
+            {
+                "name": "ALLOGGIAMENTO PER STANTI E CAVALLETTO A RIPOSO VERSO IL LATO PARETE ANTERIORE",
+                "price": "204.00",
+                "description": ""
+            },
+            {
+                "name": "NR. 4 BOCCOLE INTERNO PR BLOCCO CINGOLO",
+                "price": "816.00",
+                "description": ""
+            },
+            {
+                "name": "NR. 4 BLOCCHI REGOLABILI BLOCCA CINGOLO",
+                "price": "1700.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA BICOLORE",
+                "price": "935.00",
+                "description": ""
+            },
+            {
+                "name": "VERNICIATURA TRICOLORE",
+                "price": "1445.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-28T09:02:46.000Z",
+        "updatedAt": "2024-08-30T13:54:28.000Z"
+    },
+    {
+        "id": 66,
+        "name": "GRU CORMACH 110000X E7 F308",
+        "description": "- radiocomando;\r\n- rotazione continua;\r\n- scabiatore di calore;\r\n- limitatore di momento;\r\n- stabilizzatori gru base estemdibili idraulicamente;\r\n- controllo continuo delle accelerazioni.",
+        "price": "320675.00",
+        "category": "GRU",
+        "company": "sermixer",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1724940142859-image.jpg",
+        "components": [
+            {
+                "name": "ROTAZIONE 360 GRADI",
+                "price": "-3568.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 1",
+                "price": "3612.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 2",
+                "price": "6806.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 5",
+                "price": "27649.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 1 TRAVERSA POSTERIORE 160.78",
+                "price": "1410.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 2 TRAVERSA POSTERIORE 160.78",
+                "price": "1986.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 5 TRAVERSA POSTERIORE 160.78",
+                "price": "3991.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 1 TRAVERSA POSTERIORE 180.58",
+                "price": "1410.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 2 TRAVERSA POSTERIORE 180.58",
+                "price": "1986.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 5 TRAVERSA POSTERIORE 180.58",
+                "price": "3991.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 1 TRAVERSA POSTERIORE 210.81",
+                "price": "1410.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 2 TRAVERSA POSTERIORE 210.81",
+                "price": "1986.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO LIVELLO 5 TRAVERSA POSTERIORE 210.81",
+                "price": "3991.00",
+                "description": ""
+            },
+            {
+                "name": "STABILIZZATORE ANTERIORE SX GIREVOLE 180 GRADI",
+                "price": "2510.00",
+                "description": ""
+            },
+            {
+                "name": "STABILIZZATORE ANTERIORE DX GIREVOLE 180 GRADI",
+                "price": "2510.00",
+                "description": ""
+            },
+            {
+                "name": "TRAVERSA TIPO 160.78 CON ESTENSIONE IDRAULICA",
+                "price": "21890.00",
+                "description": ""
+            },
+            {
+                "name": "TRAVERSA TIPO 180.58 CON ESTENSIONE IDRAULICA",
+                "price": "13183.00",
+                "description": ""
+            },
+            {
+                "name": "TRAVERSA TIPO 210.81 CON ESTENSIONE IDRAULICA",
+                "price": "33721.00",
+                "description": ""
+            },
+            {
+                "name": "VERICELLO TIPO A2500L CON ROTAZIONE CONTINUA",
+                "price": "21982.00",
+                "description": ""
+            },
+            {
+                "name": "VERICELLO TIPO BW4100 CON ROTAZIONE CONTINUA",
+                "price": "32641.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO VERICELLO OBBLIGATORIO TIPO EI2500D",
+                "price": "2657.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO VERICELLO OBBLIGATORIO TIPO EI4000",
+                "price": "3287.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO VERICELLO OBBLIGATORIO TIPO EI2500D LIVELLO 5",
+                "price": "2861.00",
+                "description": ""
+            },
+            {
+                "name": "LIMITATORE DI CONTROLLO VERICELLO OBBLIGATORIO TIPO EI4000 LIVELLO 5",
+                "price": "2861.00",
+                "description": ""
+            },
+            {
+                "name": "SOSPENSIONE PER ATTACCAMENTO",
+                "price": "1558.00",
+                "description": ""
+            },
+            {
+                "name": "N. 1 FUNZIONE EXTRA IN PUNTA CON ROTAZIONE CONTINUA",
+                "price": "4875.00",
+                "description": ""
+            },
+            {
+                "name": "N. 2 FUNZIONE EXTRA IN PUNTA CON ROTAZIONE CONTINUA",
+                "price": "8926.00",
+                "description": ""
+            },
+            {
+                "name": "N.1 PIASTRA DI APPOGGIO PIEDINI",
+                "price": "487.00",
+                "description": ""
+            },
+            {
+                "name": "N.2 PIASTRA DI APPOGGIO PIEDINI",
+                "price": "974.00",
+                "description": ""
+            },
+            {
+                "name": "N.3 PIASTRA DI APPOGGIO PIEDINI",
+                "price": "1461.00",
+                "description": ""
+            },
+            {
+                "name": "N.4 PIASTRA DI APPOGGIO PIEDINI",
+                "price": "1948.00",
+                "description": ""
+            },
+            {
+                "name": "DOPPIO LIMITATORE DI CARICO",
+                "price": "2106.00",
+                "description": ""
+            }
+        ],
+        "discount": 0,
+        "createdAt": "2024-08-29T13:59:46.000Z",
+        "updatedAt": "2024-08-29T14:49:06.000Z"
+    },
+    {
+        "id": 67,
+        "name": "TELAIO MAN TGS 35.510 8X4H-6 BL CH  HYDERODRIVE ",
+        "description": "",
+        "price": "226100.00",
+        "category": "CIFA",
+        "company": "s2_truck_service",
+        "imgUrl": null,
+        "components": [],
+        "discount": 0,
+        "createdAt": "2024-08-29T15:52:31.000Z",
+        "updatedAt": "2024-08-29T15:52:31.000Z"
+    },
+    {
+        "id": 68,
+        "name": "PC 607/411 E6- MOTORE ELETTRICO 75kw ATEX",
+        "description": "                                               Caratteristiche\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t \r\n• Fonte di potenza costituita da motore ausiliario (Diesel o Elettrico).\r\n• Motore diesel ausiliario Deutz o Perkins\r\n• Valvola di distribuzione a ‘S’ in acciaio al cromo.\r\n• Scambio valvola ultraveloce e posizionamento certo, anche con\r\n  calcestruzzi difficili\r\n• Pompaggio ideale anche ad alte pressioni con il flusso continuo\r\n  e regolare\r\n• Compensazione automatica delle usure\r\n• Circuito idraulico di tipo aperto\r\n• Trasformazione del gruppo pompante da alta a bassa pressione o\r\n  viceversa (PC506-PC309 / PC607-PC411)\r\n• Basso rumore\r\n• Bassi costi di esercizio\r\n• Rapide e facili operazioni di accesso e manutenzione a tutti\r\n  i componenti\r\n• La macchina è in grado di lavorare fino a -25°\r\n• Regolatore di portata calcestruzzo\r\n• Pompaggio ideale anche ad alte pressioni con il flusso continuo e regolare \r\n\r\n                                             Dotazione di serie\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t \r\n• Vibratore elettrico sulla griglia tramoggia\r\n• Carrello monoasse rigido\r\n• Timone di traino\r\n• n° 3 stabilizzatori manuali\r\n• Tubazioni in uscita del calcestruzzo con curva e controcurva\r\n  + tronco di riduzione fino a 5”\r\n• Pompa per acqua a comando idraulico 50 l/min - 50 bar\r\n• Variatore di portata calcestruzzo a bordo macchina\r\n• Tubo lavaggio completo di lancia\r\n• n° 2 palle in gomma spugna\r\n• Comando a distanza con cavo da 20 m\r\n• Segnalatore acustico di avaria motore ausiliario Diesel\r\n• Verniciatura Cifa bicolore, arancio-grigio\r\n",
+        "price": "136270.00",
+        "category": "CIFA",
+        "company": "s2_truck_service",
+        "imgUrl": "http://sermixer.micro-cloud.it:12923/images/1725618769270-image.jpg",
+        "components": [],
+        "discount": 0,
+        "createdAt": "2024-09-06T10:32:49.000Z",
+        "updatedAt": "2024-09-06T10:32:49.000Z"
+    },
+    {
+        "id": 69,
+        "name": "TELAIO VOLVO FMX D13 8x4 SOSPENSIONI PNEUMATICHE",
+        "description": "",
+        "price": "135000.00",
+        "category": "CIFA",
+        "company": "s2_truck_service",
+        "imgUrl": null,
+        "components": [],
+        "discount": 0,
+        "createdAt": "2024-09-06T14:53:45.000Z",
+        "updatedAt": "2024-09-06T14:53:45.000Z"
+    }
+]

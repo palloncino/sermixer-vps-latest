@@ -1,0 +1,398 @@
+[
+    {
+        "id": 4,
+        "fiscalCode": "01848280267",
+        "vatNumber": "01848280267",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "SUPERBETON S.P.A.",
+        "address": {
+            "street": "VIA 4 NOVEMBRE, 18",
+            "city": "PONTE DELLA PRIULA",
+            "zipCode": "31010",
+            "country": "IT"
+        },
+        "email": "",
+        "mobileNumber": "",
+        "createdAt": "2024-07-11T06:55:13.000Z",
+        "updatedAt": "2024-07-11T06:56:33.000Z"
+    },
+    {
+        "id": 5,
+        "fiscalCode": "02233360219",
+        "vatNumber": "02233360219",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "EUROBETON 2000 S.R.L.",
+        "address": {
+            "street": "PIAZZA DEL TEATRO 23",
+            "city": "BOLZANO",
+            "zipCode": "39012",
+            "country": "IT"
+        },
+        "email": "INFO@EUROBETON2000.IT",
+        "mobileNumber": "3358286700",
+        "createdAt": "2024-07-25T12:52:35.000Z",
+        "updatedAt": "2024-07-25T12:52:35.000Z"
+    },
+    {
+        "id": 6,
+        "fiscalCode": "05942720961",
+        "vatNumber": "05942720961",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "MAN TRUCK & BUS ITALIA S.P.A.",
+        "address": {
+            "street": "VIA MONTE BALDO, 14H",
+            "city": "DOSSOBUONO DI VILLAFRANCA",
+            "zipCode": "37062 VR",
+            "country": "IT"
+        },
+        "email": "adriano.carletti@man.eu",
+        "mobileNumber": "+39 349 937 9129",
+        "createdAt": "2024-08-01T13:01:53.000Z",
+        "updatedAt": "2024-08-21T08:28:57.000Z"
+    },
+    {
+        "id": 10,
+        "fiscalCode": "00110810223",
+        "vatNumber": "00110810223",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "OFFICINE BRENNERO SPA",
+        "address": {
+            "street": "VIA DI SPINI N. 13",
+            "city": "TRENTO",
+            "zipCode": "38121",
+            "country": "IT"
+        },
+        "email": "info@officinebrennero.iveco.com",
+        "mobileNumber": "0461/968300",
+        "createdAt": "2024-08-03T07:04:26.000Z",
+        "updatedAt": "2024-08-21T08:29:14.000Z"
+    },
+    {
+        "id": 11,
+        "fiscalCode": "03357490246",
+        "vatNumber": "03357490246",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "MOCELLIN SRL",
+        "address": {
+            "street": "VIA SANTA LUCIA, 12",
+            "city": "ROSA'",
+            "zipCode": "36027",
+            "country": "IT"
+        },
+        "email": "info@mocellintrasporti.it",
+        "mobileNumber": "329 9048531",
+        "createdAt": "2024-08-03T08:03:48.000Z",
+        "updatedAt": "2024-08-21T08:29:45.000Z"
+    },
+    {
+        "id": 12,
+        "fiscalCode": "05438450875",
+        "vatNumber": "05438450875",
+        "firstName": "ROSARIO GRAZIANO",
+        "lastName": "",
+        "companyName": "GR TRUCK SRL. unipersonale ",
+        "address": {
+            "street": "VIA VALVERDE N.51",
+            "city": "SAN GIOVANNI LA PUNTA ",
+            "zipCode": "95037 CT",
+            "country": "IT"
+        },
+        "email": "rosario.graziano@grtruckman.com",
+        "mobileNumber": "3482331558",
+        "createdAt": "2024-08-05T10:43:52.000Z",
+        "updatedAt": "2024-08-05T10:43:52.000Z"
+    },
+    {
+        "id": 13,
+        "fiscalCode": "02134450283",
+        "vatNumber": "02866500248",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "INDUSTRIAL CARS SPA ",
+        "address": {
+            "street": "VIALE DELL'ECONOMIA, 4",
+            "city": "THIENE",
+            "zipCode": "36016",
+            "country": "IT"
+        },
+        "email": "industrialcars@gruppoceccato.com",
+        "mobileNumber": "0445/807500",
+        "createdAt": "2024-08-05T16:11:14.000Z",
+        "updatedAt": "2024-08-21T08:29:22.000Z"
+    },
+    {
+        "id": 14,
+        "fiscalCode": "09431580969",
+        "vatNumber": "09431580969",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "VOLVO GROUP RETAIL ITALIA SRL",
+        "address": {
+            "street": "VIA DEL LAVORO, 29",
+            "city": "CAZZAGO (VE)",
+            "zipCode": "30030",
+            "country": "IT"
+        },
+        "email": "volvotruckcenteritalia@volvo.com",
+        "mobileNumber": "0415130816",
+        "createdAt": "2024-08-08T14:25:43.000Z",
+        "updatedAt": "2024-08-08T15:22:28.000Z"
+    },
+    {
+        "id": 17,
+        "fiscalCode": "01620940229",
+        "vatNumber": "01620940229",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "IMPIANTI CASETTA S.R.L.",
+        "address": {
+            "street": "FR. CASETTA 1 ",
+            "city": "BIENO (TN)",
+            "zipCode": "38050",
+            "country": "IT"
+        },
+        "email": "info@impianticasetta.com",
+        "mobileNumber": "0461/596695",
+        "createdAt": "2024-08-21T08:28:12.000Z",
+        "updatedAt": "2024-08-21T08:28:12.000Z"
+    },
+    {
+        "id": 18,
+        "fiscalCode": "04739740282",
+        "vatNumber": "04739740282",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "GENERAL SISTEM ",
+        "address": {
+            "street": "P.MARIGO 10",
+            "city": "GRANZE",
+            "zipCode": "35040",
+            "country": "PADOVA"
+        },
+        "email": "commerciale@generalsistem.it",
+        "mobileNumber": "0000",
+        "createdAt": "2024-08-21T08:28:58.000Z",
+        "updatedAt": "2024-08-21T08:29:32.000Z"
+    },
+    {
+        "id": 19,
+        "fiscalCode": "MZZSST88S27A952W",
+        "vatNumber": "02541170219",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "NORD TORF srl.",
+        "address": {
+            "street": "Zona Produttiva Vurza 13 ",
+            "city": "LAIVES ",
+            "zipCode": "39055 (BZ) ",
+            "country": "IT"
+        },
+        "email": "info@nordtorf.it",
+        "mobileNumber": "0471954434",
+        "createdAt": "2024-08-21T13:18:39.000Z",
+        "updatedAt": "2024-08-21T13:22:08.000Z"
+    },
+    {
+        "id": 20,
+        "fiscalCode": "",
+        "vatNumber": "",
+        "firstName": ".",
+        "lastName": ".",
+        "companyName": "BETON LANA Srl",
+        "address": {
+            "street": "Via Peter Anich ",
+            "city": "Lana",
+            "zipCode": "39011",
+            "country": "Italia"
+        },
+        "email": "info@betonlana.com",
+        "mobileNumber": "0473 057 107",
+        "createdAt": "2024-08-27T07:51:12.000Z",
+        "updatedAt": "2024-08-27T07:51:48.000Z"
+    },
+    {
+        "id": 21,
+        "fiscalCode": "08584120722",
+        "vatNumber": "08584120722",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "SGARCAR SRL",
+        "address": {
+            "street": "S.P.231 (ex S.S. 98) Km 39+780",
+            "city": "TRANI (BT)",
+            "zipCode": "79125",
+            "country": "IT"
+        },
+        "email": "info@sgarcar.com",
+        "mobileNumber": "0883-501955",
+        "createdAt": "2024-08-29T15:14:14.000Z",
+        "updatedAt": "2024-08-29T15:14:14.000Z"
+    },
+    {
+        "id": 22,
+        "fiscalCode": "IT00099870214",
+        "vatNumber": "IT00099870214",
+        "firstName": "GASSER SRL",
+        "lastName": "",
+        "companyName": "GASSER SRL",
+        "address": {
+            "street": "VIA BRUNICO 15",
+            "city": "SAN LORENZO",
+            "zipCode": "39030",
+            "country": "BOLZANO"
+        },
+        "email": "Lukas.Gasser@gassersrl.it",
+        "mobileNumber": "",
+        "createdAt": "2024-09-02T14:55:32.000Z",
+        "updatedAt": "2024-09-02T14:55:32.000Z"
+    },
+    {
+        "id": 23,
+        "fiscalCode": "02281030284",
+        "vatNumber": "02281030284",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "BETON VENETA",
+        "address": {
+            "street": "Via G. Marconi 29",
+            "city": "Sant'Elena",
+            "zipCode": "35040",
+            "country": "Padova"
+        },
+        "email": "info@betonveneta.it",
+        "mobileNumber": "0429/690600",
+        "createdAt": "2024-09-04T07:48:20.000Z",
+        "updatedAt": "2024-09-04T07:48:20.000Z"
+    },
+    {
+        "id": 26,
+        "fiscalCode": "00413300286",
+        "vatNumber": "00413300286",
+        "firstName": "MENEGHINI  ATTILIO SRL",
+        "lastName": "",
+        "companyName": "MENEGHINI ATTILIO SRL",
+        "address": {
+            "street": "Via Vittorio Emanuele III, n°18",
+            "city": "GRANTORTO",
+            "zipCode": "35010",
+            "country": "Padova"
+        },
+        "email": "contatti@mefinspa.it",
+        "mobileNumber": "",
+        "createdAt": "2024-09-06T09:19:28.000Z",
+        "updatedAt": "2024-09-06T09:21:33.000Z"
+    },
+    {
+        "id": 27,
+        "fiscalCode": "IT00167700301",
+        "vatNumber": "IT00167700301",
+        "firstName": "RIZZANI DE ECCHER",
+        "lastName": "",
+        "companyName": "RIZZANI DE ECCHER SPA",
+        "address": {
+            "street": "Via Buttrio 36",
+            "city": "33050",
+            "zipCode": "CARGACCO",
+            "country": "Udine"
+        },
+        "email": "mail@rde.it",
+        "mobileNumber": "",
+        "createdAt": "2024-09-06T10:36:40.000Z",
+        "updatedAt": "2024-09-06T10:36:40.000Z"
+    },
+    {
+        "id": 28,
+        "fiscalCode": "00198080269",
+        "vatNumber": "00198080269",
+        "firstName": "General Beton Triveneta S.p.A.",
+        "lastName": "",
+        "companyName": "General Beton Triveneta S.p.A.",
+        "address": {
+            "street": "Via Raffaello Sanzio 26",
+            "city": "Cordignano",
+            "zipCode": "31016",
+            "country": "Treviso"
+        },
+        "email": "info@generalbeton.com",
+        "mobileNumber": "",
+        "createdAt": "2024-09-06T14:35:42.000Z",
+        "updatedAt": "2024-09-06T14:35:42.000Z"
+    },
+    {
+        "id": 29,
+        "fiscalCode": "00762390219",
+        "vatNumber": "00762390219",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "GERAX SRL",
+        "address": {
+            "street": "via dell'adige 13 cortacci sulla strada del vino",
+            "city": "BOLZANO",
+            "zipCode": "39040",
+            "country": "IT"
+        },
+        "email": "info@gerax.com",
+        "mobileNumber": "0471/818684",
+        "createdAt": "2024-09-06T16:16:23.000Z",
+        "updatedAt": "2024-09-06T16:16:23.000Z"
+    },
+    {
+        "id": 30,
+        "fiscalCode": "",
+        "vatNumber": "IT 01848280267",
+        "firstName": "SUPERBETON",
+        "lastName": "",
+        "companyName": "SUPERBETON SPA",
+        "address": {
+            "street": "Via Foscarini, 2",
+            "city": "Nervesa della Battaglia ",
+            "zipCode": "31040",
+            "country": "Treviso"
+        },
+        "email": "info@superbeton.it",
+        "mobileNumber": "0422 5261",
+        "createdAt": "2024-09-09T14:48:30.000Z",
+        "updatedAt": "2024-09-09T14:48:30.000Z"
+    },
+    {
+        "id": 31,
+        "fiscalCode": "00644640229",
+        "vatNumber": "00644640229",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "S.T.E. COSTRUZIONI GENERALI SRL",
+        "address": {
+            "street": "STRADA DEL PREALON, 42/B",
+            "city": "MOENA",
+            "zipCode": "38035",
+            "country": "IT"
+        },
+        "email": "info@stecostruzioni.it",
+        "mobileNumber": "",
+        "createdAt": "2024-09-11T15:18:03.000Z",
+        "updatedAt": "2024-09-11T15:18:03.000Z"
+    },
+    {
+        "id": 32,
+        "fiscalCode": "01207000223",
+        "vatNumber": "01207000223",
+        "firstName": "",
+        "lastName": "",
+        "companyName": "BANCOLINE srl.",
+        "address": {
+            "street": "VIA ALPINI nr.145",
+            "city": "VARENA",
+            "zipCode": "38030 TN.",
+            "country": "IT"
+        },
+        "email": "ufficio@bancoline.it",
+        "mobileNumber": "0462/23095",
+        "createdAt": "2024-09-12T09:07:28.000Z",
+        "updatedAt": "2024-09-12T09:07:28.000Z"
+    }
+]
