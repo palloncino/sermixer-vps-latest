@@ -573,7 +573,8 @@ const PreventiveForm: FC<{ activeRevisionLabel: string | null, revisionData: Doc
         updateNestedDocumentField,
         getDocument,
         error,
-        loading
+        loading,
+        trackProductChange
     } = useDocumentContext();
     const { user, getProducts, products: allProducts } = useAppState();
 
@@ -639,8 +640,18 @@ const PreventiveForm: FC<{ activeRevisionLabel: string | null, revisionData: Doc
 
         setProducts(updatedProducts);
 
+        // Track the change
+        const productName = products[index]?.name || `Product ${index + 1}`;
+        if (field === 'discount') {
+            trackProductChange(index, productName, 'discount');
+        } else if (field === 'description') {
+            trackProductChange(index, productName, 'description');
+        } else if (field === 'price') {
+            trackProductChange(index, productName, 'price');
+        }
+
         updateNestedDocumentField(['data', 'addedProducts'], updatedProducts);
-    }, [products, updateNestedDocumentField]);
+    }, [products, updateNestedDocumentField, trackProductChange]);
 
     const handleComponentsChange = useCallback((productIndex: number, updatedComponents: ComponentType[]) => {
 
@@ -651,8 +662,12 @@ const PreventiveForm: FC<{ activeRevisionLabel: string | null, revisionData: Doc
 
         setProducts(updatedProducts);
 
+        // Track component change
+        const productName = products[productIndex]?.name || `Product ${productIndex + 1}`;
+        trackProductChange(productIndex, productName, 'components');
+
         updateNestedDocumentField(['data', 'addedProducts'], updatedProducts);
-    }, [products, updateNestedDocumentField]);
+    }, [products, updateNestedDocumentField, trackProductChange]);
 
     const calculateDiscountedPrice = useCallback((price: number, discount: number) => {
         return price * (1 - discount / 100);

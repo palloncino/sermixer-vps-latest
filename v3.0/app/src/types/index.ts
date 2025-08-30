@@ -328,6 +328,15 @@ export type DocumentContextType = {
   updateQuoteDetails: (object: string, description: string) => void;
   error: any;
   loading: boolean;
+  // Simple change tracking
+  trackProductChange: (productIndex: number, productName: string, changeType: 'price' | 'discount' | 'description' | 'components') => void;
+  simpleChanges: Array<{
+    productIndex: number;
+    productName: string;
+    changes: string[];
+    timestamp: string;
+  }>;
+  hasSimpleChanges: boolean;
 };
 
 type FilterOption = {

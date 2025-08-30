@@ -6,6 +6,7 @@ import { ChangeLogItem, DocumentContextType, Revision, RevisionLabel } from '../
 import { Actor, DocumentDataType } from "../types/index";
 import { generateChangeLogs } from '../utils/changeLogGenerator';
 import { request } from "../utils/request";
+import { useSimpleChangeTracking } from './useSimpleChangeTracking';
 
 export const useDocument = (): DocumentContextType => {
   const { showMessage } = useFlashMessage();
@@ -15,6 +16,9 @@ export const useDocument = (): DocumentContextType => {
   const [allDocumentsData, setAllDocumentsData] = useState<DocumentDataType[] | null>(null);
   const [changeLogs, setChangeLogs] = useState<ChangeLogItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  
+  // Simple change tracking
+  const simpleTracking = useSimpleChangeTracking();
   const [error, setError] = useState<any>(undefined);
 
   const getAllDocuments = useCallback(async (): Promise<void> => {
@@ -39,17 +43,15 @@ export const useDocument = (): DocumentContextType => {
       const data = await request({
         url: `${process.env.REACT_APP_API_URL}/docs/get-document/${hash}`,
       });
-      console.log('🔍 DEBUG: getDocument setting original data', {
-        hash,
-        dataKeys: data ? Object.keys(data) : 'no data',
-        hasData: !!data.data,
-        timestamp: new Date().toISOString()
-      });
+      // Only set original data if it hasn't been set yet (preserve baseline for change tracking)
+      if (!originalDocumentData) {
+        setOriginalDocumentData(_.cloneDeep(data));
+        setChangeLogs([]);
+        simpleTracking.initializeTracking(data.hash);
+      }
       
-      setOriginalDocumentData(_.cloneDeep(data));
       setUpdatedDocumentData(_.cloneDeep(data));
       setError(null);
-      setChangeLogs([]);
       
       return data;
     } catch (err) {
@@ -247,6 +249,15 @@ export const useDocument = (): DocumentContextType => {
   };
 
 
+  // Simple function to track product changes
+  const trackProductChange = useCallback((
+    productIndex: number, 
+    productName: string, 
+    changeType: 'price' | 'discount' | 'description' | 'components'
+  ) => {
+    simpleTracking.trackChange(productIndex, productName, changeType);
+  }, [simpleTracking]);
+
   // Memoize the return value to prevent unnecessary re-renders
   return useMemo(() => ({
     updateDocumentDataFromRevision,
@@ -269,7 +280,11 @@ export const useDocument = (): DocumentContextType => {
     generatePDF,
     updateQuoteDetails,
     error,
-    loading
+    loading,
+    // Simple change tracking
+    trackProductChange,
+    simpleChanges: simpleTracking.getChangesSummary(),
+    hasSimpleChanges: simpleTracking.hasChanges
   }), [
     updateDocumentDataFromRevision,
     originalDocumentData,
@@ -291,6 +306,8 @@ export const useDocument = (): DocumentContextType => {
     generatePDF,
     updateQuoteDetails,
     error,
-    loading
+    loading,
+    trackProductChange,
+    simpleTracking
   ]);
 };

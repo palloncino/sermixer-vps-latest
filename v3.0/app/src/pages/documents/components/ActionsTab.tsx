@@ -33,7 +33,7 @@ import { ChangeLogItem } from '../../../types';
 const ActionsTab: React.FC = () => {
     const { t } = useTranslation();
     const { user } = useAppState();
-    const { confirmDocument, generatePDF, saveDocument, rejectDocument, changeLogs, updatedDocumentData } = useDocumentContext();
+    const { confirmDocument, generatePDF, saveDocument, rejectDocument, changeLogs, updatedDocumentData, hasSimpleChanges } = useDocumentContext();
     const actor = determineActor(user, (updatedDocumentData as DocumentDataType)?.data?.selectedClient);
 
 
@@ -44,7 +44,7 @@ const ActionsTab: React.FC = () => {
     const [isRevision, setIsRevision] = useState(false);
     const [revisionLabel, setRevisionLabel] = useState('');
 
-    const hasChanges = changeLogs.length > 0;
+    const hasChanges = hasSimpleChanges;
 
     const handleOpenDialog = (action: () => void) => {
         setDialogAction(() => action);
@@ -241,16 +241,7 @@ const ActionsTab: React.FC = () => {
                                     </ActionButton>
                                 </Tooltip>
 
-                                <Tooltip title={t('RejectDocumentDescription')}>
-                                    <ActionButton
-                                        variant="outlined"
-                                        color="error"
-                                        startIcon={<CloseIcon />}
-                                        onClick={() => handleOpenDialog(rejectDocument)}
-                                    >
-                                        {t('RejectDocument')}
-                                    </ActionButton>
-                                </Tooltip>
+
                             </>
                         )}
                     </ButtonsGrid>
@@ -269,6 +260,21 @@ const ActionsTab: React.FC = () => {
                 )}
             </Box>
 
+            {/* Standalone Reject Button - Only for employees */}
+            {actor?.type === 'employee' && (
+                <Box mt={4} display="flex" justifyContent="center">
+                    <Tooltip title={t('RejectDocumentDescription')}>
+                        <RejectButton
+                            variant="outlined"
+                            startIcon={<CloseIcon />}
+                            onClick={() => handleOpenDialog(rejectDocument)}
+                            fullWidth
+                        >
+                            {t('RejectDocument')}
+                        </RejectButton>
+                    </Tooltip>
+                </Box>
+            )}
 
             <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth maxWidth="sm">
                 <DialogTitle>{t('ConfirmAction')}</DialogTitle>
@@ -288,70 +294,80 @@ const ActionsTab: React.FC = () => {
                             </Typography>
                             <Box sx={{ maxHeight: 200, overflow: 'auto' }}>
                                 {(() => {
-                                    // Group changes by product
-                                    const groupedChanges = changeLogs.slice(0, 5).reduce((groups: { [productName: string]: string[] }, change) => {
-                                        const formattedChange = formatChangeDetails(change);
-                                        if (!formattedChange) return groups; // Skip empty changes
-
+                                    // Simple product summary
+                                    const productChanges: { [productIndex: string]: string[] } = {};
+                                    
+                                    changeLogs.slice(0, 5).forEach(change => {
                                         const { property } = change;
-                                        let productName = 'General Changes';
-
-                                        // Extract product name from property path
+                                        
                                         if (property.includes('data.addedProducts')) {
                                             const productMatch = property.match(/data\.addedProducts\[(\d+)\]/);
-                                            const productIndex = productMatch ? parseInt(productMatch[1]) : null;
+                                            const productIndex = productMatch ? productMatch[1] : 'general';
                                             
-                                            if (productIndex !== null && updatedDocumentData?.data?.addedProducts?.[productIndex]) {
-                                                const baseName = updatedDocumentData.data.addedProducts[productIndex].name || `Product ${productIndex + 1}`;
-                                                // Create unique identifier using index + name to handle duplicate product names
-                                                productName = `${baseName} (#${productIndex + 1})`;
+                                            if (!productChanges[productIndex]) {
+                                                productChanges[productIndex] = [];
+                                            }
+                                            
+                                            // Simple change description
+                                            let changeDesc = '';
+                                            if (property.includes('price')) {
+                                                changeDesc = 'price modified';
+                                            } else if (property.includes('discount')) {
+                                                changeDesc = 'discount modified';
+                                            } else if (property.includes('description')) {
+                                                changeDesc = 'description modified';
+                                            } else if (property.includes('components')) {
+                                                changeDesc = 'components modified';
+                                            } else {
+                                                changeDesc = 'modified';
+                                            }
+                                            
+                                            // Avoid duplicates
+                                            if (!productChanges[productIndex].includes(changeDesc)) {
+                                                productChanges[productIndex].push(changeDesc);
                                             }
                                         }
+                                    });
 
-                                        if (!groups[productName]) {
-                                            groups[productName] = [];
-                                        }
-                                        groups[productName].push(formattedChange);
-                                        return groups;
-                                    }, {});
+                                    const hasMultipleProducts = Object.keys(productChanges).length > 1;
 
-                                    return Object.entries(groupedChanges).map(([productName, changes], groupIndex) => (
-                                        <Box key={groupIndex} sx={{ mb: 1 }}>
-                                            {/* Product header - only show if there are multiple products */}
-                                            {Object.keys(groupedChanges).length > 1 && (
+                                    return Object.entries(productChanges).map(([productIndex, changes], groupIndex) => {
+                                        const productIndexNum = parseInt(productIndex);
+                                        const product = updatedDocumentData?.data?.addedProducts?.[productIndexNum];
+                                        const productName = product ? `${product.name} (#${productIndexNum + 1})` : `Product ${productIndexNum + 1}`;
+                                        
+                                        return (
+                                            <Box key={groupIndex} sx={{ mb: 1 }}>
+                                                {hasMultipleProducts && (
+                                                    <Typography 
+                                                        variant="caption" 
+                                                        sx={{ 
+                                                            fontWeight: 600,
+                                                            color: 'primary.main',
+                                                            fontSize: '0.75rem',
+                                                            display: 'block',
+                                                            mb: 0.25
+                                                        }}
+                                                    >
+                                                        {productName}
+                                                    </Typography>
+                                                )}
+                                                
                                                 <Typography 
                                                     variant="caption" 
                                                     sx={{ 
-                                                        display: 'block', 
-                                                        fontWeight: 600,
-                                                        color: 'primary.main',
+                                                        display: 'block',
                                                         fontSize: '0.75rem',
-                                                        mb: 0.5
-                                                    }}
-                                                >
-                                                    {productName}:
-                                                </Typography>
-                                            )}
-                                            
-                                            {/* Changes for this product */}
-                                            {changes.map((formattedChange, index) => (
-                                                <Typography 
-                                                    key={index}
-                                                    variant="caption" 
-                                                    sx={{ 
-                                                        display: 'block', 
-                                                        mb: 0.5,
-                                                        ml: Object.keys(groupedChanges).length > 1 ? 2 : 0,
+                                                        lineHeight: 1.4,
                                                         color: 'text.secondary',
-                                                        fontSize: '0.75rem',
-                                                        lineHeight: 1.4
+                                                        pl: hasMultipleProducts ? 1.5 : 0
                                                     }}
                                                 >
-                                                    • {formattedChange}
+                                                    • {hasMultipleProducts ? '' : `${productName} - `}{changes.join(', ')}
                                                 </Typography>
-                                            ))}
-                                        </Box>
-                                    ));
+                                            </Box>
+                                        );
+                                    });
                                 })()}
                                 {changeLogs.length > 5 && (
                                     <Typography variant="caption" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
@@ -414,4 +430,35 @@ const ActionButton = styled(Button)`
 
 const ChangesContainer = styled.div`
     margin-top: 24px;
+`;
+
+const RejectButton = styled(Button)`
+    padding: 12px 24px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 8px;
+    max-width: 300px;
+    opacity: 0.6; // Opaque by default
+    border: 2px solid transparent;
+    color: #666;
+    background-color: #f5f5f5;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        opacity: 1;
+        border-color: #d32f2f; // Red outline on hover
+        color: #d32f2f;
+        background-color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(211, 47, 47, 0.2);
+    }
+    
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(211, 47, 47, 0.3);
+    }
+    
+    .MuiButton-startIcon {
+        transition: color 0.3s ease;
+    }
 `;

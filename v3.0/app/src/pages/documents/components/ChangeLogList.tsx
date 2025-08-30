@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemText } from '@mui/material';
+import { List, ListItem, ListItemText, Box, Typography } from '@mui/material';
 import React from 'react';
 import { ChangeLogItem } from '../../../types';
 import { useDocumentContext } from 'state/documentContext';
@@ -8,7 +8,11 @@ interface ChangeLogListProps {
 }
 
 const ChangeLogList: React.FC<ChangeLogListProps> = ({ changeLogs }) => {
-  const { updatedDocumentData } = useDocumentContext();
+  const { updatedDocumentData, simpleChanges, hasSimpleChanges } = useDocumentContext();
+
+
+
+
 
 
 
@@ -22,121 +26,61 @@ const ChangeLogList: React.FC<ChangeLogListProps> = ({ changeLogs }) => {
     return { fromValue, toValue };
   };
 
-  const formatChangeDetails = (change: ChangeLogItem) => {
-    const { property, details, timestamp } = change;
-    
-    const { fromValue, toValue } = parseDetailsString(details);
+  // Use simple changes if available, fallback to old method
+  if (!hasSimpleChanges || simpleChanges.length === 0) {
+    return (
+      <Box>
+        <Typography variant="body2" color="text.secondary">
+          No changes detected
+        </Typography>
+      </Box>
+    );
+  }
 
-    // Skip logging if both fromValue and toValue are null, or they are the same
-    if ((fromValue === null && toValue === null) || fromValue === toValue) return null;
-
-    let formattedChange = '';
-
-    // Handle changes related to added products
-    if (property.includes('data.addedProducts')) {
-      const productMatch = property.match(/data\.addedProducts\[(\d+)\]/);
-      const componentMatch = property.match(/components\[(\d+)\]/);
-      const productIndex = productMatch ? parseInt(productMatch[1]) : null;
-      const componentIndex = componentMatch ? parseInt(componentMatch[1]) : null;
-
-      if (productIndex !== null && updatedDocumentData?.data?.addedProducts?.[productIndex]) {
-        const productName = updatedDocumentData.data.addedProducts[productIndex].name || `Product ${productIndex + 1}`;
-
-        // If a component is changed
-        if (componentIndex !== null && updatedDocumentData.data.addedProducts[productIndex].components?.[componentIndex]) {
-          const componentName = updatedDocumentData.data.addedProducts[productIndex].components[componentIndex].name || `Component ${componentIndex + 1}`;
-
-          if (property.includes('included')) {
-            formattedChange = `${productName} > ${componentName} is now ${toValue ? 'Included' : 'Excluded'}`;
-          } else if (property.includes('quantity')) {
-            formattedChange = `${productName} > ${componentName} quantity changed from ${fromValue} to ${toValue}`;
-          } else if (property.includes('discount')) {
-            formattedChange = `${productName} > ${componentName} discount changed from ${fromValue}% to ${toValue}%`;
-          } else {
-            formattedChange = `${productName} > ${componentName} changed from ${fromValue} to ${toValue}`;
-          }
-        } else {
-          // If a product is changed
-          if (property.includes('price')) {
-            formattedChange = `${productName} price changed from ${fromValue} to ${toValue}`;
-          } else if (property.includes('discount')) {
-            formattedChange = `${productName} discount changed from ${fromValue}% to ${toValue}%`;
-          } else if (property.includes('description')) {
-            formattedChange = `${productName} description changed.`;
-          }
-        }
-      }
-    }
-    // Handle changes in quote head details
-    else if (property.includes('quoteHeadDetails')) {
-      if (property.includes('object')) {
-        formattedChange = `Quote object changed.`;
-      } else if (property.includes('description')) {
-        formattedChange = `Quote description changed.`;
-      }
-    }
-    // General case for other properties
-    else {
-      formattedChange = `Changed from ${fromValue} to ${toValue}`;
-    }
-
-    return {
-      primary: formattedChange,
-      secondary: timestamp,
-    };
-  };
-
-  // Group changes by product
-  const groupedChanges = changeLogs.reduce((groups: { [productName: string]: any[] }, change) => {
-    const formattedChange = formatChangeDetails(change);
-    if (!formattedChange) return groups; // Skip if no valid change
-
-    const { property } = change;
-    let productName = 'General Changes';
-
-    // Extract product name from property path
-    if (property.includes('data.addedProducts')) {
-      const productMatch = property.match(/data\.addedProducts\[(\d+)\]/);
-      const productIndex = productMatch ? parseInt(productMatch[1]) : null;
-      
-      if (productIndex !== null && updatedDocumentData?.data?.addedProducts?.[productIndex]) {
-        const baseName = updatedDocumentData.data.addedProducts[productIndex].name || `Product ${productIndex + 1}`;
-        // Create unique identifier using index + name to handle duplicate product names
-        productName = `${baseName} (#${productIndex + 1})`;
-      }
-    }
-
-    if (!groups[productName]) {
-      groups[productName] = [];
-    }
-    groups[productName].push({ ...formattedChange, change });
-    return groups;
-  }, {});
+  const hasMultipleProducts = simpleChanges.length > 1;
 
   return (
-    <List dense>
-      {Object.entries(groupedChanges).map(([productName, changes]) => (
-        <div key={productName}>
-          {/* Product header - only show if there are multiple products */}
-          {Object.keys(groupedChanges).length > 1 && (
-            <ListItem sx={{ fontWeight: 'bold', bgcolor: 'grey.100', mt: 1 }}>
-              <ListItemText primary={productName} />
-            </ListItem>
-          )}
-          
-          {/* Changes for this product */}
-          {changes.map((item, index) => (
-            <ListItem key={`${productName}-${index}`} sx={{ pl: Object.keys(groupedChanges).length > 1 ? 4 : 2 }}>
-              <ListItemText
-                primary={item.primary}
-                secondary={item.secondary}
-              />
-            </ListItem>
-          ))}
-        </div>
-      ))}
-    </List>
+    <Box>
+      {simpleChanges.map((change, index) => {
+        const productName = `${change.productName} (#${change.productIndex + 1})`;
+        
+        return (
+          <Box key={index} sx={{ mb: 2 }}>
+            {/* Product header - only show if multiple products */}
+            {hasMultipleProducts && (
+              <Typography variant="subtitle2" sx={{ 
+                fontWeight: 600,
+                color: 'text.primary',
+                mb: 1,
+                fontSize: '0.875rem'
+              }}>
+                {productName}
+              </Typography>
+            )}
+            
+            {/* Simple changes summary */}
+            <Box sx={{ pl: hasMultipleProducts ? 2 : 0 }}>
+              <Typography variant="body2" sx={{ 
+                fontSize: '0.875rem',
+                color: 'text.primary',
+                mb: 0.25
+              }}>
+                • {hasMultipleProducts ? '' : `${productName} - `}{change.changes.join(', ')} modified
+              </Typography>
+              <Typography variant="caption" sx={{ 
+                fontSize: '0.75rem',
+                color: 'text.secondary',
+                pl: 1.5
+              }}>
+                {change.timestamp}
+              </Typography>
+            </Box>
+          </Box>
+        );
+      })}
+    </Box>
   );
 };
 
 export default ChangeLogList;
+
