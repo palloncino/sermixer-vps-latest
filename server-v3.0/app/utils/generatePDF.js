@@ -1,51 +1,82 @@
 import fs from "fs";
-import imageToBase64 from "image-to-base64";
 import { marked } from "marked";
 import path, { dirname } from "path";
 import puppeteer from "puppeteer";
 import { fileURLToPath } from "url";
+import sanitizeHtml from "sanitize-html";
+import mime from "mime-types";
 import { condizioni_di_contratto_s2 } from "./condizioni-di-contratto-s2-truck.js";
 import { condizioni_di_contratto_sermixer } from "./condizioni-di-contratto-sermixer.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+// Singleton browser (reuse between requests)
+let browserPromise = null;
+async function getBrowser() {
+  if (!browserPromise) {
+    browserPromise = puppeteer.launch({
+      executablePath: process.env.BROWSER_EXECUTABLE,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      timeout: 30000,
+    });
+  }
+  return browserPromise;
+}
+
+// Safe base64 from disk
+async function toBase64(filePath) {
+  try {
+    const buf = await fs.promises.readFile(filePath);
+    return buf.toString("base64");
+  } catch {
+    return null;
+  }
+}
+
+function dataUrl(base64, filePath, fallbackMime = "image/png") {
+  if (!base64) return null;
+  const mt = mime.lookup(filePath) || fallbackMime;
+  return `data:${mt};base64,${base64}`;
+}
+
+// Currency formatting with Intl
+const EUR = new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR" });
+const formatPrice = (value) => EUR.format(Number(value ?? 0));
+
+// Safe markdown to HTML conversion
+function mdToSafeHtml(md) {
+  const html = marked.parse(md || "");
+  return sanitizeHtml(html, {
+    allowedTags: sanitizeHtml.defaults.allowedTags,
+    allowedAttributes: { a: ["href", "name", "target"], img: ["src", "alt"] },
+  });
+}
+
 export async function generatePDF(quote, isConfirmation) {
   console.log('PDF Generation started with:', {
-    quoteId: quote.id,
+    quoteNumber: quote.quoteNumber,
     isConfirmation,
-    status: quote.status,
     company: quote.company
   });
 
-  const browser = await puppeteer.launch({
-    executablePath: process.env.BROWSER_EXECUTABLE,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    timeout: 30000,
-  });
+  const browser = await getBrowser();
+  const page = await browser.newPage();
 
-  // Function to convert image file path to base64
-  const convertImagePathToBase64 = async (imagePath) => {
-    try {
-      const base64Image = await imageToBase64(imagePath);
-      return base64Image;
-    } catch (error) {
-      console.error(`Error converting image path to base64: ${error}`);
-      return null;
-    }
-  };
+  try {
+    // Select header and footer images based on company name
+    const isSermixer = String(quote.company).toLowerCase() === 'sermixer';
+    const headerFile = path.resolve(process.env.IMAGES_FOLDER_PATH, isSermixer ? 'sermixer-head.png' : 's2-head.png');
+    const footerFile = path.resolve(process.env.IMAGES_FOLDER_PATH, isSermixer ? 'sermixer-footer.png' : 's2-footer.png');
 
-  // Select header and footer images based on company name
-  const isSermixer = String(quote.company).toLowerCase() === 'sermixer';
-  const headerImage = isSermixer ? 'sermixer-head.png' : 's2-head.png';
-  const footerImage = isSermixer ? 'sermixer-footer.png' : 's2-footer.png';
+    const headerB64 = await toBase64(headerFile);
+    const footerB64 = await toBase64(footerFile);
 
-  // Convert header and footer images to base64
-  const base64HeaderImage = await convertImagePathToBase64(
-    path.resolve(process.env.IMAGES_FOLDER_PATH, headerImage)
-  );
-  const base64FooterImage = await convertImagePathToBase64(
-    path.resolve(process.env.IMAGES_FOLDER_PATH, footerImage)
-  );
+    const headerUrl = dataUrl(headerB64, headerFile);
+    const footerUrl = dataUrl(footerB64, footerFile);
+
+    // Read CSS from file
+    const cssPath = path.resolve(__dirname, "styles.css");
+    const cssContent = await fs.promises.readFile(cssPath, "utf8");
 
   // Convert business signature to base64
   let base64BusinessSignature = null;
@@ -103,11 +134,8 @@ export async function generatePDF(quote, isConfirmation) {
     }
   `;
 
-  // Function to format price
-  const formatPrice = (price) => {
-    if (price == null) return '0,00';
-    return Number(price).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  };
+  // Use the improved EUR formatter from the top of the file
+  // (formatPrice is already defined globally)
 
   // Parse and convert Markdown content
   const productsHtml = await Promise.all(quote.data.addedProducts.map(async (product, index) => {
@@ -233,8 +261,8 @@ export async function generatePDF(quote, isConfirmation) {
         <div class="header">
           <div class="header-container-right" style="${isSermixer ? '' : 'flex: 1;'}">
             <div class="header-container-right-upper-row">
-              <div class="header-container-right-date">Data ${new Date(quote.createdAt).toLocaleDateString('en-GB')}</div>
-              <div class="header-container-right-offer-number">Offerta n. ${quote.id}</div>
+              <div class="header-container-right-date">Data ${new Date(quote.issuedDate).toLocaleDateString('it-IT')}</div>
+              <div class="header-container-right-offer-number">Offerta n. ${quote.quoteNumber}</div>
             </div>
             <div class="header-container-right-lower-row">
               ${isConfirmation ? 'CONFERMA ORDINE' : 'PREVENTIVO'}
@@ -292,7 +320,7 @@ export async function generatePDF(quote, isConfirmation) {
         
         <div class="signature-section">
           <div class="signature-date">
-            <strong>Data</strong> ${new Date(quote.dateOfSignature).toLocaleDateString('en-GB')}
+            <strong>Data</strong> ${new Date(quote.dateOfSignature).toLocaleDateString('it-IT')}
           </div>
           <div class="signatures">
             <div class="signature">
@@ -329,36 +357,33 @@ export async function generatePDF(quote, isConfirmation) {
       left: "40px",
     },
     displayHeaderFooter: true,
-    headerTemplate: `
-      <div style="width: 100%; text-align: ${isSermixer ? "center" : "start"}; margin-left: ${isSermixer ? "0" : "20px"};">
-        <img src="data:image/png;base64,${base64HeaderImage}" style="${isSermixer ? 'width: 100%; max-height: 140px; object-fit: contain;' : 'width: auto; max-height: 100px; object-fit: contain;'}" />
-      </div>
-    `,
-    footerTemplate: `
-      <div style="width: 100%; padding-left: 40px; padding-right: 40px; text-align: center; font-size: 10px; position: relative;">
-        ${isSermixer ? `
-          <img src="data:image/png;base64,${base64FooterImage}" style="width: 100%; object-fit: contain;" />
-        ` : `
-          <div style="width: auto; margin: 40px auto; text-align: center;">
-            <div style="font-size: 9px; line-height: 1.4;">
-              S2 TRUCK SERVICE SRL a Socio Unico - Via Edison, 4 - 31020 VILLORBA (TV)
-            </div>
-            <div style="font-size: 9px; line-height: 1.4;">
-              C.F. e P.I. 02263610228 - Sede legale: Via degli Artigiani, 15 - 38057 PERGINE VALSUGANA (TN)
-            </div>
-            <div style="font-size: 9px; line-height: 1.4;">
-              Tel. 0422-919871 - Fax 0422-919890 - e-mail: info@s2truckservice.it - WWW.S2TRUCKSERVICE.IT
-            </div>
-          </div>
-        `}
-        <div class="page-number" style="margin-top: 10px;">Page <span class="pageNumber"></span> of <span class="totalPages"></span></div>
-      </div>
-    `,
+    headerTemplate: headerUrl
+      ? `<div style="width: 100%; text-align: ${isSermixer ? "center" : "start"}; padding: 0 20px;">
+           <img src="${headerUrl}" style="${isSermixer ? 'width: 100%; max-height: 140px; object-fit: contain;' : 'width: auto; max-height: 100px; object-fit: contain;'}" />
+         </div>`
+      : `<div></div>`,
+    footerTemplate: isSermixer
+      ? (footerUrl 
+         ? `<div style="width: 100%; text-align: center;"><img src="${footerUrl}" style="width: 100%; object-fit: contain;" /></div>` 
+         : `<div></div>`)
+      : `<div style="width: 100%; padding: 0 40px; text-align: center; font-size: 10px; position: relative;">
+           <div style="width: auto; margin: 40px auto; text-align: center;">
+             <div style="font-size: 9px; line-height: 1.4;">S2 TRUCK SERVICE SRL a Socio Unico - Via Edison, 4 - 31020 VILLORBA (TV)</div>
+             <div style="font-size: 9px; line-height: 1.4;">C.F. e P.I. 02263610228 - Sede legale: Via degli Artigiani, 15 - 38057 PERGINE VALSUGANA (TN)</div>
+             <div style="font-size: 9px; line-height: 1.4;">Tel. 0422-919871 - Fax 0422-919890 - e-mail: info@s2truckservice.it - WWW.S2TRUCKSERVICE.IT</div>
+           </div>
+           <div class="page-number" style="margin-top: 10px;">Pagina <span class="pageNumber"></span> di <span class="totalPages"></span></div>
+         </div>`,
 
 
 
   });
 
-  await browser.close();
-  return pdfBuffer;
+    return pdfBuffer;
+  } finally {
+    // Ensure the page is closed even if pdf() throws
+    try { 
+      await page.close(); 
+    } catch {}
+  }
 }

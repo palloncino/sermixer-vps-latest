@@ -9,6 +9,7 @@ import { computeFinalPrices } from "../utils/computeFinalPrices.js"; // Import t
 import { generatePDF } from "../utils/generatePDF.js";
 import { formatDateForFilename } from "../utils/formatDateForFilename.js";
 import { safelyParseJSON } from "../utils/safelyParseJSON.js";
+import slugify from "slugify";
 
 const envPath =
   process.env.NODE_ENV === "production" ? ".env.remote" : ".env.local";
@@ -18,20 +19,17 @@ const router = express.Router();
 
 router.post("/create-quote/:hash", authMiddleware, async (req, res) => {
   const { hash } = req.params;
-  const documentData = req.body;
-  const isConfirmation = documentData.type !== 'default';
-  if (documentData.dateOfSignature === null) {
-    const currentDate = new Date();
-    const formattedDate = currentDate.toISOString().split('.')[0] + "Z";
-    documentData.dateOfSignature = formattedDate;
+  // Never trust client employeeID/createdAt - use server-side authentication
+  const userId = req.user?.id; 
+  if (!userId) {
+    return res.status(401).json({ message: "Unauthorized" });
   }
 
-  try {
-    const userId = req.body.employeeID; // Retrieve userId from req.body.employeeID
+  // Shallow clone to avoid mutating req.body in place
+  const incoming = { ...req.body };
+  const isConfirmation = incoming.type && incoming.type !== "default";
 
-    if (!userId) {
-      return res.status(400).json({ message: "employeeID is required" });
-    }
+  try {
 
     // Find the document by hash
     const document = await Document.findOne({ where: { hash } });
@@ -39,6 +37,16 @@ router.post("/create-quote/:hash", authMiddleware, async (req, res) => {
     if (!document) {
       return res.status(404).json({ message: "Document not found" });
     }
+
+    // Server-authoritative dates & ids
+    const issuedDate = document.createdAt;
+    const expiryDate = document.expiresAt;
+    const quoteNumber = String(document.id);
+
+    // Ensure dateOfSignature is set (server side)
+    const dateOfSignature =
+      incoming.dateOfSignature ??
+      new Date().toISOString().split(".")[0] + "Z";
 
     const {
       TOTAL_BASE_PRICE,
@@ -50,17 +58,22 @@ router.post("/create-quote/:hash", authMiddleware, async (req, res) => {
       TOTAL_WITH_DISCOUNT,
       ALL_PRICE_RECORDS,
       TOTAL_ALL_WITH_TAXES,
-    } = computeFinalPrices(documentData.data.addedProducts, documentData.discount);
+    } = computeFinalPrices(incoming.data.addedProducts, incoming.discount);
 
-    // Generate PDF
+    // Prefer rate from payload/company default if applicable
+    const resolvedTaxRate = incoming.data?.taxRate ?? 0.22;
+
+    // Generate PDF with server-trusted values
     const pdfBuffer = await generatePDF({
-      ...documentData,
-      quoteNumber: `${document.id}`,
-      company: documentData.company,
-      object: documentData.data.quoteHeadDetails.object,
-      description: documentData.data.quoteHeadDetails.description,
-      issuedDate: document.createdAt,
-      expiryDate: document.expiresAt,
+      ...incoming,
+      // overwrite with server-trusted fields
+      quoteNumber,
+      issuedDate,
+      expiryDate,
+      dateOfSignature,
+      company: incoming.company,
+      object: incoming.data?.quoteHeadDetails?.object,
+      description: incoming.data?.quoteHeadDetails?.description,
       TOTAL_BASE_PRICE,
       TOTAL_ACCESSORIES,
       TOTAL_ALL,
@@ -69,63 +82,56 @@ router.post("/create-quote/:hash", authMiddleware, async (req, res) => {
       TOTAL_ALL_DISCOUNTED,
       TOTAL_WITH_DISCOUNT,
       ALL_PRICE_RECORDS,
-      taxRate: 0.22,
+      taxRate: resolvedTaxRate,
       TOTAL_ALL_WITH_TAXES,
     }, isConfirmation);
 
-    const filename = `${formatDateForFilename(new Date())}-${document.id}-${document.company.slice(0, 2)}-${isConfirmation ? 'Confirmation' : 'Preventivo'}.pdf`;
+    const safeCompany = slugify(document.company ?? "company", { lower: true, strict: true });
+    const filename = `${formatDateForFilename(new Date())}-${quoteNumber}-${safeCompany}-${isConfirmation ? "conferma" : "preventivo"}.pdf`;
 
-    const filePath = path.join(process.env.PDF_STORAGE_FOLDER_DIR, filename);
+    const storageDir = process.env.PDF_STORAGE_FOLDER_DIR;
+    if (!storageDir) {
+      Logger.error("PDF_STORAGE_FOLDER_DIR not configured");
+      return res.status(500).json({ message: "Storage path not configured" });
+    }
 
-    fs.writeFile(filePath, pdfBuffer, async (err) => {
-      if (err) {
-        Logger.error(`Failed to write PDF to ${filePath}: ${err.message}`);
-        console.error(`Failed to write PDF to ${filePath}: ${err.message}`);
-        return res.status(500).json({
-          message: "Failed to save PDF",
-          error: err.message,
-        });
-      }
+    const filePath = path.join(storageDir, filename);
+    await fs.promises.mkdir(storageDir, { recursive: true });
+    await fs.promises.writeFile(filePath, pdfBuffer);
 
-      // Update the document with the PDF URL after the PDF has been saved
-      const pdfUrl =
-        process.env.NODE_ENV === "production"
-          ? `${process.env.BASE_URL}${
-              process.env.CUSTOM_HTTP_PORT
-                ? ":" + process.env.CUSTOM_HTTP_PORT
-                : ""
-            }/pdfs/${filename}`
-          : `${process.env.BASE_URL}:${process.env.PORT}/pdfs/${filename}`;
+    // Build URL from request when possible (behind proxies)
+    const proto = (req.headers["x-forwarded-proto"]) || req.protocol;
+    const host = req.get("host");
+    const baseUrlFromReq = host ? `${proto}://${host}` : null;
 
-      const pdfEntry = {
-        name: filename,
-        url: pdfUrl,
-        timestamp: new Date().toISOString(),
-        revision: document.revisions.length, // assuming the current revision number
-      };
+    const pdfUrl =
+      baseUrlFromReq
+        ? `${baseUrlFromReq}/pdfs/${filename}`
+        : `${process.env.BASE_URL}${process.env.CUSTOM_HTTP_PORT ? ":" + process.env.CUSTOM_HTTP_PORT : ""}/pdfs/${filename}`;
 
-      let updatedPdfUrls;
+    const pdfEntry = {
+      name: filename,
+      url: pdfUrl,
+      timestamp: new Date().toISOString(),
+      revision: undefined,
+    };
 
-      if (!document.pdfUrls) {
-        updatedPdfUrls = [];
-      } else if (typeof document.pdfUrls === "string") {
-        updatedPdfUrls = safelyParseJSON(document.pdfUrls);
-      } else {
-        updatedPdfUrls = document.pdfUrls;
-      }
+    // Normalize existing pdfUrls to array - always use JSON format for consistency
+    const existing = Array.isArray(document.pdfUrls)
+      ? document.pdfUrls
+      : safelyParseJSON(document.pdfUrls) || [];
 
-      updatedPdfUrls.push(pdfEntry);
+    pdfEntry.revision = existing.length + 1;
+    const next = [...existing, pdfEntry];
 
-      const pdfUrlsPayload = process.env.NODE_ENV === 'development' ? updatedPdfUrls : JSON.stringify(updatedPdfUrls);
+    // Always store as JSON string for consistency between dev and prod
+    await document.update({ pdfUrls: JSON.stringify(next) });
 
-      await document.update({ pdfUrls: pdfUrlsPayload });
+    const updatedDocument = await Document.findOne({ where: { hash } });
 
-      const updatedDocument = await Document.findOne({ where: { hash } });
-
-      res.status(201).json({
-        message: "Quote created and PDF generated and stored successfully!",
-        document: updatedDocument,
-      });
+    res.status(201).json({
+      message: "Quote created and PDF generated and stored successfully!",
+      document: updatedDocument,
     });
   } catch (error) {
     Logger.error(`Error creating quote: ${error.message}`);
