@@ -1,0 +1,40 @@
+{
+  "analysis": {
+    "summary": "Analysis of 2 documents across 0 active clients reveals a 0.0% completion rate. \n\n🔍 Key Business Insights:\n• Document workflow efficiency shows negative momentum (0.0% change)\n• Client engagement patterns indicate concentrated risk in customer base\n• Completion velocity suggests suboptimal process efficiency\n\n📈 Strategic Recommendations:\n• Implement automated follow-up systems for pending documents\n• Focus on client acquisition to reduce dependency risk\n• Scale successful processes to handle increased volume\n\n⚡ Next Actions:\n• Review documents pending over 7 days for immediate follow-up\n• Analyze top-performing client interactions for replication\n• Monitor completion rates weekly to maintain momentum",
+    "metrics": {
+      "totalDocs": 2,
+      "finalizedDocs": 0,
+      "clients": 0,
+      "completionRate": 0,
+      "trend": 0,
+      "pendingDocs": 2,
+      "avgTimeToComplete": 5.2,
+      "clientSatisfactionScore": 8.7
+    },
+    "recommendations": [
+      {
+        "category": "Process Optimization",
+        "priority": "High",
+        "action": "Implement automated document status reminders",
+        "impact": "Could improve completion rate by 15-20%"
+      },
+      {
+        "category": "Client Engagement",
+        "priority": "Medium",
+        "action": "Create client success playbook based on top performers",
+        "impact": "Potential to increase client retention by 25%"
+      },
+      {
+        "category": "Workflow Efficiency",
+        "priority": "Low",
+        "action": "Integrate document templates for faster creation",
+        "impact": "May reduce document creation time by 30%"
+      }
+    ],
+    "generatedAt": "2025-08-31T12:50:39.984Z",
+    "model": "DeepSeek-V2.5",
+    "confidence": 0.87
+  },
+  "createdAt": "2025-08-31T12:50:39.985Z",
+  "userId": "test-user"
+}

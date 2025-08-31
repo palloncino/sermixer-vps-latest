@@ -114,7 +114,7 @@ const ProductItem = memo(({
                 borderColor: 'divider',
                 borderRadius: 1
             }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <Box sx={{ flex: 1 }}>
                         {/* Main Product Title */}
                         <Typography
@@ -142,14 +142,9 @@ const ProductItem = memo(({
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: 0.5,
-                                    px: 1.5,
-                                    py: 0.5,
-                                    backgroundColor: '#e3f2fd',
-                                    color: '#1565c0',
-                                    borderRadius: 2,
+                                    color: 'text.secondary',
                                     fontSize: '0.8rem',
-                                    fontWeight: 500,
-                                    border: '1px solid #bbdefb'
+                                    fontWeight: 400
                                 }}>
                                     <LocalOfferIcon sx={{ fontSize: '0.9rem' }} />
                                     {product.category}
@@ -177,29 +172,23 @@ const ProductItem = memo(({
                             {user?.id && (
                                 <Link
                                     to={`/product/${product.id}`}
-                                    style={{ textDecoration: 'none' }}
+                                    style={{ 
+                                        textDecoration: 'none',
+                                        color: 'inherit'
+                                    }}
                                 >
-                                    <Box sx={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: 0.5,
-                                        px: 1.5,
-                                        py: 0.5,
-                                        backgroundColor: 'primary.main',
-                                        color: 'white',
-                                        borderRadius: 2,
+                                    <Typography sx={{
+                                        color: 'text.secondary',
                                         fontSize: '0.8rem',
-                                        fontWeight: 500,
-                                        border: '1px solid',
-                                        borderColor: 'primary.dark',
+                                        fontWeight: 400,
                                         cursor: 'pointer',
                                         '&:hover': {
-                                            backgroundColor: 'primary.dark'
+                                            color: 'primary.main',
+                                            textDecoration: 'underline'
                                         }
                                     }}>
-                                        <LaunchIcon sx={{ fontSize: '0.9rem' }} />
-                                        {t("VediProdotto")}
-                                    </Box>
+                                        {t("ViewDetails")}
+                                    </Typography>
                                 </Link>
                             )}
                         </Box>

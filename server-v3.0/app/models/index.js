@@ -1,7 +1,6 @@
 import { sequelize } from "../config/db.js";
 import User from "./user.js";
 import Client from "./client.js";
-import Quote from "./quote.js";
 import Product from "./product.js";
 import Document from "./document.js";
 
@@ -15,4 +14,4 @@ if (process.env.NODE_ENV === "development") {
     });
 }
 
-export { User, Client, Quote, Product, Document };
+export { User, Client, Product, Document };

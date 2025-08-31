@@ -9,60 +9,59 @@ const V2_BASE = '';
 const V3_BASE = '/v3.0';
 
 // Helper function to get the correct base URL
-const getBaseUrl = () => USE_V3_ROUTES ? V3_BASE : V2_BASE;
+// Since we're already running in v3.0 context, we don't need to add v3.0 prefix
+const getBaseUrl = () => '';
 
-// Route definitions with dynamic base URL
-export const ROUTES = {
+// Route definitions with dynamic base URL - function style for backward compatibility
+export const ROUTES = (id: string | number = "") => ({
   // Dashboard
-  dashboard: () => `${getBaseUrl()}/`,
+  dashboard: `/`,
   
   // Documents
-  documentsList: () => `${getBaseUrl()}/documents-list`,
-  createDocument: () => `${getBaseUrl()}/create-document`,
-  documentDetail: (hash: string) => `${getBaseUrl()}/documents/${hash}`,
+  documentsList: `${getBaseUrl()}/documents-list`,
+  createDocument: `${getBaseUrl()}/create-document`,
+  documentDetail: `${getBaseUrl()}/documents/${id}`,
   
   // Products
-  productList: () => `${getBaseUrl()}/products-list`,
-  createProduct: () => `${getBaseUrl()}/create-product`,
-  productDetail: (id: string) => `${getBaseUrl()}/product/${id}`,
+  productList: `${getBaseUrl()}/products-list`,
+  createProduct: `${getBaseUrl()}/create-product`,
+  productDetail: `${getBaseUrl()}/product/${id}`,
+  editProduct: `${getBaseUrl()}/edit-product/${id}`,
+  productPage: `${getBaseUrl()}/product/${id}`,
   
   // Clients
-  clientsList: () => `${getBaseUrl()}/clients-list`,
-  createClient: () => `${getBaseUrl()}/create-client`,
-  clientDetail: (id: string) => `${getBaseUrl()}/clients/${id}`,
+  clientsList: `${getBaseUrl()}/clients-list`,
+  createClient: `${getBaseUrl()}/create-client`,
+  clientDetail: `${getBaseUrl()}/client/${id}`,
+  editClient: `${getBaseUrl()}/edit-client/${id}`,
+  clientPage: `${getBaseUrl()}/client/${id}`,
   
   // Users
-  usersList: () => `${getBaseUrl()}/users-list`,
-  createUser: () => `${getBaseUrl()}/signup`,
-  userDetail: (id: string) => `${getBaseUrl()}/users/${id}`,
+  usersList: `${getBaseUrl()}/users-list`,
+  createUser: `${getBaseUrl()}/signup`,
+  userDetail: `${getBaseUrl()}/user/${id}`,
+  editUser: `${getBaseUrl()}/edit-user/${id}`,
+  userPage: `${getBaseUrl()}/user/${id}`,
+  profile: `${getBaseUrl()}/profile`,
   
   // PDFs
-  pdfManagement: () => `${getBaseUrl()}/pdf-management`,
+  pdfManagement: `${getBaseUrl()}/pdf-management`,
   
   // Auth
-  login: () => `${getBaseUrl()}/login`,
-  register: () => `${getBaseUrl()}/register`,
+  login: `${getBaseUrl()}/login`,
+  register: `${getBaseUrl()}/register`,
   
   // Legacy v2.0 routes (for backward compatibility)
-  v2ClientPreventive: (hash: string) => `/client-preventive/${hash}`,
+  sharedDocument: `/client-preventive/${id}`,
   
-  // Utility function to check if we're using v3 routes
+  // Quotes (legacy compatibility)
+  quotesList: `${getBaseUrl()}/quotes-list`,
+  editQuote: `${getBaseUrl()}/edit-quote/${id}`,
+  
+  // Utility functions
   isV3: () => USE_V3_ROUTES,
-  
-  // Function to get current base URL
-  getBase: () => getBaseUrl(),
-  
-  // Function to switch routes (for future use)
-  switchToV2: () => {
-    console.warn('To switch to v2.0 routes, change USE_V3_ROUTES to false in app-config.ts');
-    return V2_BASE;
-  },
-  
-  switchToV3: () => {
-    console.warn('To switch to v3.0 routes, change USE_V3_ROUTES to true in app-config.ts');
-    return V3_BASE;
-  }
-};
+  getBase: () => getBaseUrl()
+});
 
 // Export the flag for easy access
 export { USE_V3_ROUTES };

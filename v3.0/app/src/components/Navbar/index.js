@@ -1,6 +1,7 @@
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   Avatar,
+  Button,
   IconButton,
   Menu,
   MenuItem,
@@ -28,7 +29,8 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Breadcrumb from "../../components/Breadcrumb";
 import Loading from "../../components/Loading";
-import { PALETTE, ROUTES } from "../../constants/index.ts";
+import { PALETTE } from "../../constants/index.ts";
+import { ROUTES } from "../../constants/routes.ts";
 import Logo from "../../media/logo.png";
 import { useAppState } from "../../state/stateContext";
 import { isAdmin, isUser } from "../../utils/isWho";
@@ -202,19 +204,7 @@ function Navbar() {
         }
       }}
     >
-      {/* Dashboard */}
-      <MenuItem onClick={() => handleQuickLinkClick(ROUTES().dashboard)}>
-        <ListItemIcon>
-          <DashboardIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>
-          <Typography variant="body2" fontWeight={600}>
-            {t('Dashboard')}
-          </Typography>
-        </ListItemText>
-      </MenuItem>
-
-      <Divider sx={{ my: 0.5 }} />
+      {/* Dashboard removed - only for AI components */}
 
       {/* Documents Section */}
       <Typography variant="caption" sx={{ px: 2, py: 0.75, display: 'block', color: 'text.secondary', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>
@@ -277,12 +267,12 @@ function Navbar() {
 
       <Divider sx={{ my: 0.5 }} />
 
-      {/* Reports Section */}
+      {/* AI Analytics Section */}
       <Typography variant="caption" sx={{ px: 2, py: 0.75, display: 'block', color: 'text.secondary', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-        {t('Reports')}
+        {t('Analytics')}
       </Typography>
-      <MenuItem onClick={() => handleQuickLinkClick(ROUTES().documentsList)} sx={{ pl: 3 }}>
-        <ListItemText primary={t('View Reports')} secondary={t('Analytics & insights')} />
+      <MenuItem onClick={() => handleQuickLinkClick(ROUTES().dashboard)} sx={{ pl: 3 }}>
+        <ListItemText primary={t('AI Insights')} secondary={t('Business intelligence powered by DeepSeek')} />
       </MenuItem>
     </Menu>
   );
@@ -301,12 +291,24 @@ function Navbar() {
             </LogoText>
           </LogoButton>
           <ActionContainer>
-            {/* Burger Menu - always visible */}
-            <Tooltip title={t("Quick Actions Menu")}>
-              <IconButton onClick={handleBurgerMenuOpen} style={{ color: "#fff" }}>
-                <MenuIcon />
-              </IconButton>
-            </Tooltip>
+            {/* Menu Button - always visible */}
+            <Button
+              onClick={handleBurgerMenuOpen}
+              startIcon={<MenuIcon />}
+              sx={{
+                color: '#fff',
+                fontWeight: 600,
+                textTransform: 'none',
+                borderRadius: 2,
+                px: 2,
+                py: 1,
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                }
+              }}
+            >
+              {t('Menu')}
+            </Button>
             
             {!isMobile && (
               <>

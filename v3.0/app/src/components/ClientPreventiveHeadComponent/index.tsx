@@ -12,6 +12,7 @@ import { useAppState } from "state/stateContext";
 import Logo from "../../media/logo.png";
 import { useDocumentContext } from '../../state/documentContext';
 import { UserType } from '../../types';
+import packageJson from '../../../package.json';
 
 const ClientPreventiveHeadComponent = memo(() => {
   const { t } = useTranslation();
@@ -61,7 +62,18 @@ const ClientPreventiveHeadComponent = memo(() => {
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
           <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'flex-start', alignItems: 'flex-start', ml: 4 }}>
-            <img src={Logo} alt="Logo" style={{ height: 80, marginBottom: 20 }} />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2.5 }}>
+              <img src={Logo} alt="Logo" style={{ height: 80 }} />
+              <Typography variant="caption" sx={{ 
+                color: 'text.secondary', 
+                fontSize: '0.75rem', 
+                fontWeight: 500,
+                alignSelf: 'flex-end',
+                mb: 1
+              }}>
+                v{packageJson.version}
+              </Typography>
+            </Box>
             <Typography variant="h4">
               {originalDocumentData?.data?.quoteHeadDetails?.company || "NA"}
             </Typography>

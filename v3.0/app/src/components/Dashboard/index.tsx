@@ -1,326 +1,334 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import {
+  Psychology,
+  Refresh,
+  Schedule
+} from '@mui/icons-material';
 import {
   Box,
-  Grid,
+  Button,
   Card,
   CardContent,
-  Typography,
-  Avatar,
-  LinearProgress,
-  Divider,
-  IconButton,
-  Button,
-  Stack,
-  useTheme,
-  Tooltip,
   Chip,
+  CircularProgress,
+  Divider,
+  Stack,
+  Typography
 } from '@mui/material';
-import { alpha } from '@mui/material/styles';
-import {
-  Description,
-  TrendingUp,
-  People,
-  AttachMoney,
-  Add,
-  ShoppingCart,
-  Business,
-  Assessment,
-  Speed,
-  ArrowForward,
-  PlayArrow,
-} from '@mui/icons-material';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useDocumentContext } from '../../state/documentContext';
-import { ROUTES } from '../../constants/routes';
-import RecentActivity from './RecentActivity';
 import Loading from '../Loading';
 
-// Styled Components for ultra-compact design
+// Styled Components for modern AI dashboard
 const DashboardContainer = styled(Box)`
-  padding: 16px;
-  background: #fafafa;
+  padding: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
 `;
 
-const CompactCard = styled(Card)`
-  border-radius: 8px !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
-  border: 1px solid #e8e8e8;
-  transition: all 0.2s ease !important;
+const AICard = styled(Card)`
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37) !important;
+  transition: all 0.3s ease !important;
   
   &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(31, 38, 135, 0.5) !important;
   }
 `;
 
-const MetricCard: React.FC<{
-  icon: React.ReactNode;
-  label: string;
-  value: string | number;
-  color: string;
-  trend?: number;
-}> = ({ icon, label, value, color, trend }) => (
-  <CompactCard>
-    <CardContent sx={{ p: 1.5, '&:last-child': { pb: 1.5 } }}>
-      <Stack direction="row" alignItems="center" spacing={1}>
-        <Avatar sx={{ bgcolor: color, width: 24, height: 24, '& .MuiSvgIcon-root': { fontSize: 14 } }}>
-          {icon}
-        </Avatar>
-        <Box flex={1}>
-          <Typography variant="h6" sx={{ fontSize: 16, fontWeight: 700, lineHeight: 1.2, color: '#333' }}>
-            {value}
-          </Typography>
-          <Typography variant="caption" sx={{ fontSize: 11, color: '#666', lineHeight: 1 }}>
-            {label}
-          </Typography>
-        </Box>
-        {trend && (
-          <Chip
-            size="small"
-            label={`${trend > 0 ? '+' : ''}${trend}%`}
-            sx={{
-              height: 20,
-              fontSize: 10,
-              bgcolor: trend > 0 ? '#e8f5e8' : '#fce8e8',
-              color: trend > 0 ? '#2d7d2d' : '#d32f2f',
-              '& .MuiChip-label': { px: 1 }
-            }}
-          />
-        )}
-      </Stack>
-    </CardContent>
-  </CompactCard>
-);
-
-const QuickAction: React.FC<{
-  icon: React.ReactNode;
-  label: string;
-  onClick: () => void;
-  color?: string;
-}> = ({ icon, label, onClick, color = '#1976d2' }) => (
-  <Tooltip title={label}>
-    <Button
-      onClick={onClick}
-      variant="outlined"
-      sx={{
-        minWidth: 'auto',
-        p: 1,
-        borderRadius: 2,
-        borderColor: '#e0e0e0',
-        color: color,
-        '&:hover': {
-          borderColor: color,
-          bgcolor: alpha(color, 0.05),
-        },
-        flexDirection: 'column',
-        gap: 0.5,
-        height: 64,
-        width: '100%',
-      }}
-    >
-      <Avatar sx={{ bgcolor: alpha(color, 0.1), color, width: 28, height: 28 }}>
-        {icon}
-      </Avatar>
-      <Typography variant="caption" sx={{ fontSize: 10, fontWeight: 600, textTransform: 'none' }}>
-        {label}
-      </Typography>
-    </Button>
-  </Tooltip>
-);
+const GlowingButton = styled(Button)`
+  background: linear-gradient(45deg, #667eea, #764ba2) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4) !important;
+  transition: all 0.3s ease !important;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6) !important;
+  }
+  
+  &:disabled {
+    background: #ccc !important;
+    box-shadow: none !important;
+  }
+`;
 
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { getAllDocuments, allDocumentsData, loading } = useDocumentContext();
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [aiSummary, setAiSummary] = useState<string>('');
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [analysisData, setAnalysisData] = useState<any>(null);
 
-  useEffect(() => { getAllDocuments(); }, [getAllDocuments]);
+  useEffect(() => { 
+    getAllDocuments(); 
+    // Load any existing analysis from localStorage
+    const existingSummary = localStorage.getItem('deepseek_summary');
+    const existingDate = localStorage.getItem('deepseek_last_summary');
+    if (existingSummary) {
+      setAiSummary(existingSummary);
+      if (existingDate) {
+        setLastUpdated(new Date(existingDate));
+      }
+    }
+  }, [getAllDocuments]);
 
-  const metrics = useMemo(() => {
-    if (!allDocumentsData) return null;
-    const totalDocuments = allDocumentsData.length;
-    const finalizedDocs = allDocumentsData.filter(doc => doc.status?.FINALIZED).length;
-    const completionRate = totalDocuments > 0 ? (finalizedDocs / totalDocuments) * 100 : 0;
-    const uniqueClients = new Set(allDocumentsData.map(doc => doc.data?.selectedClient?.email).filter(Boolean)).size;
 
-    return {
-      totalDocuments,
-      finalizedDocs,
-      uniqueClients,
-      completionRate,
-      pendingDocs: totalDocuments - finalizedDocs,
-    };
-  }, [allDocumentsData]);
 
-  if (loading || !allDocumentsData) {
+  const generateAISummary = async () => {
+    if (!allDocumentsData?.length) return;
+    
+    setIsGenerating(true);
+    
+    try {
+      // Make actual API call to generate DeepSeek analysis
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        console.error('No authentication token found');
+        setAiSummary('Authentication error: Please log in again');
+        setIsGenerating(false);
+        return;
+      }
+      
+      console.log('Making AI analysis request with token:', token ? 'Token present' : 'No token');
+      
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://sermixer.micro-cloud.it:12923/v3.0/api'}/ai/generate-analysis`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        if (response.status === 403) {
+          console.error('Authentication failed');
+          setAiSummary('Authentication error: Please log in again');
+          setIsGenerating(false);
+          return;
+        }
+        throw new Error(`Analysis generation failed: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      const analysis = data.analysis;
+      
+      setAiSummary(analysis.summary);
+      setAnalysisData(analysis.metrics);
+      
+      const now = new Date();
+      setLastUpdated(now);
+      localStorage.setItem('deepseek_summary', analysis.summary);
+      localStorage.setItem('deepseek_analysis_data', JSON.stringify(analysis.metrics));
+      localStorage.setItem('deepseek_last_summary', now.toISOString());
+      
+    } catch (error) {
+      console.error('AI Summary generation failed:', error);
+      // Fallback to mock data if API fails
+      const totalDocs = allDocumentsData.length;
+      const finalizedDocs = allDocumentsData.filter(doc => doc.status?.FINALIZED).length;
+      const clients = new Set(allDocumentsData.map(doc => doc.data?.selectedClient?.email).filter(Boolean)).size;
+      const completionRate = totalDocs > 0 ? (finalizedDocs / totalDocs) * 100 : 0;
+      
+      const fallbackSummary = `⚠️ API Analysis Unavailable - Showing Local Summary
+
+Based on local analysis of ${totalDocs} documents across ${clients} clients:
+• Completion rate: ${completionRate.toFixed(1)}%
+• Finalized documents: ${finalizedDocs}
+• Active clients: ${clients}
+
+Note: Connect to DeepSeek API for advanced business insights and recommendations.`;
+
+      setAiSummary(fallbackSummary);
+      setAnalysisData({ totalDocs, finalizedDocs, clients, completionRate });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const getLastUpdatedText = () => {
+    if (!lastUpdated) return 'Never updated';
+    
+    const now = new Date();
+    const timeDiff = now.getTime() - lastUpdated.getTime();
+    const hoursAgo = Math.floor(timeDiff / (1000 * 60 * 60));
+    const minutesAgo = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    
+    if (hoursAgo === 0) {
+      return minutesAgo === 0 ? 'Just now' : `${minutesAgo}m ago`;
+    }
+    
+    return `${hoursAgo}h ${minutesAgo}m ago`;
+  };
+
+  if (loading && !allDocumentsData) {
     return <Loading />;
   }
 
-  const recentDocs = allDocumentsData.slice(0, 6);
-
   return (
     <DashboardContainer>
-      {/* Header with Title and Quick Access */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
-        <Box>
-          <Typography variant="h5" fontWeight={700} sx={{ color: '#333', fontSize: 20 }}>
-            {t('Dashboard')}
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#666', fontSize: 12 }}>
-            {t('Welcome back! Here\'s what\'s happening.')}
-          </Typography>
-        </Box>
-        <Stack direction="row" spacing={1}>
-          <Button
-            variant="contained"
-            startIcon={<Add />}
-            onClick={() => navigate(ROUTES.createDocument())}
-            sx={{
-              bgcolor: '#1976d2',
-              fontSize: 12,
-              py: 0.5,
-              px: 1.5,
-              borderRadius: 2,
-              textTransform: 'none',
-              fontWeight: 600,
-            }}
-          >
-            {t('New Document')}
-          </Button>
-          <Button
-            variant="outlined"
-            startIcon={<ArrowForward />}
-            onClick={() => navigate(ROUTES.documentsList())}
-            sx={{
-              fontSize: 12,
-              py: 0.5,
-              px: 1.5,
-              borderRadius: 2,
-              textTransform: 'none',
-              fontWeight: 600,
-            }}
-          >
-            {t('View All')}
-          </Button>
+      <Box sx={{ maxWidth: 1200, margin: '0 auto' }}>
+        {/* Header */}
+        <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
+          <Box>
+            <Typography variant="h3" fontWeight={700} sx={{ 
+              color: 'white', 
+              fontSize: { xs: 28, md: 36 },
+              background: 'linear-gradient(45deg, #ffffff, #e0e7ff)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>
+              AI Business Insights
+            </Typography>
+            <Typography variant="body1" sx={{ 
+              color: 'rgba(255, 255, 255, 0.8)', 
+              fontSize: 16,
+              mt: 1
+            }}>
+              Powered by DeepSeek AI • Generate analysis on demand
+            </Typography>
+          </Box>
+          
+          <Stack direction="row" spacing={2} alignItems="center">
+            <Chip
+              icon={<Schedule />}
+              label={getLastUpdatedText()}
+              sx={{
+                background: 'rgba(255, 255, 255, 0.15)',
+                color: 'white',
+                backdropFilter: 'blur(10px)',
+                fontWeight: 600,
+              }}
+            />
+            <GlowingButton
+              variant="contained"
+              startIcon={isGenerating ? <CircularProgress size={16} color="inherit" /> : <Refresh />}
+              onClick={generateAISummary}
+              disabled={isGenerating || !allDocumentsData?.length}
+              sx={{
+                color: 'white',
+                fontWeight: 600,
+                px: 3,
+                py: 1,
+                textTransform: 'none',
+              }}
+            >
+              {isGenerating ? 'Analyzing...' : 'Refresh Analysis'}
+            </GlowingButton>
+          </Stack>
         </Stack>
-      </Stack>
 
-      {/* Compact Metrics Row */}
-      <Grid container spacing={1.5} mb={2}>
-        <Grid item xs={6} sm={3}>
-          <MetricCard
-            icon={<Description />}
-            label={t('Total Documents')}
-            value={metrics?.totalDocuments ?? 0}
-            color="#1976d2"
-            trend={12}
-          />
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <MetricCard
-            icon={<TrendingUp />}
-            label={t('Finalized')}
-            value={metrics?.finalizedDocs ?? 0}
-            color="#2e7d32"
-            trend={8}
-          />
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <MetricCard
-            icon={<People />}
-            label={t('Clients')}
-            value={metrics?.uniqueClients ?? 0}
-            color="#ed6c02"
-            trend={-2}
-          />
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <MetricCard
-            icon={<Speed />}
-            label={t('Completion Rate')}
-            value={`${metrics?.completionRate.toFixed(0) ?? '0'}%`}
-            color="#9c27b0"
-          />
-        </Grid>
-      </Grid>
+        {/* AI Summary Card */}
+        <AICard>
+          <CardContent sx={{ p: 4 }}>
+            <Stack direction="row" alignItems="center" spacing={2} mb={3}>
+              <Box sx={{ 
+                p: 2, 
+                borderRadius: 2, 
+                background: 'linear-gradient(45deg, #667eea, #764ba2)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Psychology sx={{ color: 'white', fontSize: 32 }} />
+              </Box>
+              <Box>
+                <Typography variant="h5" fontWeight={700} sx={{ color: '#333' }}>
+                  Business Intelligence Summary
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#666' }}>
+                  {lastUpdated 
+                    ? `Last updated: ${lastUpdated.toLocaleDateString()} at ${lastUpdated.toLocaleTimeString()}`
+                    : 'No analysis available yet'
+                  }
+                </Typography>
+              </Box>
+            </Stack>
 
-      <Grid container spacing={2}>
-        {/* Quick Actions - Ultra Compact */}
-        <Grid item xs={12} md={3}>
-          <CompactCard>
-            <CardContent sx={{ p: 1.5, '&:last-child': { pb: 1.5 } }}>
-              <Typography variant="subtitle2" fontWeight={700} mb={1.5} sx={{ fontSize: 14, color: '#333' }}>
-                {t('Quick Actions')}
-              </Typography>
-              <Grid container spacing={1}>
-                <Grid item xs={6}>
-                  <QuickAction
-                    icon={<Add />}
-                    label={t('Document')}
-                    onClick={() => navigate(ROUTES.createDocument())}
-                    color="#1976d2"
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <QuickAction
-                    icon={<Business />}
-                    label={t('Client')}
-                    onClick={() => navigate(ROUTES.createClient())}
-                    color="#2e7d32"
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <QuickAction
-                    icon={<ShoppingCart />}
-                    label={t('Product')}
-                    onClick={() => navigate(ROUTES.createProduct())}
-                    color="#ed6c02"
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <QuickAction
-                    icon={<Assessment />}
-                    label={t('Reports')}
-                    onClick={() => navigate(ROUTES.documentsList())}
-                    color="#9c27b0"
-                  />
-                </Grid>
-              </Grid>
-            </CardContent>
-          </CompactCard>
-        </Grid>
+            <Divider sx={{ mb: 3 }} />
 
-        {/* Recent Activity - Compact */}
-        <Grid item xs={12} md={9}>
-          <CompactCard>
-            <CardContent sx={{ p: 0 }}>
-              <Box sx={{ p: 1.5, borderBottom: '1px solid #f0f0f0' }}>
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                  <Typography variant="subtitle2" fontWeight={700} sx={{ fontSize: 14, color: '#333' }}>
-                    {t('Recent Activity')}
+            {aiSummary ? (
+              <Box>
+                <Typography variant="body1" sx={{ 
+                  lineHeight: 1.8, 
+                  color: '#444',
+                  fontSize: 16,
+                  whiteSpace: 'pre-line'
+                }}>
+                  {aiSummary}
+                </Typography>
+                
+                {analysisData && (
+                  <Box sx={{ mt: 3, p: 2, backgroundColor: '#f8f9fa', borderRadius: 2 }}>
+                    <Typography variant="subtitle2" fontWeight={600} sx={{ mb: 2, color: '#555' }}>
+                      Key Metrics Analyzed:
+                    </Typography>
+                    <Stack direction="row" spacing={3} flexWrap="wrap">
+                      <Box sx={{ textAlign: 'center' }}>
+                        <Typography variant="h6" fontWeight={700} sx={{ color: '#667eea' }}>
+                          {analysisData.totalDocs}
+                        </Typography>
+                        <Typography variant="caption" sx={{ color: '#666' }}>
+                          Total Documents
+                        </Typography>
+                      </Box>
+                      <Box sx={{ textAlign: 'center' }}>
+                        <Typography variant="h6" fontWeight={700} sx={{ color: '#2e7d32' }}>
+                          {analysisData.finalizedDocs}
+                        </Typography>
+                        <Typography variant="caption" sx={{ color: '#666' }}>
+                          Completed
+                        </Typography>
+                      </Box>
+                      <Box sx={{ textAlign: 'center' }}>
+                        <Typography variant="h6" fontWeight={700} sx={{ color: '#ed6c02' }}>
+                          {analysisData.clients}
+                        </Typography>
+                        <Typography variant="caption" sx={{ color: '#666' }}>
+                          Active Clients
+                        </Typography>
+                      </Box>
+                      <Box sx={{ textAlign: 'center' }}>
+                        <Typography variant="h6" fontWeight={700} sx={{ color: '#9c27b0' }}>
+                          {analysisData.completionRate.toFixed(1)}%
+                        </Typography>
+                        <Typography variant="caption" sx={{ color: '#666' }}>
+                          Success Rate
+                        </Typography>
+                      </Box>
+                    </Stack>
+                  </Box>
+                )}
+              </Box>
+            ) : (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Psychology sx={{ fontSize: 64, color: '#ccc', mb: 2 }} />
+                <Typography variant="h6" sx={{ color: '#666', mb: 2 }}>
+                  No AI Analysis Available
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#999', mb: 3 }}>
+                  Click "Refresh Analysis" to generate your first business intelligence summary
+                </Typography>
+                {allDocumentsData?.length === 0 && (
+                  <Typography variant="body2" sx={{ color: '#f44336' }}>
+                    No documents found for analysis
                   </Typography>
-                  <Tooltip title={t('View All Documents')}>
-                    <IconButton 
-                      size="small"
-                      onClick={() => navigate(ROUTES.documentsList())}
-                      sx={{ color: '#666' }}
-                    >
-                      <ArrowForward fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
-                </Stack>
+                )}
               </Box>
-              <Box sx={{ maxHeight: 300, overflow: 'auto' }}>
-                <RecentActivity documents={recentDocs} />
-              </Box>
-            </CardContent>
-          </CompactCard>
-        </Grid>
-      </Grid>
+            )}
+          </CardContent>
+        </AICard>
+      </Box>
     </DashboardContainer>
   );
 };
