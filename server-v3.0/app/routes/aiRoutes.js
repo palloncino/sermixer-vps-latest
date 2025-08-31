@@ -88,11 +88,94 @@ const generateDeepSeekAnalysis = async (documents) => {
 };
 
 // Smart data reduction for large datasets
-const reduceDataForAnalysis = (data, maxSize = 30000) => {
-  const dataString = JSON.stringify(data);
+const reduceDataForAnalysis = (data, maxSize = 30000, topic = null) => {
+  // First, apply smart summarization to reduce complexity
+  let processedData = data;
+  
+  if (topic?.toLowerCase() === 'documents') {
+    // Apply document summarization to remove nested complexity
+    console.log(`Applying document summarization to ${data.length} documents`);
+    processedData = data.map(doc => summarizeDocument(doc));
+  } else if (topic?.toLowerCase() === 'products') {
+    // Progressive product reduction - start with level 1
+    console.log(`Applying product summarization to ${data.length} products`);
+    let reductionLevel = 1;
+    
+    // Try level 1 first
+    processedData = data.map(product => summarizeProduct(product, 1));
+    let testSize = JSON.stringify(processedData).length;
+    console.log(`Level 1 reduction: ${testSize} chars`);
+    
+    // If still too large, try level 2
+    if (testSize > maxSize * 0.9) {
+      console.log(`Level 1 still too large, trying level 2 reduction`);
+      processedData = data.map(product => summarizeProduct(product, 2));
+      testSize = JSON.stringify(processedData).length;
+      console.log(`Level 2 reduction: ${testSize} chars`);
+      reductionLevel = 2;
+    }
+    
+    // If still too large, go to CSV-like level 3
+    if (testSize > maxSize * 0.9) {
+      console.log(`Level 2 still too large, applying CSV-like level 3 reduction`);
+      processedData = data.map(product => summarizeProduct(product, 3));
+      testSize = JSON.stringify(processedData).length;
+      console.log(`Level 3 CSV-like reduction: ${testSize} chars`);
+      reductionLevel = 3;
+    }
+    
+    // If still too large, go to extreme level 4 (array format)
+    if (testSize > maxSize * 0.9) {
+      console.log(`Level 3 still too large, applying extreme level 4 reduction (arrays)`);
+      processedData = data.map(product => summarizeProduct(product, 4));
+      testSize = JSON.stringify(processedData).length;
+      console.log(`Level 4 extreme reduction: ${testSize} chars`);
+      reductionLevel = 4;
+    }
+    
+    console.log(`Final products reduction: Level ${reductionLevel}, Size: ${testSize} chars`);
+  }
+  
+  const originalSize = JSON.stringify(data).length;
+  const dataString = JSON.stringify(processedData);
+  
+  console.log(`Data size: Original ${originalSize} chars → Processed ${dataString.length} chars (${Math.round((1 - dataString.length/originalSize) * 100)}% reduction)`);
+  
+  // Final check - if still too large, use micro-sample + statistics
+  if (dataString.length > maxSize && topic && ['products', 'documents'].includes(topic.toLowerCase())) {
+    console.log(`Even aggressive reduction failed (${dataString.length} chars), using micro-sample + statistics`);
+    
+    // Take only first 5 items + comprehensive statistics
+    const microSample = processedData.slice(0, 5);
+    const stats = generateDataStatistics(data, topic);
+    
+    // Combine micro sample with statistics
+    processedData = {
+      type: 'micro-analysis',
+      totalRecords: data.length,
+      sample: microSample,
+      statistics: stats
+    };
+    
+    const finalDataString = JSON.stringify(processedData);
+    console.log(`Micro-sample + statistics size: ${finalDataString.length} chars`);
+    
+    return { 
+      reduced: processedData, 
+      wasReduced: true, 
+      originalCount: data.length,
+      reducedCount: 5, // Sample size
+      reductionType: 'micro-sample'
+    };
+  }
   
   if (dataString.length <= maxSize) {
-    return { reduced: data, wasReduced: false, originalCount: data.length };
+    return { 
+      reduced: processedData, 
+      wasReduced: topic && ['documents', 'products'].includes(topic.toLowerCase()), 
+      originalCount: data.length,
+      reductionType: topic && ['documents', 'products'].includes(topic.toLowerCase()) ? 'summarized' : 'none'
+    };
   }
   
   // Calculate how much we need to reduce
@@ -130,20 +213,76 @@ const reduceDataForAnalysis = (data, maxSize = 30000) => {
     reduced: reducedData, 
     wasReduced: true, 
     originalCount: data.length,
-    reducedCount: reducedData.length 
+    reducedCount: reducedData.length,
+    reductionType: 'sampled'
   };
+};
+
+// File-based data processing for extremely large datasets
+const createDataFile = async (data, topic, userId) => {
+  const dataDir = path.join(__dirname, '../data/temp');
+  
+  // Ensure directory exists
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+  
+  const filename = `${topic}_${userId}_${Date.now()}.json`;
+  const filepath = path.join(dataDir, filename);
+  
+  // Create ultra-compressed data for file
+  let fileData;
+  if (topic === 'products') {
+    fileData = data.map(p => createProductCSVRow(p));
+  } else if (topic === 'documents') {
+    fileData = data.map(d => summarizeDocument(d));
+  } else {
+    fileData = data;
+  }
+  
+  fs.writeFileSync(filepath, JSON.stringify(fileData, null, 2));
+  
+  return {
+    filename,
+    filepath,
+    recordCount: data.length,
+    fileSizeKB: Math.round(fs.statSync(filepath).size / 1024)
+  };
+};
+
+// Generate data statistics for file-based analysis
+const generateDataStatistics = (data, topic) => {
+  const stats = {
+    totalRecords: data.length,
+    topic
+  };
+  
+  if (topic === 'products') {
+    const categories = [...new Set(data.map(p => p.category).filter(Boolean))];
+    const companies = [...new Set(data.map(p => p.company).filter(Boolean))];
+    const prices = data.filter(p => p.price && p.price > 0).map(p => p.price);
+    
+    stats.categories = categories.length;
+    stats.companies = companies.length;
+    stats.avgPrice = prices.length > 0 ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
+    stats.priceRange = prices.length > 0 ? `€${Math.min(...prices)} - €${Math.max(...prices)}` : 'N/A';
+    stats.totalComponents = data.reduce((sum, p) => sum + (p.components?.length || 0), 0);
+    stats.sampleProducts = data.slice(0, 5).map(p => `${p.name} (${p.category}, €${p.price})`);
+  }
+  
+  return stats;
 };
 
 // Real DeepSeek AI analysis function
 const generateTopicAnalysis = async (topic, question, data) => {
   // Smart data reduction instead of throwing error
-  const { reduced: processedData, wasReduced, originalCount, reducedCount } = reduceDataForAnalysis(data, 30000);
+  const { reduced: processedData, wasReduced, originalCount, reducedCount, reductionType } = reduceDataForAnalysis(data, 30000, topic);
   
   console.log(`Data processing: ${wasReduced ? `Reduced from ${originalCount} to ${reducedCount} items` : `Using all ${originalCount} items`}`);
   
   try {
     // Prepare data summary for DeepSeek using processed data
-    const dataSummary = await prepareDataForDeepSeek(topic, processedData, originalCount, wasReduced);
+    const dataSummary = await prepareDataForDeepSeek(topic, processedData, originalCount, wasReduced, reductionType);
     
     // Create prompt for DeepSeek
     const prompt = `You are a business intelligence analyst. Analyze the following ${topic} data and answer this question: "${question}"
@@ -220,9 +359,134 @@ Format your response as a business report with emojis for visual appeal.`;
   }
 };
 
+// Smart document summarization for complex nested data
+const summarizeDocument = (doc) => {
+  const totalValue = doc.data?.addedProducts?.reduce((sum, product) => {
+    const productPrice = product.discountedPrice || product.price || 0;
+    const componentsValue = product.components?.reduce((compSum, comp) => 
+      compSum + (comp.discountedPrice || comp.price || 0), 0) || 0;
+    return sum + productPrice + componentsValue;
+  }, 0) || 0;
+
+  return {
+    id: doc.id,
+    company: doc.company,
+    clientEmail: doc.clientEmail,
+    clientCompany: doc.data?.selectedClient?.companyName,
+    clientCity: doc.data?.selectedClient?.address?.city,
+    totalValue: totalValue,
+    discount: doc.discount,
+    status: doc.status,
+    isFinalized: doc.status?.FINALIZED || false,
+    createdAt: doc.createdAt,
+    expiresAt: doc.expiresAt,
+    dateOfSignature: doc.dateOfSignature,
+    object: doc.data?.quoteHeadDetails?.object,
+    productsCount: doc.data?.addedProducts?.length || 0,
+    products: doc.data?.addedProducts?.map(p => ({
+      name: p.name,
+      category: p.category,
+      price: p.price,
+      discount: p.discount,
+      componentsCount: p.components?.length || 0
+    })) || [],
+    revisionsCount: doc.revisions?.length || 0,
+    pdfCount: doc.pdfUrls?.length || 0
+  };
+};
+
+// CSV-like ultra-minimal product representation
+const createProductCSVRow = (product) => {
+  return {
+    id: product.id,
+    name: (product.name || '').substring(0, 20), // Even shorter - 20 chars
+    price: product.price || 0,
+    cat: (product.category || '').substring(0, 10), // Shortened key + value
+    co: (product.company || '').substring(0, 8), // Very short company
+    disc: product.discount || 0,
+    act: product.active !== false ? 1 : 0,
+    comp: product.components?.length || 0
+  };
+};
+
+// Extreme minimal representation - for massive datasets
+const createUltraMinimalProduct = (product) => {
+  return [
+    product.id,
+    (product.name || '').substring(0, 15),
+    product.price || 0,
+    (product.category || '').substring(0, 8),
+    product.components?.length || 0
+  ];
+};
+
+// Smart product summarization - progressive reduction levels
+const summarizeProduct = (product, level = 1) => {
+  if (level === 4) {
+    // Extreme minimal - array format
+    return createUltraMinimalProduct(product);
+  }
+  
+  if (level === 3) {
+    // Ultra-minimal CSV-like representation
+    return createProductCSVRow(product);
+  }
+  
+  if (level === 2) {
+    // Minimal representation
+    return {
+      id: product.id,
+      name: (product.name || '').substring(0, 40),
+      price: product.price,
+      category: product.category,
+      company: product.company,
+      active: product.active,
+      componentsCount: product.components?.length || 0
+    };
+  }
+  
+  // Level 1 - Original summarization
+  return {
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    category: product.category,
+    company: product.company,
+    discount: product.discount,
+    active: product.active,
+    createdAt: product.createdAt,
+    description: product.description ? 
+      (product.description.length > 100 ? 
+        product.description.substring(0, 100) + '...' : 
+        product.description) : '',
+    componentsCount: product.components?.length || 0,
+    componentsSample: product.components?.slice(0, 2)?.map(c => ({
+      name: c.name?.substring(0, 50),
+      price: c.price,
+      included: c.included
+    })) || []
+  };
+};
+
 // Prepare data summary for DeepSeek API
-const prepareDataForDeepSeek = async (topic, data, originalCount = null, wasReduced = false) => {
+const prepareDataForDeepSeek = async (topic, data, originalCount = null, wasReduced = false, reductionType = 'none') => {
   const actualCount = originalCount || data.length;
+  
+  // Handle statistical summary mode
+  if (reductionType === 'statistical-summary' && data.length === 1 && data[0].totalRecords) {
+    const stats = data[0];
+    return `Statistical Summary for ${actualCount} ${topic}:
+- Total records: ${stats.totalRecords}
+- Categories: ${stats.categories || 'N/A'}
+- Companies: ${stats.companies || 'N/A'}
+- Average price: €${stats.avgPrice || 'N/A'}
+- Price range: ${stats.priceRange || 'N/A'}
+- Total components: ${stats.totalComponents || 'N/A'}
+- Sample items: ${stats.sampleProducts?.join(', ') || 'N/A'}
+
+Note: Dataset was too large for detailed analysis, showing statistical summary only.`;
+  }
+  
   const dataInfo = wasReduced ? `(Analyzing ${data.length} representative samples from ${actualCount} total records)` : `(Analyzing all ${actualCount} records)`;
   
   switch (topic.toLowerCase()) {
@@ -230,14 +494,36 @@ const prepareDataForDeepSeek = async (topic, data, originalCount = null, wasRedu
       const categories = [...new Set(data.map(p => p.category).filter(Boolean))];
       const companies = [...new Set(data.map(p => p.company).filter(Boolean))];
       const activeProducts = data.filter(p => p.active !== false).length;
+      const estimatedActiveProducts = wasReduced ? Math.round(activeProducts * (actualCount / data.length)) : activeProducts;
+      
+      // Calculate pricing insights
+      const prices = data.filter(p => p.price && p.price > 0).map(p => p.price);
+      const avgPrice = prices.length > 0 ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
+      const minPrice = prices.length > 0 ? Math.min(...prices) : 0;
+      const maxPrice = prices.length > 0 ? Math.max(...prices) : 0;
+      
+      // Component analysis
+      const totalComponents = data.reduce((sum, p) => sum + (p.componentsCount || 0), 0);
+      const avgComponents = data.length > 0 ? Math.round(totalComponents / data.length) : 0;
+      
+      // Sample component names from componentsSample
+      const sampleComponents = new Set();
+      data.forEach(p => {
+        if (p.componentsSample) {
+          p.componentsSample.forEach(c => sampleComponents.add(c.name));
+        }
+      });
       
       return `Products Data ${dataInfo}:
 - Total products in database: ${actualCount}
-- Active products: ${activeProducts}
+- Active products: ${estimatedActiveProducts}
 - Categories: ${categories.join(', ')} (${categories.length} total)
 - Companies: ${companies.join(', ')} (${companies.length} total)
-- Sample products: ${data.slice(0, 5).map(p => `${p.title || p.name || 'Unnamed'} (${p.category || 'Uncategorized'}, Company: ${p.company || 'Unknown'})`).join(', ')}
-- Price range: €${Math.min(...data.filter(p => p.price).map(p => p.price))} - €${Math.max(...data.filter(p => p.price).map(p => p.price))}`;
+- Price range: €${minPrice.toLocaleString()} - €${maxPrice.toLocaleString()}
+- Average price: €${avgPrice.toLocaleString()}
+- Average components per product: ${avgComponents}
+- Sample products: ${data.slice(0, 5).map(p => `${p.name || 'Unnamed'} (${p.category || 'Uncategorized'}, €${p.price?.toLocaleString() || 0}, ${p.componentsCount || 0} components)`).join(', ')}
+- Common components: ${Array.from(sampleComponents).slice(0, 5).join(', ')}${sampleComponents.size > 5 ? '...' : ''}`;
 
     case 'clients':
       const clientCompanies = [...new Set(data.map(c => c.companyName).filter(Boolean))];
@@ -260,7 +546,7 @@ const prepareDataForDeepSeek = async (topic, data, originalCount = null, wasRedu
 - Active clients: ${data.filter(c => c.active !== false).length}`;
 
     case 'documents':
-      const finalized = data.filter(doc => doc.status?.FINALIZED).length;
+      const finalized = data.filter(doc => doc.isFinalized || doc.status?.FINALIZED).length;
       const pending = data.length - finalized;
       const completionRate = data.length > 0 ? Math.round((finalized / data.length) * 100) : 0;
       
@@ -268,17 +554,35 @@ const prepareDataForDeepSeek = async (topic, data, originalCount = null, wasRedu
       const estimatedFinalized = wasReduced ? Math.round(finalized * (actualCount / data.length)) : finalized;
       const estimatedPending = actualCount - estimatedFinalized;
       
-      const documentTypes = [...new Set(data.map(d => d.type || d.documentType).filter(Boolean))];
-      const totalValue = data.reduce((sum, doc) => sum + (parseFloat(doc.totalAmount) || 0), 0);
+      const docCompanies = [...new Set(data.map(d => d.company).filter(Boolean))];
+      const clients = [...new Set(data.map(d => d.clientCompany).filter(Boolean))];
+      const totalValue = data.reduce((sum, doc) => sum + (parseFloat(doc.totalValue) || 0), 0);
+      const avgValue = data.length > 0 ? Math.round(totalValue / data.length) : 0;
+      
+      // Document objects/purposes
+      const objects = [...new Set(data.map(d => d.object).filter(Boolean))];
+      
+      // Product categories from documents
+      const allCategories = new Set();
+      data.forEach(doc => {
+        if (doc.products) {
+          doc.products.forEach(prod => {
+            if (prod.category) allCategories.add(prod.category);
+          });
+        }
+      });
       
       return `Documents Data ${dataInfo}:
 - Total documents in database: ${actualCount}
-- Finalized: ${estimatedFinalized}
+- Finalized: ${estimatedFinalized} (${Math.round((estimatedFinalized / actualCount) * 100)}%)
 - Pending: ${estimatedPending}
-- Completion rate: ${Math.round((estimatedFinalized / actualCount) * 100)}%
-- Document types: ${documentTypes.join(', ')}
-- Total value: €${totalValue.toLocaleString()}
-- Recent activity: ${data.slice(0, 5).map(d => `Doc ${d.id} (${d.status?.FINALIZED ? 'Complete' : 'Pending'}, €${d.totalAmount || 0})`).join(', ')}`;
+- Companies: ${docCompanies.join(', ')}
+- Unique clients: ${clients.length} (${clients.slice(0, 5).join(', ')}${clients.length > 5 ? '...' : ''})
+- Total portfolio value: €${totalValue.toLocaleString()}
+- Average document value: €${avgValue.toLocaleString()}
+- Document types: ${objects.slice(0, 5).join(', ')}${objects.length > 5 ? ` and ${objects.length - 5} more` : ''}
+- Product categories: ${Array.from(allCategories).slice(0, 5).join(', ')}
+- Recent activity: ${data.slice(0, 3).map(d => `Doc ${d.id} (${d.isFinalized ? 'Complete' : 'Pending'}, €${d.totalValue?.toLocaleString() || 0}, ${d.productsCount} products)`).join(', ')}`;
 
     default:
       return `Data ${dataInfo}: ${actualCount} records of type ${topic}`;
@@ -296,12 +600,23 @@ const extractMetricsFromData = (topic, data, wasReduced = false, originalCount =
       const activeProducts = data.filter(p => p.active !== false).length;
       const estimatedActiveProducts = wasReduced ? Math.round(activeProducts * (actualCount / data.length)) : activeProducts;
       
+      // Calculate pricing metrics
+      const prices = data.filter(p => p.price && p.price > 0).map(p => p.price);
+      const avgPrice = prices.length > 0 ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
+      const totalComponents = data.reduce((sum, p) => sum + (p.componentsCount || 0), 0);
+      const avgComponents = data.length > 0 ? Math.round(totalComponents / data.length) : 0;
+      
       return {
         totalProducts: actualCount,
         activeProducts: estimatedActiveProducts,
         categories: categories.length,
         companies: companies.length,
         avgPerCategory: categories.length > 0 ? Math.round(actualCount / categories.length) : 0,
+        avgPrice: avgPrice,
+        minPrice: prices.length > 0 ? Math.min(...prices) : 0,
+        maxPrice: prices.length > 0 ? Math.max(...prices) : 0,
+        avgComponents: avgComponents,
+        totalComponents: wasReduced ? Math.round(totalComponents * (actualCount / data.length)) : totalComponents,
         samplingInfo: wasReduced ? { analyzed: data.length, total: actualCount } : null
       };
 
@@ -324,17 +639,25 @@ const extractMetricsFromData = (topic, data, wasReduced = false, originalCount =
       };
 
     case 'documents':
-      const finalizedDocs = data.filter(doc => doc.status?.FINALIZED).length;
+      const finalizedDocs = data.filter(doc => doc.isFinalized || doc.status?.FINALIZED).length;
       const pendingDocs = data.length - finalizedDocs;
       const completionRate = data.length > 0 ? Math.round((finalizedDocs / data.length) * 100) : 0;
       const estimatedFinalized = wasReduced ? Math.round(finalizedDocs * (actualCount / data.length)) : finalizedDocs;
       const estimatedPending = actualCount - estimatedFinalized;
+      
+      const totalValue = data.reduce((sum, doc) => sum + (parseFloat(doc.totalValue) || 0), 0);
+      const avgValue = data.length > 0 ? Math.round(totalValue / data.length) : 0;
+      const totalProducts = data.reduce((sum, doc) => sum + (doc.productsCount || 0), 0);
       
       return {
         totalDocs: actualCount,
         finalizedDocs: estimatedFinalized,
         pendingDocs: estimatedPending,
         completionRate: Math.round((estimatedFinalized / actualCount) * 100),
+        totalValue: wasReduced ? Math.round(totalValue * (actualCount / data.length)) : totalValue,
+        avgDocValue: avgValue,
+        totalProducts: wasReduced ? Math.round(totalProducts * (actualCount / data.length)) : totalProducts,
+        avgProductsPerDoc: data.length > 0 ? Math.round(totalProducts / data.length) : 0,
         samplingInfo: wasReduced ? { analyzed: data.length, total: actualCount } : null
       };
 
