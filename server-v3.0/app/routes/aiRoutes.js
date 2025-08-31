@@ -99,6 +99,7 @@ const reduceDataForAnalysis = (data, maxSize = 30000, topic = null) => {
   } else if (topic?.toLowerCase() === 'products') {
     // Progressive product reduction - start with level 1
     console.log(`Applying product summarization to ${data.length} products`);
+    console.log(`Sample product keys:`, data.length > 0 ? Object.keys(data[0]) : 'No products');
     let reductionLevel = 1;
     
     // Try level 1 first
@@ -411,13 +412,18 @@ const createProductCSVRow = (product) => {
 
 // Extreme minimal representation - for massive datasets
 const createUltraMinimalProduct = (product) => {
-  return [
-    product.id,
-    (product.name || '').substring(0, 15),
-    product.price || 0,
-    (product.category || '').substring(0, 8),
-    product.components?.length || 0
-  ];
+  try {
+    return [
+      product?.id || 0,
+      (product?.name || '').toString().substring(0, 15),
+      product?.price || 0,
+      (product?.category || '').toString().substring(0, 8),
+      Array.isArray(product?.components) ? product.components.length : 0
+    ];
+  } catch (err) {
+    console.error('Error in createUltraMinimalProduct:', err);
+    return [0, 'Error', 0, 'Unknown', 0];
+  }
 };
 
 // Smart product summarization - progressive reduction levels
@@ -471,6 +477,32 @@ const summarizeProduct = (product, level = 1) => {
 // Prepare data summary for DeepSeek API
 const prepareDataForDeepSeek = async (topic, data, originalCount = null, wasReduced = false, reductionType = 'none') => {
   const actualCount = originalCount || data.length;
+  
+  // Handle micro-sample mode
+  if (reductionType === 'micro-sample' && data.type === 'micro-analysis') {
+    const stats = data.statistics;
+    return `Micro-Sample Analysis for ${data.totalRecords} ${topic}:
+- Total records: ${data.totalRecords}
+- Sample analyzed: ${data.sample.length} representative items
+- Categories: ${stats.categories || 'N/A'}
+- Companies: ${stats.companies || 'N/A'}
+- Average price: €${stats.avgPrice || 'N/A'}
+- Price range: ${stats.priceRange || 'N/A'}
+- Total components: ${stats.totalComponents || 'N/A'}
+
+Sample Data:
+${data.sample.map((item, i) => {
+  if (Array.isArray(item)) {
+    // Array format (level 4)
+    return `${i+1}. ${item[1]} - €${item[2]} (${item[3]})`;
+  } else {
+    // Object format
+    return `${i+1}. ${item.name || item[1] || 'Unknown'} - €${item.price || item[2] || 0} (${item.category || item.cat || item[3] || 'Unknown'})`;
+  }
+}).join('\n')}
+
+Note: Dataset was too large for full analysis, showing micro-sample with statistics.`;
+  }
   
   // Handle statistical summary mode
   if (reductionType === 'statistical-summary' && data.length === 1 && data[0].totalRecords) {
