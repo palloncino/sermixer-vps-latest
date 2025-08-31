@@ -7,6 +7,7 @@ import {
   Routes,
   useLocation,
   useNavigate,
+  Navigate,
 } from "react-router-dom";
 import { ProtectedRouteP } from "types";
 import './App.css';
@@ -20,6 +21,8 @@ import { ThemeProvider } from "./state/themeContext";
 import { FlashMessageProvider } from './state/FlashMessageContext';
 import FlashMessageTemp from './components/FlashMessageTemp';
 import { DocumentProvider } from 'state/documentContext';
+
+console.log("📱 App.tsx loaded");
 
 // Lazy load the components
 const NotFoundPage = lazy(() => import("./pages/404/index"));
@@ -56,7 +59,7 @@ const pageTransition = {
   duration: 0.3,
 };
 
-const AnimatedRoute = ({ element: Element, ...rest }) => {
+const AnimatedRoute = ({ element: Element, ...rest }: { element: any; [key: string]: any }) => {
   const location = useLocation();
   return (
     <motion.div
@@ -72,6 +75,85 @@ const AnimatedRoute = ({ element: Element, ...rest }) => {
     </motion.div>
   );
 };
+
+// Component to handle trailing slash normalization
+const TrailingSlashRedirect = () => {
+  const location = useLocation();
+  
+  // If URL has trailing slash (except for root), redirect without it
+  if (location.pathname !== '/' && location.pathname.endsWith('/')) {
+    const newPath = location.pathname.slice(0, -1);
+    return <Navigate to={`${newPath}${location.search}${location.hash}`} replace />;
+  }
+  
+  return null;
+};
+
+// Error Boundary for navigation issues
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: any;
+}
+
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+class NavigationErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: any): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: any, errorInfo: any) {
+    console.error('Navigation error caught by boundary:', error, errorInfo);
+    
+    // If it's a router-related error, try to redirect to home
+    if (error.message.includes('router') || error.message.includes('navigate')) {
+      setTimeout(() => {
+        window.location.href = `${window.location.origin}/v3.0/`;
+      }, 1000);
+    }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ 
+          padding: '2rem', 
+          textAlign: 'center', 
+          minHeight: '50vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <h2>Navigation Error</h2>
+          <p>Something went wrong with navigation. Redirecting to home...</p>
+          <button 
+            onClick={() => window.location.href = `${window.location.origin}/v3.0/`}
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: '#2563eb',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            Go to Home
+          </button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 const ProtectedRoute = ({ allowedRoles, ...rest }: ProtectedRouteP) => {
   const { user, isLoadingAuthorization } = useAuth();
@@ -90,7 +172,7 @@ const ProtectedRoute = ({ allowedRoles, ...rest }: ProtectedRouteP) => {
   return user && allowedRoles.includes(user?.role) ? <Outlet /> : null;
 };
 
-const Layout = ({ children }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const no_breadcrumbs = location.pathname.startsWith("/client-preventive/") || location.pathname === "/" ? "true" : "false";
   const fullWidth = location.pathname.startsWith("/client-preventive/") ? "true" : "false";
@@ -98,7 +180,10 @@ const Layout = ({ children }) => {
   return (
           <StyledLayout $no_breadcrumbs={no_breadcrumbs} $full_width={fullWidth}>
       <AnimatePresence mode="wait">
-        {React.cloneElement(children, { key: location.pathname })}
+        {React.isValidElement(children) ? 
+          React.cloneElement(children, { key: location.pathname }) : 
+          children
+        }
       </AnimatePresence>
     </StyledLayout>
   );
@@ -109,6 +194,7 @@ const AnimatedRoutes = () => {
 
   return (
     <AnimatePresence mode="wait">
+      <TrailingSlashRedirect />
       <Routes location={location} key={location.pathname}>
         {/* Routes accessible by visitors */}
         <Route path="/login" element={<AnimatedRoute element={Login} />} />
@@ -155,34 +241,39 @@ const SharedDocumentLayout = () => (
 );
 
 function App() {
+  console.log("🎯 App function called");
+  console.log("Current location:", window.location.href);
+  
   return (
-    <Router basename="/v3.0">
-      <FlashMessageProvider>
-        <AppStateProvider>
-          <DocumentProvider>
-            <FlashMessageTemp />
-            <ThemeProvider>
-              <Routes>
-                <Route path="/client-preventive/:hash" element={<SharedDocumentLayout />} />
-                <Route
-                  path="*"
-                  element={
-                    <>
-                      <Navbar />
-                      <Layout>
-                        <Suspense fallback={<Loading />}>
-                          <AnimatedRoutes />
-                        </Suspense>
-                      </Layout>
-                    </>
-                  }
-                />
-              </Routes>
-            </ThemeProvider>
-          </DocumentProvider>
-        </AppStateProvider>
-      </FlashMessageProvider>
-    </Router>
+    <NavigationErrorBoundary>
+      <Router basename="/">
+        <FlashMessageProvider>
+          <AppStateProvider>
+            <DocumentProvider>
+              <FlashMessageTemp />
+              <ThemeProvider>
+                <Routes>
+                  <Route path="/client-preventive/:hash" element={<SharedDocumentLayout />} />
+                  <Route
+                    path="*"
+                    element={
+                      <>
+                        <Navbar />
+                        <Layout>
+                          <Suspense fallback={<Loading />}>
+                            <AnimatedRoutes />
+                          </Suspense>
+                        </Layout>
+                      </>
+                    }
+                  />
+                </Routes>
+              </ThemeProvider>
+            </DocumentProvider>
+          </AppStateProvider>
+        </FlashMessageProvider>
+      </Router>
+    </NavigationErrorBoundary>
   );
 }
 

@@ -189,9 +189,9 @@ const Dashboard: React.FC = () => {
   const [question, setQuestion] = useState<string>('');
 
   const availableTopics = [
-    { id: 'products', label: 'Products', icon: '📦', description: 'Analyze product catalog and inventory' },
-    { id: 'clients', label: 'Clients', icon: '👥', description: 'Review client base and relationships' },
-    { id: 'documents', label: 'Documents', icon: '📄', description: 'Examine document workflow and status' }
+    { id: 'products', label: t('Products'), icon: '📦', description: t('Analyze product catalog and inventory') },
+    { id: 'clients', label: t('Clients'), icon: '👥', description: t('Review client base and relationships') },
+    { id: 'documents', label: t('Documents'), icon: '📄', description: t('Examine document workflow and status') }
   ];
 
   useEffect(() => { 
@@ -209,7 +209,7 @@ const Dashboard: React.FC = () => {
 
   const generateAISummary = async () => {
     if (!question.trim()) {
-      showMessage('Please enter a question to analyze', 'error');
+      showMessage(t('Please enter a question to analyze'), 'error');
       return;
     }
     
@@ -221,7 +221,7 @@ const Dashboard: React.FC = () => {
       
       if (!token) {
         console.error('No authentication token found');
-        showMessage('Authentication error: Please log in again', 'error');
+        showMessage(t('Authentication error: Please log in again'), 'error');
         setIsGenerating(false);
         return;
       }
@@ -244,7 +244,7 @@ const Dashboard: React.FC = () => {
       if (!response.ok) {
         if (response.status === 403) {
           console.error('Authentication failed');
-          showMessage('Authentication error: Please log in again', 'error');
+          showMessage(t('Authentication error: Please log in again'), 'error');
           setIsGenerating(false);
           return;
         }
@@ -276,21 +276,21 @@ const Dashboard: React.FC = () => {
       // Show success message
       showMessage(
         data.samplingInfo 
-          ? `Analysis completed using ${data.samplingInfo.analyzed} samples from ${data.samplingInfo.total} records`
-          : 'Analysis completed successfully',
+          ? `${t('Analysis completed using')} ${data.samplingInfo.analyzed} ${t('samples from')} ${data.samplingInfo.total} ${t('records')}`
+          : t('Analysis completed successfully'),
         'success'
       );
       
     } catch (error) {
       console.error('Error generating AI analysis:', error);
-      showMessage('Failed to generate analysis. Please try again later.', 'error');
+      showMessage(t('Failed to generate analysis. Please try again later.'), 'error');
     } finally {
       setIsGenerating(false);
     }
   };
 
   const getLastUpdatedText = () => {
-    if (!lastUpdated) return 'Never updated';
+    if (!lastUpdated) return t('Never updated');
     
     const now = new Date();
     const timeDiff = now.getTime() - lastUpdated.getTime();
@@ -298,10 +298,10 @@ const Dashboard: React.FC = () => {
     const minutesAgo = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
     
     if (hoursAgo === 0) {
-      return minutesAgo === 0 ? 'Just now' : `${minutesAgo}m ago`;
+      return minutesAgo === 0 ? t('Just now') : `${minutesAgo}m ${t('ago')}`;
     }
     
-    return `${hoursAgo}h ${minutesAgo}m ago`;
+    return `${hoursAgo}h ${minutesAgo}m ${t('ago')}`;
   };
 
   if (loading && !allDocumentsData) {
@@ -318,14 +318,14 @@ const Dashboard: React.FC = () => {
         mb: 1,
         textAlign: 'center'
       }}>
-        AI Business Intelligence
+        {t('AI Business Intelligence')}
       </Typography>
       <Typography variant="body2" sx={{ 
         color: '#666', 
         textAlign: 'center',
         mb: 3
       }}>
-        Powered by DeepSeek
+        {t('Powered by DeepSeek')}
       </Typography>
 
       {/* Compact Topic Selection */}
@@ -367,7 +367,7 @@ const Dashboard: React.FC = () => {
           multiline
           minRows={3}
           maxRows={8}
-          placeholder={`Ask about your ${selectedTopic}... (e.g., "How many ${selectedTopic} do we have?")`}
+          placeholder={`${t('Ask about your')} ${t(selectedTopic)}... (e.g., "${t('How many')} ${t(selectedTopic)} ${t('do we have?')}")`}
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={(e) => {
@@ -423,12 +423,12 @@ const Dashboard: React.FC = () => {
           <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
             <Psychology sx={{ fontSize: 20, color: '#2563eb' }} />
             <Typography variant="h6" sx={{ color: '#1a1a1a', fontWeight: 600 }}>
-              Analyzing...
+              {t('Analyzing...')}
             </Typography>
           </Stack>
           
           <LoadingDots>
-            <span>Generating analysis</span>
+            <span>{t('Generating analysis')}</span>
           </LoadingDots>
         </Paper>
       )}
@@ -445,7 +445,7 @@ const Dashboard: React.FC = () => {
           <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
             <Psychology sx={{ fontSize: 20, color: '#2563eb' }} />
             <Typography variant="h6" sx={{ color: '#1a1a1a', fontWeight: 600 }}>
-              Analysis
+              {t('Analysis')}
             </Typography>
             {lastUpdated && (
               <Typography variant="caption" sx={{ color: '#6b7280', ml: 'auto' }}>
@@ -468,10 +468,10 @@ const Dashboard: React.FC = () => {
         }}>
           <Psychology sx={{ fontSize: 48, mb: 2, opacity: 0.5 }} />
           <Typography variant="body1">
-            Select a topic and ask a question to get started
+            {t('Select a topic and ask a question to get started')}
           </Typography>
           <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
-            Tip: Press Cmd/Ctrl + Enter to submit
+            {t('Tip: Press Cmd/Ctrl + Enter to submit')}
           </Typography>
         </Box>
       )}

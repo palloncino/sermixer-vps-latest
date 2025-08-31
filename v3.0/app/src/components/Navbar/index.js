@@ -137,8 +137,16 @@ function Navbar() {
   };
 
   const handleProfileClick = () => {
-    navigate(ROUTES().profile);
-    handleMenuClose();
+    try {
+      const profileRoute = ROUTES().profile;
+      const normalizedRoute = profileRoute === '/' ? profileRoute : profileRoute.replace(/\/$/, '');
+      navigate(normalizedRoute);
+      handleMenuClose();
+    } catch (error) {
+      console.error('Profile navigation error:', error);
+      // Fallback to window.location
+      window.location.href = `${window.location.origin}/v3.0/profile`;
+    }
   };
 
   const handleLogoutClick = () => {
@@ -147,8 +155,16 @@ function Navbar() {
   };
 
   const handleQuickLinkClick = (route) => {
-    navigate(route);
-    handleBurgerMenuClose();
+    try {
+      // Ensure route doesn't have trailing slash (except root)
+      const normalizedRoute = route === '/' ? route : route.replace(/\/$/, '');
+      navigate(normalizedRoute);
+      handleBurgerMenuClose();
+    } catch (error) {
+      console.error('Navigation error:', error);
+      // Fallback to window.location for problematic routes
+      window.location.href = `${window.location.origin}/v3.0${route}`;
+    }
   };
 
   const renderVisitorLinks = () => (

@@ -297,7 +297,7 @@ Please provide:
 3. Specific recommendations
 4. Business implications
 
-Format your response as a business report with emojis for visual appeal.`;
+IMPORTANT: Respond in Italian language. Format your response as a business report in Italian with emojis for visual appeal.`;
 
     console.log('Making DeepSeek API request...');
     
