@@ -1,6 +1,5 @@
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Breadcrumbs, Container, Link, Typography } from "@mui/material";
-import React from "react";
 import { useLocation } from "react-router-dom";
 
 const Breadcrumb = () => {

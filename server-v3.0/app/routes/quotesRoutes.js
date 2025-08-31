@@ -86,8 +86,10 @@ router.post("/create-quote/:hash", authMiddleware, async (req, res) => {
       TOTAL_ALL_WITH_TAXES,
     }, isConfirmation);
 
-    const safeCompany = slugify(document.company ?? "company", { lower: true, strict: true });
-    const filename = `${formatDateForFilename(new Date())}-${quoteNumber}-${safeCompany}-${isConfirmation ? "conferma" : "preventivo"}.pdf`;
+    // New naming system: HASH-MM-DD_HH-MM-SS-COMPANY-TYPE.pdf
+    const companyCode = String(document.company).toLowerCase() === 'sermixer' ? 'SE' : 'S2';
+    const typeCode = isConfirmation ? 'CON' : 'PRE';
+    const filename = `${quoteNumber}-${formatDateForFilename(new Date())}-${companyCode}-${typeCode}.pdf`;
 
     const storageDir = process.env.PDF_STORAGE_FOLDER_DIR;
     if (!storageDir) {

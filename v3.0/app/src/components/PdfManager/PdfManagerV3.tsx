@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Typography,
@@ -116,6 +117,7 @@ interface PdfStats {
 }
 
 const PdfManagerV3: React.FC = () => {
+  const { t } = useTranslation();
   const [pdfs, setPdfs] = useState<PDF[]>([]);
   const [loading, setLoading] = useState(false);
   const [diskSpace, setDiskSpace] = useState<DiskSpace | null>(null);
@@ -158,7 +160,7 @@ const PdfManagerV3: React.FC = () => {
     const response = await fetch(`${API_BASE}/pdfs/list-test`);
     
     if (!response.ok) {
-      throw new Error('Failed to load PDF list');
+      throw new Error(t('Failed to load PDF list'));
     }
     
     const data = await response.json();
@@ -170,7 +172,7 @@ const PdfManagerV3: React.FC = () => {
     const response = await fetch(`${API_BASE}/pdfs/disk-space-test`);
     
     if (!response.ok) {
-      throw new Error('Failed to load disk space');
+      throw new Error(t('Failed to load disk space'));
     }
     
     const data = await response.json();
@@ -182,7 +184,7 @@ const PdfManagerV3: React.FC = () => {
     const response = await fetch(`${API_BASE}/pdfs/stats-test`);
     
     if (!response.ok) {
-      throw new Error('Failed to load PDF stats');
+      throw new Error(t('Failed to load PDF stats'));
     }
     
     const data = await response.json();
@@ -198,7 +200,7 @@ const PdfManagerV3: React.FC = () => {
       });
       
       if (!response.ok) {
-        throw new Error('Failed to download PDF');
+        throw new Error(t('Failed to download PDF'));
       }
       
       const blob = await response.blob();
@@ -211,7 +213,7 @@ const PdfManagerV3: React.FC = () => {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
       
-      setSuccess(`Downloaded ${filename} successfully`);
+      setSuccess(`${t('Downloaded')} ${filename} ${t('successfully')}`);
     } catch (err: any) {
       setError(err.message);
     }
@@ -231,11 +233,11 @@ const PdfManagerV3: React.FC = () => {
       });
       
       if (!response.ok) {
-        throw new Error('Failed to delete PDFs');
+        throw new Error(t('Failed to delete PDFs'));
       }
       
       const result = await response.json();
-      setSuccess(`Successfully deleted ${result.summary.deleted} PDF(s), freed ${result.summary.totalSizeDeletedFormatted}`);
+      setSuccess(`${t('Successfully deleted')} ${result.summary.deleted} PDF(s), ${t('freed')} ${result.summary.totalSizeDeletedFormatted}`);
       setSelectedPdfs([]);
       setDeleteDialog(false);
       loadData(); // Reload data
@@ -303,11 +305,11 @@ const PdfManagerV3: React.FC = () => {
 
   const getAgeLabel = (ageCategory: string) => {
     switch (ageCategory) {
-      case 'white': return '< 1 week';
-      case 'lightGrey': return '1 week - 2 months';
-      case 'darkGrey': return '2 - 3 months';
-      case 'greyOrange': return '3 - 6 months';
-      case 'reddish': return '> 6 months';
+      case 'white': return t('< 1 week');
+      case 'lightGrey': return t('1 week - 2 months');
+      case 'darkGrey': return t('2 - 3 months');
+      case 'greyOrange': return t('3 - 6 months');
+      case 'reddish': return t('> 6 months');
       default: return 'Unknown';
     }
   };
@@ -320,26 +322,22 @@ const PdfManagerV3: React.FC = () => {
   });
 
   const currentPdfs = sortPdfs(filteredPdfs.filter(pdf => pdf.status === 'current'));
-  const archivedPdfs = sortPdfs(filteredPdfs.filter(pdf => pdf.status === 'archived'));
 
   const diskUsagePercent = diskSpace ? 
     parseFloat(diskSpace.disk.usagePercent.replace('%', '')) : 0;
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        PDF Management System
-      </Typography>
       
       {/* Disk Space Monitor */}
       {diskSpace && (
         <Grid container spacing={3} sx={{ mb: 3 }}>
           <Grid item xs={12} md={6}>
-            <Card>
+            <Card elevation={0} sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <StorageIcon sx={{ mr: 1 }} />
-                  <Typography variant="h6">Disk Space</Typography>
+                  <Typography variant="h6">{t('Disk Space')}</Typography>
                 </Box>
                 <Typography variant="body2" color="text.secondary" gutterBottom>
                   {diskSpace.disk.used} / {diskSpace.disk.total} ({diskSpace.disk.usagePercent})
@@ -358,27 +356,27 @@ const PdfManagerV3: React.FC = () => {
                   }}
                 />
                 <Typography variant="body2" sx={{ mt: 1 }}>
-                  Available: {diskSpace.disk.available}
+                  {t('Available')}: {diskSpace.disk.available}
                 </Typography>
               </CardContent>
             </Card>
           </Grid>
           
           <Grid item xs={12} md={6}>
-            <Card>
+            <Card elevation={0} sx={{ border: '1px solid #e0e0e0' }}>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <FilePresentIcon sx={{ mr: 1 }} />
-                  <Typography variant="h6">PDF Storage</Typography>
+                  <Typography variant="h6">{t('PDF Storage')}</Typography>
                 </Box>
                 <Typography variant="body2" color="text.secondary">
-                  Current: {(diskSpace.pdf.currentSize / (1024 * 1024)).toFixed(1)} MB
+                  {t('Current')}: {(diskSpace.pdf.currentSize / (1024 * 1024)).toFixed(1)} MB
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Archived: {(diskSpace.pdf.archiveSize / (1024 * 1024)).toFixed(1)} MB
+                  {t('Archived')}: {(diskSpace.pdf.archiveSize / (1024 * 1024)).toFixed(1)} MB
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Total: {(diskSpace.pdf.totalPdfSize / (1024 * 1024)).toFixed(1)} MB
+                  {t('Total')}: {(diskSpace.pdf.totalPdfSize / (1024 * 1024)).toFixed(1)} MB
                 </Typography>
               </CardContent>
             </Card>
@@ -388,8 +386,8 @@ const PdfManagerV3: React.FC = () => {
 
       {/* Age-based Statistics */}
       {pdfStats && (
-        <Paper sx={{ p: 2, mb: 3 }}>
-          <Typography variant="h6" gutterBottom>PDF Age Distribution</Typography>
+        <Paper elevation={0} sx={{ p: 2, mb: 3, border: '1px solid #e0e0e0' }}>
+          <Typography variant="h6" gutterBottom>{t('PDF Age Distribution')}</Typography>
           <Grid container spacing={2}>
             {Object.entries(pdfStats).map(([age, stats]) => (
               <Grid item xs={12} sm={6} md={2.4} key={age}>
@@ -400,7 +398,7 @@ const PdfManagerV3: React.FC = () => {
                       {getAgeLabel(age)}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
-                      {stats.count} files • {stats.sizeFormatted}
+                      {stats.count} {t('files')} • {stats.sizeFormatted}
                     </Typography>
                   </Box>
                 </Box>
@@ -411,11 +409,11 @@ const PdfManagerV3: React.FC = () => {
       )}
 
       {/* Controls */}
-      <Paper sx={{ p: 2, mb: 3 }}>
+      <Paper elevation={0} sx={{ p: 2, mb: 3, border: '1px solid #e0e0e0' }}>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} md={4}>
             <TextField
-              label="Search PDFs"
+              label={t('Search PDFs')}
               variant="outlined"
               size="small"
               value={searchTerm}
@@ -429,33 +427,33 @@ const PdfManagerV3: React.FC = () => {
           
           <Grid item xs={12} md={2}>
             <FormControl size="small" fullWidth>
-              <InputLabel>Age Filter</InputLabel>
+              <InputLabel>{t('Age Filter')}</InputLabel>
               <Select
                 value={filterByAge}
                 onChange={(e) => setFilterByAge(e.target.value)}
-                label="Age Filter"
+                label={t('Age Filter')}
               >
-                <MenuItem value="all">All Ages</MenuItem>
-                <MenuItem value="white">&lt; 1 week</MenuItem>
-                <MenuItem value="lightGrey">1 week - 2 months</MenuItem>
-                <MenuItem value="darkGrey">2 - 3 months</MenuItem>
-                <MenuItem value="greyOrange">3 - 6 months</MenuItem>
-                <MenuItem value="reddish">&gt; 6 months</MenuItem>
+                <MenuItem value="all">{t('All Ages')}</MenuItem>
+                <MenuItem value="white">{t('< 1 week')}</MenuItem>
+                <MenuItem value="lightGrey">{t('1 week - 2 months')}</MenuItem>
+                <MenuItem value="darkGrey">{t('2 - 3 months')}</MenuItem>
+                <MenuItem value="greyOrange">{t('3 - 6 months')}</MenuItem>
+                <MenuItem value="reddish">{t('> 6 months')}</MenuItem>
               </Select>
             </FormControl>
           </Grid>
           
           <Grid item xs={12} md={2}>
             <FormControl size="small" fullWidth>
-              <InputLabel>Status Filter</InputLabel>
+              <InputLabel>{t('Status Filter')}</InputLabel>
               <Select
                 value={filterByStatus}
                 onChange={(e) => setFilterByStatus(e.target.value)}
-                label="Status Filter"
+                label={t('Status Filter')}
               >
-                <MenuItem value="all">All Status</MenuItem>
-                <MenuItem value="current">Current</MenuItem>
-                <MenuItem value="archived">Archived</MenuItem>
+                <MenuItem value="all">{t('All Status')}</MenuItem>
+                <MenuItem value="current">{t('Current')}</MenuItem>
+                <MenuItem value="archived">{t('Archived')}</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -468,7 +466,7 @@ const PdfManagerV3: React.FC = () => {
                   onChange={(e) => setCompactView(e.target.checked)}
                 />
               }
-              label="Compact"
+              label={t('Compact')}
             />
           </Grid>
           
@@ -480,7 +478,7 @@ const PdfManagerV3: React.FC = () => {
               startIcon={loading ? <CircularProgress size={20} /> : <RefreshIcon />}
               fullWidth
             >
-              Refresh
+              {t('Refresh')}
             </Button>
           </Grid>
         </Grid>
@@ -490,7 +488,7 @@ const PdfManagerV3: React.FC = () => {
           <Box sx={{ mt: 2, p: 1, bgcolor: 'action.selected', borderRadius: 1 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Typography variant="body2">
-                {selectedPdfs.length} file(s) selected
+                {selectedPdfs.length} {t('file(s) selected')}
               </Typography>
               <Button
                 variant="contained"
@@ -499,7 +497,7 @@ const PdfManagerV3: React.FC = () => {
                 onClick={() => setDeleteDialog(true)}
                 size="small"
               >
-                Delete Selected
+                {t('Delete Selected')}
               </Button>
             </Box>
           </Box>
@@ -512,10 +510,10 @@ const PdfManagerV3: React.FC = () => {
         </Alert>
       )}
 
-      {/* Current PDFs Table */}
-      <Paper sx={{ mb: 3 }}>
+      {/* PDFs Table */}
+      <Paper elevation={0} sx={{ mb: 3, border: '1px solid #e0e0e0' }}>
         <Typography variant="h6" sx={{ p: 2, borderBottom: 1, borderColor: 'divider' }}>
-          Current PDFs ({currentPdfs.length})
+          {t('PDFs')} ({currentPdfs.length})
           {currentPdfs.length > 0 && (
             <FormControlLabel
               control={
@@ -525,42 +523,42 @@ const PdfManagerV3: React.FC = () => {
                   onChange={(e) => handleSelectAll(e.target.checked)}
                 />
               }
-              label="Select All"
+              label={t('Select All')}
               sx={{ float: 'right' }}
             />
           )}
         </Typography>
-        <TableContainer sx={{ maxHeight: compactView ? 600 : 'none' }}>
+        <TableContainer>
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox" sx={{ width: '40px' }}>Select</TableCell>
-                <TableCell sx={{ width: '30px' }}>Age</TableCell>
+                <TableCell padding="checkbox" sx={{ width: '40px' }}>{t('Select')}</TableCell>
+                <TableCell sx={{ width: '30px' }}>{t('Age')}</TableCell>
                 <TableCell 
                   sx={{ cursor: 'pointer', fontWeight: sortBy === 'filename' ? 'bold' : 'normal' }}
                   onClick={() => handleSort('filename')}
                 >
-                  Filename {sortBy === 'filename' && (sortOrder === 'asc' ? '↑' : '↓')}
+                  {t('Filename')} {sortBy === 'filename' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </TableCell>
                 <TableCell 
                   sx={{ cursor: 'pointer', fontWeight: sortBy === 'size' ? 'bold' : 'normal', width: '100px', whiteSpace: 'nowrap' }}
                   onClick={() => handleSort('size')}
                 >
-                  Size {sortBy === 'size' && (sortOrder === 'asc' ? '↑' : '↓')}
+                  {t('Size')} {sortBy === 'size' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </TableCell>
                 <TableCell 
                   sx={{ cursor: 'pointer', fontWeight: sortBy === 'modified' ? 'bold' : 'normal', width: '120px', whiteSpace: 'nowrap' }}
                   onClick={() => handleSort('modified')}
                 >
-                  Modified {sortBy === 'modified' && (sortOrder === 'asc' ? '↑' : '↓')}
+                  {t('Modified')} {sortBy === 'modified' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </TableCell>
                 <TableCell 
                   sx={{ cursor: 'pointer', fontWeight: sortBy === 'age' ? 'bold' : 'normal', width: '70px', whiteSpace: 'nowrap' }}
                   onClick={() => handleSort('age')}
                 >
-                  Days {sortBy === 'age' && (sortOrder === 'asc' ? '↑' : '↓')}
+                  {t('Days')} {sortBy === 'age' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </TableCell>
-                <TableCell sx={{ width: '60px' }}>Actions</TableCell>
+                <TableCell sx={{ width: '60px' }}>{t('Actions')}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -595,7 +593,7 @@ const PdfManagerV3: React.FC = () => {
                     <Typography variant="caption">{pdf.ageInDays}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Tooltip title="Download PDF">
+                    <Tooltip title={t('Download PDF')}>
                       <IconButton
                         color="primary"
                         onClick={() => downloadPdf(pdf.filename)}
@@ -611,7 +609,7 @@ const PdfManagerV3: React.FC = () => {
               {currentPdfs.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={7} align="center">
-                    No current PDFs match the selected filters
+                    {t('No PDFs match the selected filters')}
                   </TableCell>
                 </TableRow>
               )}
@@ -620,78 +618,22 @@ const PdfManagerV3: React.FC = () => {
         </TableContainer>
       </Paper>
 
-      {/* Archived PDFs Table */}
-      <Paper sx={{ mb: 3 }}>
-        <Typography variant="h6" sx={{ p: 2, borderBottom: 1, borderColor: 'divider' }}>
-          Archived PDFs ({archivedPdfs.length})
-        </Typography>
-        <TableContainer sx={{ maxHeight: compactView ? 300 : 'none' }}>
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell sx={{ width: '30px', whiteSpace: 'nowrap' }}>Age</TableCell>
-                <TableCell sx={{ whiteSpace: 'nowrap' }}>Filename</TableCell>
-                <TableCell sx={{ width: '100px', whiteSpace: 'nowrap' }}>Size</TableCell>
-                <TableCell sx={{ width: '140px', whiteSpace: 'nowrap' }}>Archive File</TableCell>
-                <TableCell sx={{ width: '70px', whiteSpace: 'nowrap' }}>Days</TableCell>
-                <TableCell sx={{ width: '60px', whiteSpace: 'nowrap' }}>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {archivedPdfs.map((pdf) => (
-                <CompactTableRow key={pdf.filename}>
-                  <TableCell>
-                    <Tooltip title={getAgeLabel(pdf.ageCategory)}>
-                      <AgeIndicator ageCategory={pdf.ageCategory} />
-                    </Tooltip>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
-                      {pdf.filename}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>{pdf.sizeFormatted}</TableCell>
-                  <TableCell>{pdf.archiveFile}</TableCell>
-                  <TableCell>{pdf.ageInDays}</TableCell>
-                  <TableCell>
-                    <Tooltip title="Retrieve from Archive">
-                      <IconButton
-                        color="warning"
-                        onClick={() => downloadPdf(pdf.filename)}
-                        size="small"
-                      >
-                        <DownloadIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
-                </CompactTableRow>
-              ))}
-              {archivedPdfs.length === 0 && (
-                <TableRow>
-                  <TableCell colSpan={6} align="center">
-                    No archived PDFs match the selected filters
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
+
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={deleteDialog} onClose={() => setDeleteDialog(false)} maxWidth="sm" fullWidth>
         <DialogTitle>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <WarningIcon color="warning" sx={{ mr: 1 }} />
-            Confirm Deletion
+            {t('Confirm Deletion')}
           </Box>
         </DialogTitle>
         <DialogContent>
           <Typography variant="body1" gutterBottom>
-            Are you sure you want to delete {selectedPdfs.length} PDF file(s)?
+            {t('Are you sure you want to delete')} {selectedPdfs.length} {t('PDF file(s)?')}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            This action cannot be undone. Only current PDFs can be deleted, archived PDFs are protected.
+            {t('This action cannot be undone. Only current PDFs can be deleted, archived PDFs are protected.')}
           </Typography>
           <Box sx={{ mt: 2, maxHeight: 200, overflow: 'auto' }}>
             {selectedPdfs.map(filename => (
@@ -702,14 +644,14 @@ const PdfManagerV3: React.FC = () => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDeleteDialog(false)}>Cancel</Button>
+          <Button onClick={() => setDeleteDialog(false)}>{t('Cancel')}</Button>
           <Button
             variant="contained"
             color="error"
             onClick={deleteSelectedPdfs}
             startIcon={<DeleteIcon />}
           >
-            Delete {selectedPdfs.length} File(s)
+            {t('Delete')} {selectedPdfs.length} {t('File(s)')}
           </Button>
         </DialogActions>
       </Dialog>
