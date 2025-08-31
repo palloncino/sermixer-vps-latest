@@ -10,55 +10,16 @@ import {
   CardContent,
   Chip,
   CircularProgress,
-  Divider,
   Stack,
+  TextField,
   Typography
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
 
 import { useDocumentContext } from '../../state/documentContext';
 import Loading from '../Loading';
-
-// Styled Components for modern AI dashboard
-const DashboardContainer = styled(Box)`
-  padding: 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
-`;
-
-const AICard = styled(Card)`
-  border-radius: 16px !important;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37) !important;
-  transition: all 0.3s ease !important;
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(31, 38, 135, 0.5) !important;
-  }
-`;
-
-const GlowingButton = styled(Button)`
-  background: linear-gradient(45deg, #667eea, #764ba2) !important;
-  border: none !important;
-  border-radius: 12px !important;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4) !important;
-  transition: all 0.3s ease !important;
-  
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6) !important;
-  }
-  
-  &:disabled {
-    background: #ccc !important;
-    box-shadow: none !important;
-  }
-`;
+import { WhitePaperContainer } from '../../pages/documents/styled-components';
 
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
@@ -67,6 +28,14 @@ const Dashboard: React.FC = () => {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [analysisData, setAnalysisData] = useState<any>(null);
+  const [selectedTopic, setSelectedTopic] = useState<string>('products');
+  const [question, setQuestion] = useState<string>('');
+
+  const availableTopics = [
+    { id: 'products', label: 'Products', icon: '📦', description: 'Analyze product catalog and inventory' },
+    { id: 'clients', label: 'Clients', icon: '👥', description: 'Review client base and relationships' },
+    { id: 'documents', label: 'Documents', icon: '📄', description: 'Examine document workflow and status' }
+  ];
 
   useEffect(() => { 
     getAllDocuments(); 
@@ -81,10 +50,11 @@ const Dashboard: React.FC = () => {
     }
   }, [getAllDocuments]);
 
-
-
   const generateAISummary = async () => {
-    if (!allDocumentsData?.length) return;
+    if (!question.trim()) {
+      setAiSummary('Please enter a question to analyze');
+      return;
+    }
     
     setIsGenerating(true);
     
@@ -100,13 +70,18 @@ const Dashboard: React.FC = () => {
       }
       
       console.log('Making AI analysis request with token:', token ? 'Token present' : 'No token');
+      console.log('Topic:', selectedTopic, 'Question:', question);
       
       const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://sermixer.micro-cloud.it:12923/v3.0/api'}/ai/generate-analysis`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+          topic: selectedTopic,
+          question: question.trim()
+        })
       });
       
       if (!response.ok) {
@@ -116,40 +91,34 @@ const Dashboard: React.FC = () => {
           setIsGenerating(false);
           return;
         }
+        
+        if (response.status === 400) {
+          const errorData = await response.json();
+          setAiSummary(`Error: ${errorData.message}\n\nSuggestion: ${errorData.suggestion || 'Try a different approach'}`);
+          setIsGenerating(false);
+          return;
+        }
+        
         throw new Error(`Analysis generation failed: ${response.statusText}`);
       }
       
       const data = await response.json();
       const analysis = data.analysis;
       
+      // Update UI with new analysis
       setAiSummary(analysis.summary);
-      setAnalysisData(analysis.metrics);
+      setAnalysisData(analysis.metrics || {});
       
+      // Store in localStorage
       const now = new Date();
       setLastUpdated(now);
       localStorage.setItem('deepseek_summary', analysis.summary);
-      localStorage.setItem('deepseek_analysis_data', JSON.stringify(analysis.metrics));
+      localStorage.setItem('deepseek_analysis_data', JSON.stringify(analysis.metrics || {}));
       localStorage.setItem('deepseek_last_summary', now.toISOString());
       
     } catch (error) {
-      console.error('AI Summary generation failed:', error);
-      // Fallback to mock data if API fails
-      const totalDocs = allDocumentsData.length;
-      const finalizedDocs = allDocumentsData.filter(doc => doc.status?.FINALIZED).length;
-      const clients = new Set(allDocumentsData.map(doc => doc.data?.selectedClient?.email).filter(Boolean)).size;
-      const completionRate = totalDocs > 0 ? (finalizedDocs / totalDocs) * 100 : 0;
-      
-      const fallbackSummary = `⚠️ API Analysis Unavailable - Showing Local Summary
-
-Based on local analysis of ${totalDocs} documents across ${clients} clients:
-• Completion rate: ${completionRate.toFixed(1)}%
-• Finalized documents: ${finalizedDocs}
-• Active clients: ${clients}
-
-Note: Connect to DeepSeek API for advanced business insights and recommendations.`;
-
-      setAiSummary(fallbackSummary);
-      setAnalysisData({ totalDocs, finalizedDocs, clients, completionRate });
+      console.error('Error generating AI analysis:', error);
+      setAiSummary('Failed to generate analysis. Please try again later.');
     } finally {
       setIsGenerating(false);
     }
@@ -175,161 +144,180 @@ Note: Connect to DeepSeek API for advanced business insights and recommendations
   }
 
   return (
-    <DashboardContainer>
-      <Box sx={{ maxWidth: 1200, margin: '0 auto' }}>
+    <WhitePaperContainer>
+      <Box sx={{ p: 3 }}>
         {/* Header */}
-        <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
-          <Box>
-            <Typography variant="h3" fontWeight={700} sx={{ 
-              color: 'white', 
-              fontSize: { xs: 28, md: 36 },
-              background: 'linear-gradient(45deg, #ffffff, #e0e7ff)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}>
-              AI Business Insights
-            </Typography>
-            <Typography variant="body1" sx={{ 
-              color: 'rgba(255, 255, 255, 0.8)', 
-              fontSize: 16,
-              mt: 1
-            }}>
-              Powered by DeepSeek AI • Generate analysis on demand
-            </Typography>
-          </Box>
-          
-          <Stack direction="row" spacing={2} alignItems="center">
-            <Chip
-              icon={<Schedule />}
-              label={getLastUpdatedText()}
-              sx={{
-                background: 'rgba(255, 255, 255, 0.15)',
-                color: 'white',
-                backdropFilter: 'blur(10px)',
-                fontWeight: 600,
-              }}
-            />
-            <GlowingButton
-              variant="contained"
-              startIcon={isGenerating ? <CircularProgress size={16} color="inherit" /> : <Refresh />}
-              onClick={generateAISummary}
-              disabled={isGenerating || !allDocumentsData?.length}
-              sx={{
-                color: 'white',
-                fontWeight: 600,
-                px: 3,
-                py: 1,
-                textTransform: 'none',
-              }}
-            >
-              {isGenerating ? 'Analyzing...' : 'Refresh Analysis'}
-            </GlowingButton>
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="h4" sx={{ 
+            fontWeight: 700, 
+            fontSize: '2rem',
+            color: '#333',
+            mb: 1
+          }}>
+            🧠 AI Business Insights
+          </Typography>
+          <Typography variant="body1" sx={{ 
+            color: '#666', 
+            fontSize: '1rem'
+          }}>
+            Powered by DeepSeek AI • Generate analysis on demand
+          </Typography>
+        </Box>
+
+        {/* Topic Selection */}
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="h6" sx={{ color: '#333', mb: 2, fontWeight: 600 }}>
+            📊 Select Analysis Topic
+          </Typography>
+          <Stack direction="row" spacing={2} flexWrap="wrap" gap={1} sx={{ mb: 2 }}>
+            {availableTopics.map((topic) => (
+              <Chip
+                key={topic.id}
+                icon={<span style={{ fontSize: '16px' }}>{topic.icon}</span>}
+                label={topic.label}
+                onClick={() => setSelectedTopic(topic.id)}
+                sx={{
+                  background: selectedTopic === topic.id 
+                    ? 'linear-gradient(45deg, #667eea, #764ba2)' 
+                    : '#f5f5f5',
+                  color: selectedTopic === topic.id ? 'white' : '#333',
+                  fontWeight: 600,
+                  border: selectedTopic === topic.id ? '2px solid #667eea' : '1px solid #ddd',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    background: selectedTopic === topic.id 
+                      ? 'linear-gradient(45deg, #667eea, #764ba2)' 
+                      : '#e0e0e0',
+                    transform: 'translateY(-2px)'
+                  }
+                }}
+              />
+            ))}
           </Stack>
+          <Typography variant="body2" sx={{ color: '#777', fontSize: '0.9rem' }}>
+            {availableTopics.find(t => t.id === selectedTopic)?.description}
+          </Typography>
+        </Box>
+
+        {/* Question Input */}
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="h6" sx={{ color: '#333', mb: 2, fontWeight: 600 }}>
+            ❓ Ask Your Question
+          </Typography>
+          <TextField
+            fullWidth
+            multiline
+            rows={4}
+            placeholder={`e.g., "How many ${selectedTopic} do we have?" or "What are the trends in our ${selectedTopic}?"`}
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                backgroundColor: '#f9f9f9',
+                '& fieldset': {
+                  borderColor: '#ddd',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#bbb',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#667eea',
+                },
+              },
+            }}
+          />
+        </Box>
+
+        {/* Action Bar */}
+        <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between" sx={{ mb: 4 }}>
+          <Chip
+            icon={<Schedule />}
+            label={getLastUpdatedText()}
+            sx={{
+              backgroundColor: '#f0f0f0',
+              color: '#666',
+              fontWeight: 600,
+            }}
+          />
+          <Button
+            variant="contained"
+            startIcon={isGenerating ? <CircularProgress size={16} color="inherit" /> : <Refresh />}
+            onClick={generateAISummary}
+            disabled={isGenerating || !question.trim()}
+            sx={{
+              background: 'linear-gradient(45deg, #667eea, #764ba2)',
+              fontWeight: 600,
+              px: 3,
+              py: 1.5,
+              textTransform: 'none',
+              borderRadius: 2,
+              '&:hover': {
+                background: 'linear-gradient(45deg, #5a6fd8, #6a4190)',
+              }
+            }}
+          >
+            {isGenerating ? 'Analyzing...' : 'Generate Analysis'}
+          </Button>
         </Stack>
 
         {/* AI Summary Card */}
-        <AICard>
+        <Card sx={{ border: '1px solid #e0e0e0', borderRadius: 3 }}>
           <CardContent sx={{ p: 4 }}>
-            <Stack direction="row" alignItems="center" spacing={2} mb={3}>
-              <Box sx={{ 
-                p: 2, 
-                borderRadius: 2, 
-                background: 'linear-gradient(45deg, #667eea, #764ba2)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <Psychology sx={{ color: 'white', fontSize: 32 }} />
-              </Box>
-              <Box>
-                <Typography variant="h5" fontWeight={700} sx={{ color: '#333' }}>
-                  Business Intelligence Summary
-                </Typography>
-                <Typography variant="body2" sx={{ color: '#666' }}>
-                  {lastUpdated 
-                    ? `Last updated: ${lastUpdated.toLocaleDateString()} at ${lastUpdated.toLocaleTimeString()}`
-                    : 'No analysis available yet'
-                  }
-                </Typography>
-              </Box>
+            <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
+              <Psychology sx={{ fontSize: 28, color: '#667eea' }} />
+              <Typography variant="h5" fontWeight={600} sx={{ color: '#333' }}>
+                Business Intelligence Summary
+              </Typography>
             </Stack>
-
-            <Divider sx={{ mb: 3 }} />
-
+            
+            <Typography variant="body2" sx={{ color: '#666', mb: 3 }}>
+              Last updated: {lastUpdated ? lastUpdated.toLocaleString() : 'Never'}
+            </Typography>
+            
             {aiSummary ? (
-              <Box>
-                <Typography variant="body1" sx={{ 
-                  lineHeight: 1.8, 
-                  color: '#444',
-                  fontSize: 16,
-                  whiteSpace: 'pre-line'
-                }}>
-                  {aiSummary}
-                </Typography>
-                
-                {analysisData && (
-                  <Box sx={{ mt: 3, p: 2, backgroundColor: '#f8f9fa', borderRadius: 2 }}>
-                    <Typography variant="subtitle2" fontWeight={600} sx={{ mb: 2, color: '#555' }}>
-                      Key Metrics Analyzed:
-                    </Typography>
-                    <Stack direction="row" spacing={3} flexWrap="wrap">
-                      <Box sx={{ textAlign: 'center' }}>
-                        <Typography variant="h6" fontWeight={700} sx={{ color: '#667eea' }}>
-                          {analysisData.totalDocs}
-                        </Typography>
-                        <Typography variant="caption" sx={{ color: '#666' }}>
-                          Total Documents
-                        </Typography>
-                      </Box>
-                      <Box sx={{ textAlign: 'center' }}>
-                        <Typography variant="h6" fontWeight={700} sx={{ color: '#2e7d32' }}>
-                          {analysisData.finalizedDocs}
-                        </Typography>
-                        <Typography variant="caption" sx={{ color: '#666' }}>
-                          Completed
-                        </Typography>
-                      </Box>
-                      <Box sx={{ textAlign: 'center' }}>
-                        <Typography variant="h6" fontWeight={700} sx={{ color: '#ed6c02' }}>
-                          {analysisData.clients}
-                        </Typography>
-                        <Typography variant="caption" sx={{ color: '#666' }}>
-                          Active Clients
-                        </Typography>
-                      </Box>
-                      <Box sx={{ textAlign: 'center' }}>
-                        <Typography variant="h6" fontWeight={700} sx={{ color: '#9c27b0' }}>
-                          {analysisData.completionRate.toFixed(1)}%
-                        </Typography>
-                        <Typography variant="caption" sx={{ color: '#666' }}>
-                          Success Rate
-                        </Typography>
-                      </Box>
-                    </Stack>
-                  </Box>
-                )}
-              </Box>
+              <Typography variant="body1" sx={{
+                color: '#444',
+                fontSize: 16,
+                whiteSpace: 'pre-line'
+              }}>
+                {aiSummary}
+              </Typography>
             ) : (
-              <Box sx={{ textAlign: 'center', py: 6 }}>
-                <Psychology sx={{ fontSize: 64, color: '#ccc', mb: 2 }} />
-                <Typography variant="h6" sx={{ color: '#666', mb: 2 }}>
-                  No AI Analysis Available
+              <Typography variant="body1" sx={{ color: '#999', fontStyle: 'italic' }}>
+                No analysis generated yet. Select a topic, ask a question, and click "Generate Analysis" to get started.
+              </Typography>
+            )}
+            
+            {analysisData && (
+              <Box sx={{ mt: 3, p: 2, backgroundColor: '#f8f9fa', borderRadius: 2 }}>
+                <Typography variant="subtitle2" fontWeight={600} sx={{ mb: 2, color: '#555' }}>
+                  Key Metrics Analyzed:
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#999', mb: 3 }}>
-                  Click "Refresh Analysis" to generate your first business intelligence summary
-                </Typography>
-                {allDocumentsData?.length === 0 && (
-                  <Typography variant="body2" sx={{ color: '#f44336' }}>
-                    No documents found for analysis
-                  </Typography>
-                )}
+                <Stack direction="row" spacing={3} flexWrap="wrap">
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Typography variant="h6" fontWeight={700} sx={{ color: '#667eea' }}>
+                      {analysisData.totalDocs || analysisData.totalProducts || analysisData.totalClients || 0}
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: '#666' }}>
+                      Total Records
+                    </Typography>
+                  </Box>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Typography variant="h6" fontWeight={700} sx={{ color: '#764ba2' }}>
+                      {analysisData.completionRate || analysisData.categories || analysisData.growthRate || 0}%
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: '#666' }}>
+                      Key Metric
+                    </Typography>
+                  </Box>
+                </Stack>
               </Box>
             )}
           </CardContent>
-        </AICard>
+        </Card>
       </Box>
-    </DashboardContainer>
+    </WhitePaperContainer>
   );
 };
 

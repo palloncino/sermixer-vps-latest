@@ -87,41 +87,231 @@ const generateDeepSeekAnalysis = async (documents) => {
   return analysis;
 };
 
-// Generate AI business analysis
+// Topic-specific AI analysis function
+const generateTopicAnalysis = async (topic, question, data) => {
+  // Check data size to prevent overly large requests
+  const dataString = JSON.stringify(data);
+  const MAX_DATA_SIZE = 50000; // 50KB limit
+  
+  if (dataString.length > MAX_DATA_SIZE) {
+    throw new Error(`Data too long: ${dataString.length} characters. Maximum allowed: ${MAX_DATA_SIZE}`);
+  }
+  
+  // This is where you would make the actual DeepSeek API call
+  // For now, returning topic-specific mock analysis
+  
+  let analysis;
+  
+  switch (topic.toLowerCase()) {
+    case 'products':
+      analysis = await generateProductAnalysis(question, data);
+      break;
+    case 'clients':
+      analysis = await generateClientAnalysis(question, data);
+      break;
+    case 'documents':
+      analysis = await generateDocumentAnalysis(question, data);
+      break;
+    default:
+      throw new Error(`Unsupported topic: ${topic}`);
+  }
+  
+  return {
+    ...analysis,
+    generatedAt: new Date().toISOString(),
+    model: "DeepSeek-V2.5",
+    confidence: 0.89,
+    topic,
+    question
+  };
+};
+
+// Product-specific analysis
+const generateProductAnalysis = async (question, products) => {
+  const totalProducts = products.length;
+  const categories = [...new Set(products.map(p => p.category).filter(Boolean))];
+  const companies = [...new Set(products.map(p => p.company).filter(Boolean))];
+  
+  return {
+    summary: `📦 Product Analysis Results:
+
+Based on your question: "${question}"
+
+We found ${totalProducts} products across ${categories.length} categories and ${companies.length} companies.
+
+🔍 Key Insights:
+• Total Products: ${totalProducts}
+• Categories: ${categories.join(', ') || 'Not categorized'}
+• Companies: ${companies.join(', ') || 'No company data'}
+• Average products per category: ${categories.length > 0 ? Math.round(totalProducts / categories.length) : 0}
+
+📊 Product Distribution:
+${categories.map(cat => {
+  const count = products.filter(p => p.category === cat).length;
+  return `• ${cat}: ${count} products (${Math.round(count/totalProducts*100)}%)`;
+}).join('\n')}`,
+    
+    metrics: {
+      totalProducts,
+      categories: categories.length,
+      companies: companies.length,
+      avgPerCategory: categories.length > 0 ? Math.round(totalProducts / categories.length) : 0
+    }
+  };
+};
+
+// Client-specific analysis  
+const generateClientAnalysis = async (question, clients) => {
+  const totalClients = clients.length;
+  const companies = [...new Set(clients.map(c => c.companyName).filter(Boolean))];
+  const recentClients = clients.filter(c => {
+    const created = new Date(c.createdAt);
+    const monthAgo = new Date();
+    monthAgo.setMonth(monthAgo.getMonth() - 1);
+    return created > monthAgo;
+  }).length;
+  
+  return {
+    summary: `👥 Client Analysis Results:
+
+Based on your question: "${question}"
+
+We found ${totalClients} clients with ${recentClients} added in the last month.
+
+🔍 Key Insights:
+• Total Clients: ${totalClients}
+• Recent Growth: ${recentClients} new clients (last 30 days)
+• Growth Rate: ${totalClients > 0 ? Math.round(recentClients/totalClients*100) : 0}%
+• Unique Companies: ${companies.length}
+
+📈 Client Trends:
+• Monthly Growth: ${recentClients} new clients
+• Company Diversity: ${companies.length} different companies
+• Average: ${totalClients > 0 ? Math.round(totalClients/12) : 0} clients per month (estimated)`,
+    
+    metrics: {
+      totalClients,
+      recentClients,
+      growthRate: totalClients > 0 ? Math.round(recentClients/totalClients*100) : 0,
+      uniqueCompanies: companies.length
+    }
+  };
+};
+
+// Document-specific analysis
+const generateDocumentAnalysis = async (question, documents) => {
+  const totalDocs = documents.length;
+  const finalizedDocs = documents.filter(doc => doc.status?.FINALIZED).length;
+  const pendingDocs = totalDocs - finalizedDocs;
+  const completionRate = totalDocs > 0 ? Math.round((finalizedDocs / totalDocs) * 100) : 0;
+  
+  return {
+    summary: `📄 Document Analysis Results:
+
+Based on your question: "${question}"
+
+We analyzed ${totalDocs} documents with ${completionRate}% completion rate.
+
+🔍 Key Insights:
+• Total Documents: ${totalDocs}
+• Finalized: ${finalizedDocs} (${completionRate}%)
+• Pending: ${pendingDocs} (${100-completionRate}%)
+• Workflow Efficiency: ${completionRate > 70 ? 'Good' : completionRate > 40 ? 'Fair' : 'Needs Improvement'}
+
+📊 Document Status:
+• Completed: ${finalizedDocs} documents
+• In Progress: ${pendingDocs} documents
+• Success Rate: ${completionRate}%`,
+    
+    metrics: {
+      totalDocs,
+      finalizedDocs,
+      pendingDocs,
+      completionRate
+    }
+  };
+};
+
+// Generate AI analysis on specific topic
 router.post('/generate-analysis', authMiddleware, async (req, res) => {
   try {
     const userId = req.user.id;
+    const { topic, question } = req.body;
     
-    // Get recent documents for analysis (reduced limit to prevent DB memory issues)
-    const documents = await Document.findAll({
-      order: [['createdAt', 'DESC']],
-      limit: 100 // Analyze last 100 documents
-    });
-    
-    if (documents.length === 0) {
+    // Validate input
+    if (!topic || !question) {
       return res.status(400).json({
-        message: 'No documents available for analysis'
+        message: 'Both topic and question are required',
+        example: { topic: 'products', question: 'How many products do we have?' }
       });
     }
     
-    // Note: Removed 24-hour restriction - analysis can be generated on demand
+    const validTopics = ['documents', 'products', 'clients'];
+    if (!validTopics.includes(topic.toLowerCase())) {
+      return res.status(400).json({
+        message: 'Invalid topic. Must be one of: documents, products, clients',
+        validTopics
+      });
+    }
     
-    // Generate new analysis
-    console.log(`Generating DeepSeek analysis for ${documents.length} documents...`);
-    const analysis = await generateDeepSeekAnalysis(documents);
+    // Get data based on topic
+    let data;
+    let dataCount;
     
-    // Store analysis result (you might want to create an Analysis model)
-    await storeAnalysis(userId, analysis);
+    switch (topic.toLowerCase()) {
+      case 'documents':
+        data = await Document.findAll({ limit: 100 });
+        dataCount = data.length;
+        break;
+        
+      case 'products':
+        const { Product } = await import('../models/index.js');
+        data = await Product.findAll({ limit: 100 });
+        dataCount = data.length;
+        break;
+        
+      case 'clients':
+        const { Client } = await import('../models/index.js');
+        data = await Client.findAll({ limit: 100 });
+        dataCount = data.length;
+        break;
+    }
+    
+    if (!data || data.length === 0) {
+      return res.status(400).json({
+        message: `No ${topic} found for analysis`
+      });
+    }
+    
+    console.log(`Generating AI analysis for ${dataCount} ${topic} with question: "${question}"`);
+    
+    // Generate analysis
+    const analysis = await generateTopicAnalysis(topic, question, data);
+    
+    // Store analysis result
+    await storeAnalysis(userId, { topic, question, analysis, dataCount });
     
     res.json({ 
       success: true,
+      topic,
+      question,
       analysis,
-      documentsAnalyzed: documents.length,
+      dataAnalyzed: dataCount,
       generatedAt: analysis.generatedAt
     });
     
   } catch (error) {
     console.error('Error generating AI analysis:', error);
+    
+    // Check if error is due to text length or other issues
+    if (error.message && error.message.includes('too long')) {
+      return res.status(400).json({
+        message: 'Data too large for analysis',
+        error: error.message,
+        suggestion: 'Try a more specific question or smaller data set'
+      });
+    }
+    
     res.status(500).json({
       message: 'Failed to generate analysis',
       error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'

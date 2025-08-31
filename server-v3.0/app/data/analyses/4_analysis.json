@@ -1,0 +1,23 @@
+{
+  "analysis": {
+    "topic": "clients",
+    "question": "how may clients do we got ?",
+    "analysis": {
+      "summary": "👥 Client Analysis Results:\n\nBased on your question: \"how may clients do we got ?\"\n\nWe found 10 clients with 0 added in the last month.\n\n🔍 Key Insights:\n• Total Clients: 10\n• Recent Growth: 0 new clients (last 30 days)\n• Growth Rate: 0%\n• Unique Companies: 10\n\n📈 Client Trends:\n• Monthly Growth: 0 new clients\n• Company Diversity: 10 different companies\n• Average: 1 clients per month (estimated)",
+      "metrics": {
+        "totalClients": 10,
+        "recentClients": 0,
+        "growthRate": 0,
+        "uniqueCompanies": 10
+      },
+      "generatedAt": "2025-08-31T13:11:12.763Z",
+      "model": "DeepSeek-V2.5",
+      "confidence": 0.89,
+      "topic": "clients",
+      "question": "how may clients do we got ?"
+    },
+    "dataCount": 10
+  },
+  "createdAt": "2025-08-31T13:11:12.763Z",
+  "userId": 4
+}

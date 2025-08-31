@@ -2,26 +2,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {
   Avatar,
   Button,
+  Divider,
   IconButton,
+  ListItemText,
   Menu,
   MenuItem,
   Tooltip,
-  useMediaQuery,
-  Divider,
-  ListItemIcon,
-  ListItemText,
   Typography,
+  useMediaQuery
 } from "@mui/material";
-import {
-  Description,
-  Add,
-  Business,
-  ShoppingCart,
-  People,
-  Assessment,
-  Dashboard as DashboardIcon,
-  PictureAsPdf as PdfIcon,
-} from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -54,9 +43,10 @@ const StyledContainer = styled.div`
 
 const StyledToolbar = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
+  gap: 1rem;
 `;
 
 const LogoButton = styled(RouterLink)`
@@ -188,6 +178,60 @@ function Navbar() {
     i18n.changeLanguage(newLanguage);
   };
 
+  const menuItems = [
+    {
+      category: t('Documents'),
+      icon: '📄',
+      color: '#2196f3',
+      items: [
+        { label: t('New Document'), description: t('Create quote or invoice'), route: ROUTES().createDocument },
+        { label: t('Documents List'), description: t('View all documents'), route: ROUTES().documentsList }
+      ]
+    },
+    {
+      category: t('Clients'),
+      icon: '👥',
+      color: '#4caf50',
+      items: [
+        { label: t('Clients List'), description: t('View client database'), route: ROUTES().clientsList },
+        { label: t('Create Client'), description: t('Add new client'), route: ROUTES().createClient }
+      ]
+    },
+    {
+      category: t('Products'),
+      icon: '📦',
+      color: '#ff9800',
+      items: [
+        { label: t('Products List'), description: t('View all products'), route: ROUTES().productList },
+        ...(isAdmin(user) ? [{ label: t('Create Product'), description: t('Add new product'), route: ROUTES().createProduct }] : [])
+      ]
+    },
+    {
+      category: t('Users'),
+      icon: '⚙️',
+      color: '#9c27b0',
+      items: [
+        { label: t('Users List'), description: t('Manage user accounts'), route: ROUTES().usersList }
+      ]
+    },
+    {
+      category: t('File Management'),
+      icon: '📁',
+      color: '#607d8b',
+      items: [
+        { label: t('PDF Management'), description: t('Manage and organize PDF files'), route: ROUTES().pdfManagement }
+      ]
+    },
+    {
+      category: t('Analytics'),
+      icon: '🧠',
+      color: '#673ab7',
+      items: [
+        { label: t('AI Insights'), description: t('Business intelligence powered by DeepSeek'), route: ROUTES().dashboard }
+      ]
+    }
+  ];
+
   const renderBurgerMenu = () => (
     <Menu
       anchorEl={burgerMenuEl}
@@ -195,85 +239,82 @@ function Navbar() {
       onClose={handleBurgerMenuClose}
       PaperProps={{
         sx: {
-          minWidth: 260,
+          minWidth: 600,
+          maxWidth: 800,
           mt: 1,
-          '& .MuiMenuItem-root': {
-            py: 0.75,
-            px: 2,
-          }
+          p: 2,
         }
       }}
     >
-      {/* Dashboard removed - only for AI components */}
-
-      {/* Documents Section */}
-      <Typography variant="caption" sx={{ px: 2, py: 0.75, display: 'block', color: 'text.secondary', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-        {t('Documents')}
+      <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: '#333' }}>
+        🚀 Quick Navigation
       </Typography>
-      <MenuItem onClick={() => handleQuickLinkClick(ROUTES().createDocument)} sx={{ pl: 3 }}>
-        <ListItemText primary={t('New Document')} secondary={t('Create quote or invoice')} />
-      </MenuItem>
-      <MenuItem onClick={() => handleQuickLinkClick(ROUTES().documentsList)} sx={{ pl: 3 }}>
-        <ListItemText primary={t('Documents List')} secondary={t('View all documents')} />
-      </MenuItem>
-
-      <Divider sx={{ my: 0.5 }} />
-
-      {/* Clients Section */}
-      <Typography variant="caption" sx={{ px: 2, py: 0.75, display: 'block', color: 'text.secondary', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-        {t('Clients')}
-      </Typography>
-      <MenuItem onClick={() => handleQuickLinkClick(ROUTES().clientsList)} sx={{ pl: 3 }}>
-        <ListItemText primary={t('Clients List')} secondary={t('View client database')} />
-      </MenuItem>
-      <MenuItem onClick={() => handleQuickLinkClick(ROUTES().createClient)} sx={{ pl: 3 }}>
-        <ListItemText primary={t('Create Client')} secondary={t('Add new client')} />
-      </MenuItem>
-
-      <Divider sx={{ my: 0.5 }} />
-
-      {/* Products Section */}
-      <Typography variant="caption" sx={{ px: 2, py: 0.75, display: 'block', color: 'text.secondary', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-        {t('Products')}
-      </Typography>
-      <MenuItem onClick={() => handleQuickLinkClick(ROUTES().productList)} sx={{ pl: 3 }}>
-        <ListItemText primary={t('Products List')} secondary={t('View all products')} />
-      </MenuItem>
-      {isAdmin(user) && (
-        <MenuItem onClick={() => handleQuickLinkClick(ROUTES().createProduct)} sx={{ pl: 3 }}>
-          <ListItemText primary={t('Create Product')} secondary={t('Add new product')} />
-        </MenuItem>
-      )}
-
-      <Divider sx={{ my: 0.5 }} />
-
-      {/* Users Section */}
-      <Typography variant="caption" sx={{ px: 2, py: 0.75, display: 'block', color: 'text.secondary', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-        {t('Users')}
-      </Typography>
-      <MenuItem onClick={() => handleQuickLinkClick(ROUTES().usersList)} sx={{ pl: 3 }}>
-        <ListItemText primary={t('Users List')} secondary={t('Manage user accounts')} />
-      </MenuItem>
-
-      <Divider sx={{ my: 0.5 }} />
-
-      {/* PDF Management Section */}
-      <Typography variant="caption" sx={{ px: 2, py: 0.75, display: 'block', color: 'text.secondary', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-        {t('File Management')}
-      </Typography>
-      <MenuItem onClick={() => handleQuickLinkClick(ROUTES().pdfManagement)} sx={{ pl: 3 }}>
-        <ListItemText primary={t('PDF Management')} secondary={t('Manage and organize PDF files')} />
-      </MenuItem>
-
-      <Divider sx={{ my: 0.5 }} />
-
-      {/* AI Analytics Section */}
-      <Typography variant="caption" sx={{ px: 2, py: 0.75, display: 'block', color: 'text.secondary', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-        {t('Analytics')}
-      </Typography>
-      <MenuItem onClick={() => handleQuickLinkClick(ROUTES().dashboard)} sx={{ pl: 3 }}>
-        <ListItemText primary={t('AI Insights')} secondary={t('Business intelligence powered by DeepSeek')} />
-      </MenuItem>
+      
+      <Grid container spacing={2}>
+        {menuItems.map((section) => (
+          <Grid item xs={12} sm={6} md={4} key={section.category}>
+            <Card 
+              sx={{ 
+                border: '1px solid #e0e0e0',
+                borderRadius: 2,
+                transition: 'all 0.2s ease',
+                '&:hover': {
+                  borderColor: section.color,
+                  transform: 'translateY(-2px)'
+                }
+              }}
+            >
+              <CardContent sx={{ p: 2 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+                  <Box sx={{ 
+                    fontSize: '1.5rem', 
+                    mr: 1.5,
+                    background: `${section.color}15`,
+                    borderRadius: '8px',
+                    p: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    {section.icon}
+                  </Box>
+                  <Typography 
+                    variant="subtitle1" 
+                    fontWeight={600} 
+                    sx={{ color: section.color }}
+                  >
+                    {section.category}
+                  </Typography>
+                </Box>
+                
+                {section.items.map((item) => (
+                  <Box
+                    key={item.label}
+                    onClick={() => handleQuickLinkClick(item.route)}
+                    sx={{
+                      p: 1,
+                      borderRadius: 1,
+                      cursor: 'pointer',
+                      mb: 0.5,
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        backgroundColor: '#f5f5f5'
+                      }
+                    }}
+                  >
+                    <Typography variant="body2" fontWeight={500} sx={{ color: '#333' }}>
+                      {item.label}
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: '#666' }}>
+                      {item.description}
+                    </Typography>
+                  </Box>
+                ))}
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </Menu>
   );
 
@@ -283,6 +324,7 @@ function Navbar() {
     <StyledAppBar id="Navbar">
       <StyledContainer>
         <StyledToolbar>
+          {/* Left Column - Logo */}
           <LogoButton to="/">
             <LogoImage src={Logo} alt="Logo" />
             <LogoText>
@@ -290,26 +332,28 @@ function Navbar() {
               <span style={{ fontSize: "0.8rem", opacity: 0.9 }}>{t("LogoTextSub")} v3.0</span>
             </LogoText>
           </LogoButton>
-          <ActionContainer>
-            {/* Menu Button - always visible */}
-            <Button
-              onClick={handleBurgerMenuOpen}
-              startIcon={<MenuIcon />}
-              sx={{
-                color: '#fff',
-                fontWeight: 600,
-                textTransform: 'none',
-                borderRadius: 2,
-                px: 2,
-                py: 1,
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                }
-              }}
-            >
-              {t('Menu')}
-            </Button>
-            
+
+          {/* Center Column - Menu Button */}
+          <Button
+            onClick={handleBurgerMenuOpen}
+            startIcon={<MenuIcon />}
+            sx={{
+              color: '#fff',
+              fontWeight: 600,
+              textTransform: 'none',
+              borderRadius: 2,
+              px: 2,
+              py: 1,
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              }
+            }}
+          >
+            {t('Menu')}
+          </Button>
+
+          {/* Right Column - Profile and Language */}
+          <ActionContainer style={{ justifyContent: 'flex-end' }}>
             {!isMobile && (
               <>
                 {!user && renderVisitorLinks()}
