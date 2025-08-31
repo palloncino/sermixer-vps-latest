@@ -18,7 +18,7 @@ body {
 
 .container-heading-text {
   font-size: 1.4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
 }
 
 .header {
@@ -94,6 +94,23 @@ body {
   gap: 1rem;
 }
 
+  .table-v1-row.highlight {
+   font-weight: bold;
+   background-color: #f3f9ff;
+   border: 1px solid #90caf9;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0rem .4rem!important;
+}
+.table-v1-row.highlight .table-v1-value {
+  justify-content: flex-end!important;
+  padding-right: 1rem;
+}
+
 .table-v1 .table-v1-row:nth-child(even) {
   background-color: #f2f2f2;
 }
@@ -133,8 +150,8 @@ body {
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
+  padding-bottom: 0.4rem;
+  padding-top: 0.4rem;
   gap: 1rem;
 }
 
@@ -154,7 +171,7 @@ body {
 
 .table-v2-row-head-key-2 {
   flex: 1;
-  max-width: 120px;
+  max-width: 100px;
   text-align: right;
 }
 
@@ -178,20 +195,20 @@ body {
 
 .table-v2-price {
   flex: 1;
-  max-width: 120px;
+  max-width: 100px;
   text-align: right;
 }
 
 .first-container {
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: flex-start;
   gap: 1rem;
 }
 
 .first-container-left-column {
   display: flex;
-  flex: 1;
+  flex: 3;
   align-items: flex-start;
   justify-content: flex-start;
 }
@@ -199,7 +216,7 @@ body {
 .first-container-right-column {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 2;
   align-items: flex-end;
   justify-content: flex-start;
 }
@@ -217,6 +234,7 @@ body {
   flex: 1;
   align-items: flex-start;
   justify-content: flex-start;
+  gap: 0.5rem; /* Reduced gap for more compact layout */
 }
 
 .second-container-right-column {
@@ -386,8 +404,57 @@ body {
   font-size: 12px;
 }
 .object-description-container {
-  margin: 2rem 0rem;
+  margin: 0rem;
 }
 .object-description-container strong {
   font-weight: bold;
+}
+
+.no-components-message {
+  font-style: italic;
+  color: #666;
+  text-align: left;
+  margin-top: 0.5rem;
+}
+
+/* Remove margin-top from ul in product descriptions */
+.second-container-left-column .table-v1 .reduced-font ul {
+  margin-top: 0;
+}
+
+/* Fix page break indicator to not disrupt layout */
+.product-container-with-break {
+  position: relative;
+}
+
+.simulated-area {
+  position: absolute;
+  right: 10px;
+  top: -15px;
+  background-color: #ff6b6b;
+  color: white;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 3px;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  white-space: nowrap;
+}
+
+/* Product image styling */
+.second-container-left-column-image-container {
+  margin-bottom: 0rem;
+  width: 100%;
+}
+
+.second-container-left-column-image-container img {
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+/* Product image placeholder styling */
+.product-image-placeholder {
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
 }

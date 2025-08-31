@@ -6,7 +6,7 @@ import Document from "../models/document.js";
 import Logger from "../utils/Logger.js";
 import authMiddleware from "../utils/authMiddleware.js";
 import { computeFinalPrices } from "../utils/computeFinalPrices.js"; // Import the new function
-import { generatePDF } from "../utils/generatePDF.js";
+import { generatePDF, generateHTMLPreview } from "../utils/generatePDF.js";
 import { formatDateForFilename } from "../utils/formatDateForFilename.js";
 import { safelyParseJSON } from "../utils/safelyParseJSON.js";
 import slugify from "slugify";
@@ -102,7 +102,13 @@ router.post("/create-quote/:hash", authMiddleware, async (req, res) => {
     // Build URL from request when possible (behind proxies)
     const proto = (req.headers["x-forwarded-proto"]) || req.protocol;
     const host = req.get("host");
-    const baseUrlFromReq = host ? `${proto}://${host}` : null;
+    
+    // Ensure the port is included if missing
+    let hostWithPort = host;
+    if (host && !host.includes(':') && process.env.CUSTOM_HTTP_PORT) {
+      hostWithPort = `${host}:${process.env.CUSTOM_HTTP_PORT}`;
+    }
+    const baseUrlFromReq = hostWithPort ? `${proto}://${hostWithPort}` : null;
 
     const pdfUrl =
       baseUrlFromReq
@@ -168,6 +174,102 @@ router.post("/create-quote/:hash", authMiddleware, async (req, res) => {
         details: error.message
       }
     });
+  }
+});
+
+// Route for HTML preview (new feature for live editing) - GET route for browser access
+router.get("/preview-html/:hash", async (req, res) => {
+  const { hash } = req.params;
+  
+  // Optional query parameters for customization
+  const isConfirmation = req.query.type === "confirmation";
+
+  try {
+    // Find the document by hash
+    const document = await Document.findOne({ where: { hash } });
+
+    if (!document) {
+      return res.status(404).send(`
+        <html>
+          <body style="font-family: Arial; padding: 20px;">
+            <h1>Document Not Found</h1>
+            <p>The document with hash <code>${hash}</code> was not found.</p>
+          </body>
+        </html>
+      `);
+    }
+
+    // Server-authoritative dates & ids (same as PDF route)
+    const issuedDate = document.createdAt;
+    const expiryDate = document.expiresAt;
+    const quoteNumber = String(document.id);
+
+    // Use current date for signature
+    const dateOfSignature = new Date().toISOString().split(".")[0] + "Z";
+
+    // Use document data as-is (no overrides from request body since it's GET)
+    const quote = {
+      ...document.dataValues,
+      data: document.data,
+      quoteNumber,
+      issuedDate,
+      expiryDate,
+      dateOfSignature,
+      company: document.company || "Sermixer",
+      clientEmail: document.clientEmail,
+      discount: document.discount ?? 0,
+    };
+
+    // Compute final prices - same as PDF route
+    const {
+      TOTAL_ALL,
+      TOTAL_ALL_DISCOUNTED,
+      TOTAL_WITH_DISCOUNT,
+      TOTAL_ALL_WITH_TAXES,
+    } = computeFinalPrices(quote.data.addedProducts, quote.discount);
+
+    const finalQuote = {
+      ...quote,
+      TOTAL_ALL,
+      TOTAL_ALL_DISCOUNTED,
+      TOTAL_WITH_DISCOUNT,
+      TOTAL_ALL_WITH_TAXES,
+    };
+
+    console.log("HTML Preview Generation:", {
+      quoteNumber: finalQuote.quoteNumber,
+      isConfirmation,
+      company: finalQuote.company
+    });
+
+    // Generate HTML preview
+    const htmlContent = await generateHTMLPreview(finalQuote, isConfirmation);
+
+    // Return HTML with proper content type
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.send(htmlContent);
+
+  } catch (error) {
+    Logger.error(`Error generating HTML preview: ${error.message}`, { 
+      stack: error.stack,
+      hash,
+      isConfirmation 
+    });
+    
+    res.status(500).send(`
+      <html>
+        <body style="font-family: Arial; padding: 20px; background-color: #ffebee;">
+          <h1 style="color: #c62828;">HTML Preview Generation Failed</h1>
+          <p><strong>Error:</strong> ${error.message}</p>
+          ${process.env.NODE_ENV === "development" ? `
+          <details>
+            <summary>Stack Trace (Development)</summary>
+            <pre style="background: #f5f5f5; padding: 10px; overflow: auto;">${error.stack}</pre>
+          </details>
+          ` : ''}
+        </body>
+      </html>
+    `);
   }
 });
 

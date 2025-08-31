@@ -12,7 +12,20 @@ function FlashMessage({ message, type }: FlashMessageProps) {
     <>
       <Box py={2}>
         <Stack sx={{ width: '100%' }} spacing={2}>
-          <Alert severity={type}>{message}</Alert>
+          <Alert 
+            severity={type}
+            sx={{
+              ...(type === 'success' && {
+                backgroundColor: '#4caf50', // Brighter green
+                color: 'white',
+                '& .MuiAlert-icon': {
+                  color: 'white'
+                }
+              })
+            }}
+          >
+            {message}
+          </Alert>
         </Stack>
       </Box>
     </>

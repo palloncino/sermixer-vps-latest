@@ -46,7 +46,19 @@ const FlashMessageTemp: React.FC = () => {
       <Alert 
         onClose={handleClose} 
         severity={currentMessage?.type || 'info'} 
-        sx={{ width: '100%' }}
+        sx={{ 
+          width: '100%',
+          ...(currentMessage?.type === 'success' && {
+            backgroundColor: '#4caf50', // Brighter green
+            color: 'white',
+            '& .MuiAlert-icon': {
+              color: 'white'
+            },
+            '& .MuiAlert-action': {
+              color: 'white'
+            }
+          })
+        }}
         variant="filled"
       >
         {currentMessage?.message || ''}
