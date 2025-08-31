@@ -90,7 +90,7 @@ const Dashboard: React.FC = () => {
     
     try {
       // Make actual API call to generate DeepSeek analysis
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('authToken');
       
       if (!token) {
         console.error('No authentication token found');

@@ -92,10 +92,10 @@ router.post('/generate-analysis', authMiddleware, async (req, res) => {
   try {
     const userId = req.user.id;
     
-    // Get all documents for analysis
+    // Get recent documents for analysis (reduced limit to prevent DB memory issues)
     const documents = await Document.findAll({
       order: [['createdAt', 'DESC']],
-      limit: 1000 // Analyze last 1000 documents
+      limit: 100 // Analyze last 100 documents
     });
     
     if (documents.length === 0) {

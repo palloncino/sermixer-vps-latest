@@ -195,7 +195,7 @@ const PdfManagerV3: React.FC = () => {
     try {
       const response = await fetch(`${API_BASE}/pdfs/download/${encodeURIComponent(filename)}`, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         }
       });
       
@@ -226,7 +226,7 @@ const PdfManagerV3: React.FC = () => {
       const response = await fetch(`${API_BASE}/pdfs/delete`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ filenames: selectedPdfs })

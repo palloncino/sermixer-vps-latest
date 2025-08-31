@@ -548,7 +548,7 @@ const DocumentDetailsPage: React.FC = () => {
       // This would typically call an API endpoint to generate/download the PDF
       const response = await fetch(`/api/docs/download/${docHash}`, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
         },
       });
       
