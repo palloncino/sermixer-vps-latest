@@ -160,41 +160,22 @@ const ProductItem = memo(({
                                 </Box>
                             )}
                             {product.company && (
-                                <Box sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 0.5,
-                                    px: 1.5,
-                                    py: 0.5,
-                                    backgroundColor: '#8FD300',
-                                    color: '#ffffff',
-                                    borderRadius: 2,
+                                <Typography sx={{
+                                    color: 'text.secondary',
                                     fontSize: '0.8rem',
-                                    fontWeight: 500,
-                                    border: '1px solid #7bc200'
+                                    fontWeight: 400
                                 }}>
-                                    <BusinessIcon sx={{ fontSize: '0.9rem' }} />
                                     {product.company === 'sermixer' ? t('Sermixer') : t('S2TruckService')}
-                                </Box>
+                                </Typography>
                             )}
                             {product.id && (
-                                <Box sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 0.5,
-                                    px: 1.5,
-                                    py: 0.5,
-                                    backgroundColor: 'grey.100',
+                                <Typography sx={{
                                     color: 'text.secondary',
-                                    borderRadius: 2,
                                     fontSize: '0.8rem',
-                                    fontWeight: 500,
-                                    border: '1px solid',
-                                    borderColor: 'grey.300'
+                                    fontWeight: 400
                                 }}>
-                                    <FingerprintIcon sx={{ fontSize: '0.9rem' }} />
                                     ID: {product.id}
-                                </Box>
+                                </Typography>
                             )}
                             {/* View Product Link (Admin Only) */}
                             {user?.id && (

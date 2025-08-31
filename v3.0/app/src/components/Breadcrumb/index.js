@@ -50,6 +50,10 @@ const Breadcrumb = () => {
         { label: "Home", href: "/" },
         { label: "My Profile", href: "/profile" },
       ],
+      "/pdf-management": [
+        { label: "Home", href: "/" },
+        { label: "PDF Management", href: "/pdf-management" },
+      ],
     };
 
     // Handle dynamic paths with parameters like `:id`
