@@ -19,6 +19,7 @@ import {
   People,
   Assessment,
   Dashboard as DashboardIcon,
+  PictureAsPdf as PdfIcon,
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
@@ -262,6 +263,16 @@ function Navbar() {
       </Typography>
       <MenuItem onClick={() => handleQuickLinkClick(ROUTES().usersList)} sx={{ pl: 3 }}>
         <ListItemText primary={t('Users List')} secondary={t('Manage user accounts')} />
+      </MenuItem>
+
+      <Divider sx={{ my: 0.5 }} />
+
+      {/* PDF Management Section */}
+      <Typography variant="caption" sx={{ px: 2, py: 0.75, display: 'block', color: 'text.secondary', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+        {t('File Management')}
+      </Typography>
+      <MenuItem onClick={() => handleQuickLinkClick(ROUTES().pdfManagement)} sx={{ pl: 3 }}>
+        <ListItemText primary={t('PDF Management')} secondary={t('Manage and organize PDF files')} />
       </MenuItem>
 
       <Divider sx={{ my: 0.5 }} />

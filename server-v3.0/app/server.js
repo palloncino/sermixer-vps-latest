@@ -19,6 +19,7 @@ import emailRoutes from "./routes/emailRoutes.js";
 import mediaRoutes from "./routes/mediaRoutes.js";
 import testingRoutes from "./routes/testingRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
+import pdfRoutes from "./routes/pdfRoutes.js";
 import Logger from "./utils/Logger.js";
 
 const app = express();
@@ -73,6 +74,7 @@ app.use("/v3.0/api/email", emailRoutes);
 app.use("/v3.0/api/media", mediaRoutes);
 app.use("/v3.0/api/test", testingRoutes);
 app.use("/v3.0/api/ai", aiRoutes);
+app.use("/v3.0/api/pdfs", pdfRoutes);
 
 // Optional: 404 handler
 app.use((req, res) => {

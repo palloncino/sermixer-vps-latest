@@ -42,6 +42,7 @@ const UsersListPage = lazy(() => import("./pages/users/users-list-page"));
 const DocumentsListPage = lazy(() => import("./pages/documents/documents-list-page"));
 const DocumentDetailsPage = lazy(() => import("./pages/documents/document-details-page"));
 const SharedDocument = lazy(() => import("./pages/documents/shared-document"));
+const PdfManagementPage = lazy(() => import("./pages/pdfs/pdf-management-page"));
 
 const pageVariants = {
   initial: { opacity: 0, x: -20 },
@@ -127,6 +128,7 @@ const AnimatedRoutes = () => {
           <Route path="/client/:clientId" element={<AnimatedRoute element={ClientPage} />} />
           <Route path="/documents-list" element={<AnimatedRoute element={DocumentsListPage} />} />
           <Route path="/documents/:hash" element={<AnimatedRoute element={DocumentDetailsPage} />} />
+          <Route path="/pdf-management" element={<AnimatedRoute element={PdfManagementPage} />} />
         </Route>
 
         {/* Admin-only routes */}

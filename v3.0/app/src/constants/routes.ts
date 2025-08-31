@@ -36,6 +36,9 @@ export const ROUTES = {
   createUser: () => `${getBaseUrl()}/signup`,
   userDetail: (id: string) => `${getBaseUrl()}/users/${id}`,
   
+  // PDFs
+  pdfManagement: () => `${getBaseUrl()}/pdf-management`,
+  
   // Auth
   login: () => `${getBaseUrl()}/login`,
   register: () => `${getBaseUrl()}/register`,
