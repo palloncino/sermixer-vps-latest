@@ -16,10 +16,89 @@ import {
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import ReactMarkdown from 'react-markdown';
 
 import { useDocumentContext } from '../../state/documentContext';
 import Loading from '../Loading';
 import { WhitePaperContainer } from '../../pages/documents/styled-components';
+import styled from 'styled-components';
+
+// Styled component for markdown content
+const MarkdownContainer = styled.div`
+  color: #444;
+  font-size: 16px;
+  line-height: 1.6;
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #333;
+    margin: 1.5em 0 0.5em 0;
+    font-weight: 600;
+  }
+  
+  h1 { font-size: 1.8em; }
+  h2 { font-size: 1.5em; }
+  h3 { font-size: 1.3em; }
+  h4 { font-size: 1.1em; }
+  
+  p {
+    margin: 1em 0;
+  }
+  
+  ul, ol {
+    margin: 1em 0;
+    padding-left: 2em;
+  }
+  
+  li {
+    margin: 0.5em 0;
+  }
+  
+  strong {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  em {
+    font-style: italic;
+    color: #555;
+  }
+  
+  hr {
+    border: none;
+    border-top: 2px solid #e0e0e0;
+    margin: 2em 0;
+  }
+  
+  blockquote {
+    border-left: 4px solid #667eea;
+    padding-left: 1em;
+    margin: 1em 0;
+    background: #f8f9fa;
+    padding: 1em;
+    border-radius: 4px;
+  }
+  
+  code {
+    background: #f1f3f4;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9em;
+  }
+  
+  pre {
+    background: #f8f9fa;
+    padding: 1em;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 1em 0;
+  }
+  
+  pre code {
+    background: none;
+    padding: 0;
+  }
+`;
 
 const Dashboard: React.FC = () => {
   const { t } = useTranslation();
@@ -276,13 +355,9 @@ const Dashboard: React.FC = () => {
             </Typography>
             
             {aiSummary ? (
-              <Typography variant="body1" sx={{
-                color: '#444',
-                fontSize: 16,
-                whiteSpace: 'pre-line'
-              }}>
-                {aiSummary}
-              </Typography>
+              <MarkdownContainer>
+                <ReactMarkdown>{aiSummary}</ReactMarkdown>
+              </MarkdownContainer>
             ) : (
               <Typography variant="body1" sx={{ color: '#999', fontStyle: 'italic' }}>
                 No analysis generated yet. Select a topic, ask a question, and click "Generate Analysis" to get started.
