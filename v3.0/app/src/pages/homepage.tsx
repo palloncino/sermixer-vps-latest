@@ -1,7 +1,9 @@
 import {
   Typography,
   useMediaQuery,
-  useTheme
+  useTheme,
+  Grid,
+  Box
 } from "@mui/material";
 import React, { Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -10,6 +12,7 @@ import { WhitePaperContainer } from "./documents/styled-components";
 import Loading from "../components/Loading";
 
 const Dashboard = React.lazy(() => import("../components/Dashboard"));
+const RecentDocuments = React.lazy(() => import("../components/RecentDocuments"));
 
 const Homepage: React.FC = () => {
   const { t } = useTranslation();
@@ -31,22 +34,42 @@ const Homepage: React.FC = () => {
           {t("Dashboard")}
         </Typography>
 
-        <WhitePaperContainer>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <WhitePaperContainer>
+            <Suspense fallback={<Loading />}>
+              <Dashboard />
+            </Suspense>
+          </WhitePaperContainer>
+          
           <Suspense fallback={<Loading />}>
-            <Dashboard />
+            <RecentDocuments />
           </Suspense>
-        </WhitePaperContainer>
+        </Box>
       </MobileContainer>
     );
   }
 
   return (
     <DesktopContainer>
-      <WhitePaperContainer narrow_and_centered>
-        <Suspense fallback={<Loading />}>
-          <Dashboard />
-        </Suspense>
-      </WhitePaperContainer>
+      <Box sx={{ width: '100%', maxWidth: '1400px', margin: '0 auto', p: 2 }}>
+        <Grid container spacing={3} sx={{ height: 'calc(100vh - 300px)' }}>
+          {/* Chat Column */}
+          <Grid item xs={12} lg={7}>
+            <WhitePaperContainer>
+              <Suspense fallback={<Loading />}>
+                <Dashboard />
+              </Suspense>
+            </WhitePaperContainer>
+          </Grid>
+          
+          {/* Recent Documents Column */}
+          <Grid item xs={12} lg={5}>
+            <Suspense fallback={<Loading />}>
+              <RecentDocuments />
+            </Suspense>
+          </Grid>
+        </Grid>
+      </Box>
     </DesktopContainer>
   );
 };

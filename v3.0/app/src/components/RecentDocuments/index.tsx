@@ -1,0 +1,185 @@
+import React, { useMemo, useState } from 'react';
+import {
+  Box,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Typography,
+  Chip
+} from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useDocumentContext } from '../../state/documentContext';
+import { dateText } from '../../utils/date-text';
+import Button from '../Button';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+
+const RecentDocuments: React.FC = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { allDocumentsData } = useDocumentContext();
+  const [page, setPage] = useState(0);
+  const rowsPerPage = 10;
+
+  const recentDocuments = useMemo(() => {
+    if (!allDocumentsData) return [];
+    
+    return allDocumentsData
+      .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+      .slice(0, 50); // Get top 50 most recent
+  }, [allDocumentsData]);
+
+  const paginatedDocuments = useMemo(() => {
+    return recentDocuments.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  }, [recentDocuments, page, rowsPerPage]);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleViewDocument = (hash: string) => {
+    navigate(`/documents/${hash}`);
+  };
+
+  const handlePreviewDocument = (hash: string) => {
+    window.open(`/client-preventive/${hash}`, '_blank');
+  };
+
+  const getDocumentTitle = (doc: any) => {
+    return doc.data?.quoteHeadDetails?.object || doc.object || 'Untitled Document';
+  };
+
+  const getClientName = (doc: any) => {
+    return doc.data?.selectedClient?.companyName || doc.clientCompany || 'Unknown Client';
+  };
+
+  const getDocumentStatus = (doc: any) => {
+    if (doc.data?.quoteHeadDetails?.status) {
+      return doc.data.quoteHeadDetails.status;
+    }
+    return 'Draft';
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'sent':
+        return 'success';
+      case 'approved':
+        return 'primary';
+      case 'rejected':
+        return 'error';
+      case 'draft':
+      default:
+        return 'default';
+    }
+  };
+
+  return (
+    <Paper elevation={0} sx={{ 
+      backgroundColor: 'white', 
+      borderRadius: 1, 
+      boxShadow: '0px 1px 3px rgba(0,0,0,0.12)',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
+    }}>
+      <Box sx={{ p: 2, borderBottom: '1px solid #e0e0e0' }}>
+        <Typography variant="h6" sx={{ fontWeight: 600, color: '#333' }}>
+          {t('Recent Documents')}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {t('Recently edited documents')}
+        </Typography>
+      </Box>
+
+      <TableContainer sx={{ flex: 1 }}>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ fontWeight: 600 }}>{t('Document')}</TableCell>
+              <TableCell sx={{ fontWeight: 600 }}>{t('Client')}</TableCell>
+              <TableCell sx={{ fontWeight: 600 }}>{t('Status')}</TableCell>
+              <TableCell sx={{ fontWeight: 600 }}>{t('Updated')}</TableCell>
+              <TableCell sx={{ fontWeight: 600, width: '120px' }}>{t('Actions')}</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {paginatedDocuments.map((doc: any) => (
+              <TableRow key={doc.id || doc._id} hover>
+                <TableCell>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: 500,
+                      cursor: 'pointer',
+                      '&:hover': { textDecoration: 'underline' }
+                    }}
+                    onClick={() => handleViewDocument(doc.hash)}
+                  >
+                    {getDocumentTitle(doc)}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="body2" color="text.secondary">
+                    {getClientName(doc)}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Chip
+                    label={getDocumentStatus(doc)}
+                    color={getStatusColor(getDocumentStatus(doc)) as any}
+                    size="small"
+                    variant="outlined"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Typography variant="body2" color="text.secondary">
+                    {dateText(doc.updatedAt)}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Box display="flex" gap={0.5}>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={() => handlePreviewDocument(doc.hash)}
+                      sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                    >
+                      <VisibilityIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={() => handleViewDocument(doc.hash)}
+                      sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                    >
+                      <OpenInNewIcon fontSize="small" />
+                    </Button>
+                  </Box>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <TablePagination
+        rowsPerPageOptions={[10]}
+        component="div"
+        count={recentDocuments.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        sx={{ borderTop: '1px solid rgba(224, 224, 224, 1)' }}
+      />
+    </Paper>
+  );
+};
+
+export default RecentDocuments;
