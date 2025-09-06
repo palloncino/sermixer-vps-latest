@@ -11,6 +11,7 @@ import {
   TableRow,
   Typography
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -115,13 +116,17 @@ const ProductCard = ({ product, handleDeleteProducts }) => {
     <CustomCard>
       <CardMedia
         component="img"
-        height="200"
+        height="190"
         image={
           typeof product.imgUrl === "string"
             ? product.imgUrl
             : fallbackProductImg
         }
         alt={product.name}
+        sx={{
+          height: '190px',
+          objectFit: 'cover'
+        }}
       />
       <CardContent sx={{ flexGrow: 1, overflow: "hidden" }}>
         <Typography gutterBottom variant="h5" component="div">
@@ -134,7 +139,7 @@ const ProductCard = ({ product, handleDeleteProducts }) => {
           Category: {product.category}
         </Typography>
         <Typography variant="h6" color="primary" sx={{ mt: 1 }}>
-          <strong>{t('EUR')} {formatPrice(product.price)}</strong>
+          <strong>{formatPrice(product.price)}</strong>
         </Typography>
         <Divider sx={{ my: 2 }} />
         {renderComponentDetails(components)}
@@ -152,9 +157,14 @@ const ProductCard = ({ product, handleDeleteProducts }) => {
         <Button
           variant="contained"
           size="small"
-          onClick={() => handleDeleteProducts(product.id)}
+          onClick={() => {
+            if (window.confirm(t("ConfirmDeletionProductAlertMessage"))) {
+              handleDeleteProducts(product.id);
+            }
+          }}
+          sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
         >
-          {t("Delete")}
+          <DeleteIcon fontSize="small" />
         </Button>
       </CardActionsWrapper>
     </CustomCard>

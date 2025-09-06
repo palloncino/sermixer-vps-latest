@@ -216,7 +216,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleDeleteProduct
                         fontWeight: 'bold'
                       }}
                     >
-                      {t('EUR')} {formatPrice(product.price)}
+                      {formatPrice(product.price)}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
