@@ -1,8 +1,9 @@
-import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Tooltip } from '@mui/material';
+import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Tooltip } from '@mui/material';
 import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Highlight from '../../components/HighlightText';
 import {formatPrice} from '../../utils/format-price';
+import Button from '../Button';
 
 const QuoteProductList = memo(({ products, onAddToQuote, highlightText }) => {
   const { t } = useTranslation();
@@ -133,7 +134,13 @@ const QuoteProductList = memo(({ products, onAddToQuote, highlightText }) => {
                       variant="contained"
                       size="small"
                       onClick={() => onAddToQuote(product.id)}
-                      sx={{ textTransform: 'none', fontWeight: 500 }}
+                      sx={{ 
+                        textTransform: 'uppercase',
+                        fontWeight: 800,
+                        fontSize: '0.75rem',
+                        px: 2,
+                        py: 0.5
+                      }}
                     >
                       {t('AddToQuote')}
                     </Button>
