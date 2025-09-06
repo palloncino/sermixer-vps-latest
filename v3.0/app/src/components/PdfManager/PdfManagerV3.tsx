@@ -133,7 +133,7 @@ const PdfManagerV3: React.FC = () => {
   const [sortBy, setSortBy] = useState<'filename' | 'size' | 'modified' | 'age'>('modified');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
-  const API_BASE = process.env.REACT_APP_API_URL || 'http://sermixer.micro-cloud.it:12923/v3.0/api';
+  const API_BASE = process.env.REACT_APP_API_URL || 'http://sermixer.micro-cloud.it:12923/api';
 
   useEffect(() => {
     loadData();

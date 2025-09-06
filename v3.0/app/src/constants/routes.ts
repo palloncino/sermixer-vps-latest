@@ -6,7 +6,7 @@ const USE_V3_ROUTES = APP_CONFIG.USE_V3_ROUTES;
 
 // Base URLs for different environments
 const V2_BASE = '';
-const V3_BASE = '/v3.0';
+const V3_BASE = '';
 
 // Helper function to get the correct base URL
 // Since we're already running in v3.0 context, we don't need to add v3.0 prefix

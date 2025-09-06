@@ -22,7 +22,6 @@ import { FlashMessageProvider } from './state/FlashMessageContext';
 import FlashMessageTemp from './components/FlashMessageTemp';
 import { DocumentProvider } from 'state/documentContext';
 
-console.log("📱 App.tsx loaded");
 
 // Lazy load the components
 const NotFoundPage = lazy(() => import("./pages/404/index"));
@@ -115,7 +114,7 @@ class NavigationErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorB
     // If it's a router-related error, try to redirect to home
     if (error.message.includes('router') || error.message.includes('navigate')) {
       setTimeout(() => {
-        window.location.href = `${window.location.origin}/v3.0/`;
+        window.location.href = `${window.location.origin}/`;
       }, 1000);
     }
   }
@@ -135,7 +134,7 @@ class NavigationErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorB
           <h2>Navigation Error</h2>
           <p>Something went wrong with navigation. Redirecting to home...</p>
           <button 
-            onClick={() => window.location.href = `${window.location.origin}/v3.0/`}
+            onClick={() => window.location.href = `${window.location.origin}/`}
             style={{
               padding: '0.5rem 1rem',
               backgroundColor: '#2563eb',
@@ -241,8 +240,6 @@ const SharedDocumentLayout = () => (
 );
 
 function App() {
-  console.log("🎯 App function called");
-  console.log("Current location:", window.location.href);
   
   return (
     <NavigationErrorBoundary>

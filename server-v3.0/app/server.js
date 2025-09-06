@@ -84,5 +84,7 @@ app.use((req, res) => {
 
 // Start the server
 app.listen(PORT, "0.0.0.0", () => {
-  Logger.info(`Server running on http://0.0.0.0:${PORT}`);
+  const isProduction = process.env.NODE_ENV === 'production';
+  console.log("🔥 V3 Backend Mode:", isProduction ? "PRODUCTION" : "DEVELOPMENT");
+  Logger.info(`V3 Backend Server running on http://0.0.0.0:${PORT}`);
 });

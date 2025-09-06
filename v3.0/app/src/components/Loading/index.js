@@ -8,7 +8,10 @@ const LoadingContainer = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 75vh;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.9);
 `;

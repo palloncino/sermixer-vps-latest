@@ -4,8 +4,6 @@ import LanguageDetector from 'i18next-browser-languagedetector'; // Ensure this 
 import HttpBackend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 
-console.log("🌐 i18n initializing...");
-
 i18n
   .use(HttpBackend) // Optionally use a backend to load translation files
   .use(LanguageDetector) // Use the language detector
@@ -32,12 +30,6 @@ i18n
       lookupLocalStorage: 'i18nextLng',
       caches: ['localStorage', 'cookie'], // Cache the detected language in localStorage and cookies
     },
-  })
-  .then(() => {
-    console.log("✅ i18n initialized successfully");
-  })
-  .catch((error) => {
-    console.error("❌ i18n initialization failed:", error);
   });
 
 export default i18n;

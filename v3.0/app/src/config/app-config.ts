@@ -5,7 +5,7 @@ export const APP_CONFIG = {
   // ===========================================
   
   // To switch between v2.0 and v3.0, change this value:
-  // true = v3.0 routes (with /v3.0 prefix)
+  // true = v3.0 routes (no prefix, direct routes)
   // false = v2.0 routes (no prefix, direct routes)
   USE_V3_ROUTES: true,
   
@@ -51,7 +51,7 @@ export const isV3Mode = () => APP_CONFIG.USE_V3_ROUTES;
 
 // Helper function to get base URL for routes
 export const getBaseUrl = () => {
-  return APP_CONFIG.USE_V3_ROUTES ? '/v3.0' : '';
+  return '';
 };
 
 // Export for easy access

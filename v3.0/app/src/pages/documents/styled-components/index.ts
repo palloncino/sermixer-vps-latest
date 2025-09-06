@@ -114,12 +114,14 @@ export const StyledLayout = styled.div<{
   z-index: 1200;
 `;
 
-export const WhitePaperContainer = styled.div<{ padding?: string }>`
+export const WhitePaperContainer = styled.div<{ padding?: string, narrow_and_centered?: boolean }>`
   background: ${PALETTE.White};
   width: 100%;
   border-radius: 0.5rem;
   padding-bottom: 1rem;
   padding: ${({ padding }) => (padding ? padding : "")};
+  max-width: ${({ narrow_and_centered }) => narrow_and_centered ? "800px" : "100%"};
+  margin: ${({ narrow_and_centered }) => narrow_and_centered ? "0 auto" : "0"};
 `;
 
 export const PreventiveFormContainer = styled(Grid) <{ border_color?: string }>`

@@ -7,6 +7,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from 'styled-components';
 import { WhitePaperContainer } from "./documents/styled-components";
+import Loading from "../components/Loading";
 
 const Dashboard = React.lazy(() => import("../components/Dashboard"));
 
@@ -31,7 +32,7 @@ const Homepage: React.FC = () => {
         </Typography>
 
         <WhitePaperContainer>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loading />}>
             <Dashboard />
           </Suspense>
         </WhitePaperContainer>
@@ -41,8 +42,8 @@ const Homepage: React.FC = () => {
 
   return (
     <DesktopContainer>
-      <WhitePaperContainer>
-        <Suspense fallback={<div>Loading...</div>}>
+      <WhitePaperContainer narrow_and_centered>
+        <Suspense fallback={<Loading />}>
           <Dashboard />
         </Suspense>
       </WhitePaperContainer>

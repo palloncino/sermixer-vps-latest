@@ -120,10 +120,10 @@ const AIInsights: React.FC<AIInsightsProps> = ({ metrics }) => {
 
     try {
       console.log('Fetching AI analysis from backend...');
-      console.log('Request URL:', '/v3.0/api/ai/analyze-dashboard');
+      console.log('Request URL:', '/api/ai/analyze-dashboard');
       console.log('Request payload:', metrics);
       
-      const response = await fetch('/v3.0/api/ai/analyze-dashboard', {
+      const response = await fetch('/api/ai/analyze-dashboard', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -218,7 +218,7 @@ const AIInsights: React.FC<AIInsightsProps> = ({ metrics }) => {
   const testBackendEndpoint = async () => {
     try {
       console.log('Testing backend endpoint availability...');
-      const response = await fetch('/v3.0/api/ai/analyze-dashboard', {
+      const response = await fetch('/api/ai/analyze-dashboard', {
         method: 'OPTIONS',
       });
       console.log('Backend endpoint test response:', response.status);

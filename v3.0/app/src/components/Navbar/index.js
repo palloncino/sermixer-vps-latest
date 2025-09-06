@@ -1,3 +1,10 @@
+import {
+  Description,
+  Folder,
+  Inventory,
+  People,
+  Psychology
+} from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   Avatar,
@@ -5,23 +12,14 @@ import {
   Button,
   Card,
   CardContent,
-  Divider,
   Grid,
   IconButton,
-  ListItemText,
   Menu,
   MenuItem,
   Tooltip,
   Typography,
   useMediaQuery
 } from "@mui/material";
-import {
-  Description,
-  People,
-  Inventory,
-  Folder,
-  Psychology
-} from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -36,13 +34,30 @@ import { useAppState } from "../../state/stateContext";
 import { isAdmin, isUser } from "../../utils/isWho";
 
 const StyledAppBar = styled.div`
-  background-color: ${PALETTE.HeaderBackground};
-  background-image: ${PALETTE.HeaderPattern2};
+  background: ${PALETTE.HeaderBackground};
   color: #fff;
   width: 100%;
   height: 210px;
   top: 0;
   z-index: 1100; /* Ensure it stays above other components */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  
+  /* Add pattern overlay with ::before */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: ${PALETTE.HeaderPattern2};
+    background-size: 88px 24px;
+    background-repeat: repeat;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 1;
+  }
 `;
 
 const StyledContainer = styled.div`
@@ -50,6 +65,8 @@ const StyledContainer = styled.div`
   margin: auto;
   padding: 16px 24px;
   height: 100%;
+  position: relative;
+  z-index: 2;
 `;
 
 const StyledToolbar = styled.div`
@@ -145,7 +162,7 @@ function Navbar() {
     } catch (error) {
       console.error('Profile navigation error:', error);
       // Fallback to window.location
-      window.location.href = `${window.location.origin}/v3.0/profile`;
+      window.location.href = `${window.location.origin}/profile`;
     }
   };
 
@@ -163,7 +180,7 @@ function Navbar() {
     } catch (error) {
       console.error('Navigation error:', error);
       // Fallback to window.location for problematic routes
-      window.location.href = `${window.location.origin}/v3.0${route}`;
+      window.location.href = `${window.location.origin}${route}`;
     }
   };
 
@@ -361,8 +378,14 @@ function Navbar() {
               borderRadius: 2,
               px: 2,
               py: 1,
+              background: 'rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              transition: 'all 0.3s ease',
               '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 8px 25px rgba(0, 0, 0, 0.2)',
               }
             }}
           >

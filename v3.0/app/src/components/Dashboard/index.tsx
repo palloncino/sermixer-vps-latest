@@ -17,19 +17,26 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 
+import styled from 'styled-components';
 import { useDocumentContext } from '../../state/documentContext';
 import { useFlashMessage } from '../../state/FlashMessageContext';
 import Loading from '../Loading';
-import { WhitePaperContainer } from '../../pages/documents/styled-components';
-import styled from 'styled-components';
+
+// Chat-specific container with 800px max width
+const ChatContainer = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+`;
 
 // Loading animation with three dots
 const LoadingDots = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 1rem;
   color: #6b7280;
+  width: 100%;
   
   &::after {
     content: '';
@@ -229,7 +236,7 @@ const Dashboard: React.FC = () => {
       console.log('Making AI analysis request with token:', token ? 'Token present' : 'No token');
       console.log('Topic:', selectedTopic, 'Question:', question);
       
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://sermixer.micro-cloud.it:12923/v3.0/api'}/ai/generate-analysis`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://sermixer.micro-cloud.it:12923/api'}/ai/generate-analysis`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -309,9 +316,10 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <Box sx={{ maxWidth: 800, mx: 'auto', p: 2 }}>
+    <ChatContainer>
+      <Box sx={{ p: 2 }}>
 
-      {/* Header - Minimal */}
+      {/* Header - Clean */}
       <Typography variant="h5" sx={{ 
         fontWeight: 600, 
         color: '#1a1a1a',
@@ -320,7 +328,7 @@ const Dashboard: React.FC = () => {
       }}>
         {t('AI Business Intelligence')}
       </Typography>
-      <Typography variant="body2" sx={{ 
+      <Typography variant="body1" sx={{ 
         color: '#666', 
         textAlign: 'center',
         mb: 3
@@ -328,7 +336,7 @@ const Dashboard: React.FC = () => {
         {t('Powered by DeepSeek')}
       </Typography>
 
-      {/* Compact Topic Selection */}
+      {/* Clean Topic Selection */}
       <Stack direction="row" spacing={1} justifyContent="center" sx={{ mb: 3 }}>
         {availableTopics.map((topic) => (
           <Chip
@@ -349,7 +357,7 @@ const Dashboard: React.FC = () => {
         ))}
       </Stack>
 
-      {/* Chat-like Input */}
+      {/* Clean Chat Input */}
       <Paper 
         elevation={0} 
         sx={{ 
@@ -410,54 +418,82 @@ const Dashboard: React.FC = () => {
         />
       </Paper>
 
-      {/* Results */}
-      {isGenerating && (
-        <Paper 
-          elevation={0}
-          sx={{ 
-            border: '1px solid #e5e7eb',
-            borderRadius: 2,
-            p: 3
-          }}
-        >
-          <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
-            <Psychology sx={{ fontSize: 20, color: '#2563eb' }} />
-            <Typography variant="h6" sx={{ color: '#1a1a1a', fontWeight: 600 }}>
-              {t('Analyzing...')}
-            </Typography>
-          </Stack>
-          
-          <LoadingDots>
-            <span>{t('Generating analysis')}</span>
-          </LoadingDots>
-        </Paper>
-      )}
-
-      {aiSummary && !isGenerating && (
-        <Paper 
-          elevation={0}
-          sx={{ 
-            border: '1px solid #e5e7eb',
-            borderRadius: 2,
-            p: 3
-          }}
-        >
-          <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
-            <Psychology sx={{ fontSize: 20, color: '#2563eb' }} />
-            <Typography variant="h6" sx={{ color: '#1a1a1a', fontWeight: 600 }}>
-              {t('Analysis')}
-            </Typography>
-            {lastUpdated && (
-              <Typography variant="caption" sx={{ color: '#6b7280', ml: 'auto' }}>
-                {getLastUpdatedText()}
+      {/* Chat Conversation */}
+      {question && (
+        <Box sx={{ mb: 2 }}>
+          {/* User Message - Right */}
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+            <Paper 
+              elevation={0}
+              sx={{ 
+                backgroundColor: '#2563eb',
+                color: 'white',
+                p: 2,
+                borderRadius: '18px 18px 4px 18px',
+                maxWidth: '70%',
+                wordWrap: 'break-word'
+              }}
+            >
+              <Typography variant="body1">
+                {question}
               </Typography>
-            )}
-          </Stack>
-          
-          <MarkdownContainer>
-            <ReactMarkdown>{aiSummary}</ReactMarkdown>
-          </MarkdownContainer>
-        </Paper>
+            </Paper>
+          </Box>
+
+          {/* AI Response - Left */}
+          {isGenerating ? (
+            <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 2 }}>
+              <Paper 
+                elevation={0}
+                sx={{ 
+                  backgroundColor: '#f8fafc',
+                  border: '1px solid #e2e8f0',
+                  p: 2,
+                  borderRadius: '18px 18px 18px 4px',
+                  maxWidth: '70%'
+                }}
+              >
+                <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+                  <Psychology sx={{ fontSize: 16, color: '#2563eb' }} />
+                  <Typography variant="body2" sx={{ color: '#4a5568', fontWeight: 500 }}>
+                    {t('Analyzing...')}
+                  </Typography>
+                </Stack>
+                <LoadingDots>
+                  <span>{t('Generating analysis')}</span>
+                </LoadingDots>
+              </Paper>
+            </Box>
+          ) : aiSummary && (
+            <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 2 }}>
+              <Paper 
+                elevation={0}
+                sx={{ 
+                  backgroundColor: '#f8fafc',
+                  border: '1px solid #e2e8f0',
+                  p: 2,
+                  borderRadius: '18px 18px 18px 4px',
+                  maxWidth: '70%'
+                }}
+              >
+                <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
+                  <Psychology sx={{ fontSize: 16, color: '#2563eb' }} />
+                  <Typography variant="body2" sx={{ color: '#4a5568', fontWeight: 500 }}>
+                    {t('AI Assistant')}
+                  </Typography>
+                  {lastUpdated && (
+                    <Typography variant="caption" sx={{ color: '#9ca3af', ml: 'auto' }}>
+                      {getLastUpdatedText()}
+                    </Typography>
+                  )}
+                </Stack>
+                <MarkdownContainer>
+                  <ReactMarkdown>{aiSummary}</ReactMarkdown>
+                </MarkdownContainer>
+              </Paper>
+            </Box>
+          )}
+        </Box>
       )}
 
       {!aiSummary && !isGenerating && (
@@ -475,7 +511,8 @@ const Dashboard: React.FC = () => {
           </Typography>
         </Box>
       )}
-    </Box>
+      </Box>
+    </ChatContainer>
   );
 };
 

@@ -313,7 +313,7 @@ IMPORTANT: Respond in Italian language. Format your response as a business repor
         messages: [
           {
             role: 'system',
-            content: 'You are a professional business intelligence analyst. Provide clear, actionable insights based on data analysis.'
+            content: 'You are a professional business intelligence analyst. Provide clear, actionable insights based on data analysis. Always respond in Italian language.'
           },
           {
             role: 'user',

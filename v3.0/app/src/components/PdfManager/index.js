@@ -38,7 +38,7 @@ const PdfManager = () => {
   const [statusResult, setStatusResult] = useState(null);
   const [error, setError] = useState(null);
 
-  const API_BASE = process.env.REACT_APP_API_URL || 'http://sermixer.micro-cloud.it:12923/v3.0/api';
+  const API_BASE = process.env.REACT_APP_API_URL || 'http://sermixer.micro-cloud.it:12923/api';
 
   useEffect(() => {
     loadPdfList();
