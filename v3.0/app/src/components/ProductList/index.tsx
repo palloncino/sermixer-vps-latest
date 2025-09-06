@@ -112,7 +112,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleDeleteProduct
                 </TableSortLabel>
               </TableCell>
               <TableCell width="10%" align="right">{t('Category')}</TableCell>
-              <TableCell width="10%" align="right">
+              <TableCell width="10%" align="right" sx={{ minWidth: '100px' }}>
                 <TableSortLabel
                   active={orderBy === "price"}
                   direction={orderBy === "price" ? order : "asc"}
@@ -208,7 +208,16 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleDeleteProduct
                     </Tooltip>
                   </TableCell>
                   <TableCell align="right">
-                    {t('EUR')} {formatPrice(product.price)}
+                    <Typography
+                      sx={{
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        fontWeight: 'bold'
+                      }}
+                    >
+                      {t('EUR')} {formatPrice(product.price)}
+                    </Typography>
                   </TableCell>
                   <TableCell align="right">
                     <Tooltip title={product.updatedAt ? new Date(product.updatedAt).toLocaleString() : ""}>
