@@ -82,6 +82,12 @@ const LogoText = styled.div`
   flex-direction: column;
 `;
 
+const VersionText = styled.span`
+  font-size: 0.7rem;
+  opacity: 0.8;
+  margin-top: 2px;
+`;
+
 const ActionContainer = styled.div`
   display: flex;
   align-items: center;
@@ -194,6 +200,7 @@ function Navbar() {
             <LogoImage src={Logo} alt="Logo" />
             <LogoText>
               <span style={{ fontSize: '1.2rem' }}>{t("LogoTextSub")}</span>
+              <VersionText>v3.0</VersionText>
             </LogoText>
           </LogoButton>
           {!isMobile && (
