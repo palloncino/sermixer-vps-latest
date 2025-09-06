@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import fallbackProductImg from "../../media/fallbackProduct.png";
 import { formatPrice } from "../../utils/format-price.ts";
 import Button from "../Button";
+import CategoryBadge from "../CategoryBadge";
 
 
 const CustomCard = styled(Card)`
@@ -26,12 +27,18 @@ const CustomCard = styled(Card)`
   margin: auto;
   display: flex;
   flex-direction: column;
-  transition: box-shadow 0.3s;
   height: 500px;
   overflow: hidden;
   position: relative;
+  border: 3px solid #000000;
+  border-radius: 8px;
+  box-shadow: none;
+  transition: all 0.2s ease;
+  
   &:hover {
-    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+    border-color: #333333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 `;
 
@@ -48,7 +55,8 @@ const OptionalDetails = styled(Box)`
   margin-top: 16px;
   padding: 16px;
   background-color: #f9f9f9;
-  border-radius: 8px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
 `;
 
 const CardActionsWrapper = styled(CardActions)`
@@ -58,6 +66,9 @@ const CardActionsWrapper = styled(CardActions)`
   background: white;
   display: flex;
   justify-content: space-between;
+  border-top: 2px solid #e0e0e0;
+  padding: 12px 16px;
+  box-sizing: border-box;
 `;
 
 const ComponentDetails = styled(Box)`
@@ -135,9 +146,12 @@ const ProductCard = ({ product, handleDeleteProducts }) => {
         <Description variant="body2" color="text.secondary">
           {product.description}
         </Description>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-          Category: {product.category}
-        </Typography>
+        <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Typography variant="body2" color="text.secondary">
+            Category:
+          </Typography>
+          <CategoryBadge category={product.category} size="small" />
+        </Box>
         <Typography variant="h6" color="primary" sx={{ mt: 1 }}>
           <strong>{formatPrice(product.price)}</strong>
         </Typography>

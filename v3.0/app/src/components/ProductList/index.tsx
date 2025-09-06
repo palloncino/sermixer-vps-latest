@@ -26,6 +26,7 @@ import { formatPrice } from "../../utils/format-price";
 import { isAdmin } from "../../utils/isWho.js";
 import Highlight from "../HighlightText/index";
 import Button from "../Button";
+import CategoryBadge from "../CategoryBadge";
 
 interface ProductListProps {
   products: ProductType[];
@@ -195,17 +196,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleDeleteProduct
                     </Tooltip>
                   </TableCell>
                   <TableCell align="right">
-                    <Tooltip title={product.category}>
-                      <Typography
-                        sx={{
-                          whiteSpace: 'nowrap',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis'
-                        }}
-                      >
-                        <Highlight text={truncateText(product.category, 15)} search={search} />
-                      </Typography>
-                    </Tooltip>
+                    <CategoryBadge category={product.category} size="small" />
                   </TableCell>
                   <TableCell align="right">
                     <Typography
