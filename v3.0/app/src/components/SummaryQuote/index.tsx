@@ -1,7 +1,7 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import {
-    Box, Button, Grid, IconButton,
+    Box, Grid, IconButton,
     Typography, styled, Fab
 } from "@mui/material";
 import Tooltip from '@mui/material/Tooltip';
@@ -16,6 +16,7 @@ import EuroTextField from '../EuroTextField/index';
 import MarkdownEditor from '../MarkdownEditor/index';
 import PageHeader from "../PageHeader/index";
 import SummaryComponentList from "./SummaryComponentList";
+import Button from '../Button';
 
 type SummaryQuoteP = {
     quoteHeadDetails: QuoteHeadDetailsType;
@@ -203,8 +204,8 @@ const SummaryQuote = ({
             <Box mt={4} display="flex" justifyContent="center">
                 <Button
                     variant="contained"
-                    color="primary"
                     onClick={preHandleSubmit}
+                    size="large"
                     sx={{ width: '200px', height: '50px' }}
                 >
                     {t("Submit")}
@@ -214,7 +215,6 @@ const SummaryQuote = ({
             {/* Reset Quote Floating Action Button */}
             <Tooltip title={t("Reset Quote")} placement="left" arrow>
                 <Fab
-                    color="secondary"
                     size="small"
                     onClick={handleResetQuote}
                     sx={{
@@ -222,9 +222,12 @@ const SummaryQuote = ({
                         bottom: 24,
                         right: 24,
                         zIndex: 1000,
+                        backgroundColor: '#000000',
+                        color: '#ffffff',
+                        border: '2px solid #000000',
                         '&:hover': {
-                            backgroundColor: 'error.main',
-                            transform: 'scale(1.1)',
+                            backgroundColor: '#333333',
+                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
                         },
                         transition: 'all 0.2s ease-in-out'
                     }}
@@ -312,8 +315,14 @@ const MemoizedProductItem = React.memo(({
                                     sx={{
                                         height: '100%',
                                         alignSelf: 'baseline',
-                                        color: 'inherit',
-                                        '&:hover': { color: 'red' }
+                                        color: '#000000',
+                                        border: '2px solid #000000',
+                                        borderRadius: 1,
+                                        backgroundColor: 'transparent',
+                                        '&:hover': {
+                                            backgroundColor: '#000000',
+                                            color: '#ffffff',
+                                        },
                                     }}
                                     onClick={() => onProductRemove(productIndex)}
                                 >

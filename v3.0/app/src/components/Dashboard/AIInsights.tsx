@@ -108,20 +108,15 @@ const AIInsights: React.FC<AIInsightsProps> = ({ metrics }) => {
     // First, always try to get cached analysis
     const cached = getCachedAnalysis();
     if (cached) {
-      console.log('Using cached AI analysis (valid for 24h)');
       setAnalysis(cached);
       setError(null);
       return;
     }
 
-    console.log('No valid cache found, fetching fresh analysis...');
     setLoading(true);
     setError(null);
 
     try {
-      console.log('Fetching AI analysis from backend...');
-      console.log('Request URL:', '/api/ai/analyze-dashboard');
-      console.log('Request payload:', metrics);
       
       const response = await fetch('/api/ai/analyze-dashboard', {
         method: 'POST',
@@ -131,15 +126,12 @@ const AIInsights: React.FC<AIInsightsProps> = ({ metrics }) => {
         body: JSON.stringify({ metrics }),
       });
 
-      console.log('Backend response status:', response.status);
-      console.log('Backend response headers:', response.headers);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data: AIInalysis = await response.json();
-      console.log('Backend response data:', data);
       
       if (!data || !data.summary) {
         throw new Error('Invalid response data from backend');
@@ -149,11 +141,9 @@ const AIInsights: React.FC<AIInsightsProps> = ({ metrics }) => {
       setLastUpdate(new Date());
       cacheAnalysis(data);
       
-      console.log(`Using ${data.source === 'deepseek' ? 'DeepSeek AI' : 'local'} analysis for dashboard`);
       
     } catch (error) {
       console.error('Failed to fetch AI analysis from backend:', error);
-      console.log('Falling back to local analysis...');
       
       // Generate local analysis as fallback
       const localAnalysis = generateLocalAnalysis(metrics);
@@ -217,39 +207,31 @@ const AIInsights: React.FC<AIInsightsProps> = ({ metrics }) => {
   // Test if backend endpoint exists
   const testBackendEndpoint = async () => {
     try {
-      console.log('Testing backend endpoint availability...');
       const response = await fetch('/api/ai/analyze-dashboard', {
         method: 'OPTIONS',
       });
-      console.log('Backend endpoint test response:', response.status);
       return response.status !== 404;
     } catch (error) {
-      console.log('Backend endpoint test failed:', error);
       return false;
     }
   };
 
   // Refresh analysis manually (respects cache)
   const handleRefresh = async () => {
-    console.log('Manual refresh requested...');
-    
     // Check cache first
     const cached = getCachedAnalysis();
     if (cached) {
-      console.log('Cache is still valid, using cached analysis');
       setAnalysis(cached);
       setError(null);
       return;
     }
     
     // Cache expired, fetch fresh analysis
-    console.log('Cache expired, fetching fresh analysis...');
     fetchAIAnalysis();
   };
 
   // Force refresh - bypass cache completely
   const handleForceRefresh = () => {
-    console.log('Force refresh requested - bypassing cache...');
     localStorage.removeItem('dashboard-ai-analysis');
     setLastUpdate(null);
     setAnalysis(null);

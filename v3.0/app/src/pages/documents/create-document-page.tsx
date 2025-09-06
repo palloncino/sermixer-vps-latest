@@ -1,4 +1,5 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
+import styled from "styled-components";
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useFlashMessage } from "state/FlashMessageContext";
@@ -33,14 +34,6 @@ const CreateQuotePage: FC<any> = () => {
   // Memoize discount to prevent unnecessary re-renders
   const memoizedDiscount = useMemo(() => discount, [discount]);
   
-  // Log after state is initialized
-  console.log('__CreateQuotePage: Component rendered', {
-    quoteHeadDetails,
-    selectedClient,
-    addedProductsLength: addedProducts.length,
-    discount,
-    addedProductsReference: addedProducts
-  });
 
   // Fetch products when the component loads
   useEffect(() => {
@@ -115,17 +108,14 @@ const CreateQuotePage: FC<any> = () => {
 
   // Optimized callbacks to prevent unnecessary re-renders
   const handleQuoteDetailsChange = useCallback((details: QuoteHeadDetailsType) => {
-    console.log('__CreateQuotePage: handleQuoteDetailsChange called', { details });
     setQuoteHeadDetails(details);
   }, []);
 
   const handleClientChange = useCallback((client: ClientType | null) => {
-    console.log('__CreateQuotePage: handleClientChange called', { client });
     setSelectedClient(client);
   }, []);
 
   const handleAddedProductsChange = useCallback((products: ProductType[]) => {
-    console.log('__CreateQuotePage: handleAddedProductsChange called with products length:', products.length);
     setAddedProducts(products);
   }, []);
 
@@ -145,7 +135,37 @@ const CreateQuotePage: FC<any> = () => {
 
   return (
     <WhitePaperContainer>
-      <Container sx={{ mt: '20px', pb: "100px" }}>
+      <Container sx={{ pb: "100px" }}>
+        {/* Bold Header */}
+        <Box sx={{ textAlign: 'center', mb: 4, paddingTop: '24px' }}>
+          <Typography variant="h3" sx={{ 
+            fontWeight: 900, 
+            color: '#000000',
+            mb: 1,
+            letterSpacing: '-0.02em',
+            textTransform: 'uppercase',
+            fontSize: { xs: '1.8rem', md: '2.2rem' }
+          }}>
+            {t('Create New Document')}
+          </Typography>
+          <Box sx={{ 
+            width: '80px', 
+            height: '4px', 
+            backgroundColor: '#000000', 
+            margin: '0 auto 16px auto',
+            borderRadius: '2px'
+          }} />
+          <Typography variant="h6" sx={{ 
+            color: '#374151', 
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            fontSize: '0.9rem'
+          }}>
+            {t('Build Your Quote')}
+          </Typography>
+        </Box>
+
         {message.text && (
           <Box mb={2} pt={2}>
             <FlashMessage message={message.text} type={message.type} />

@@ -1,8 +1,10 @@
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Breadcrumbs, Container, Link, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Breadcrumb = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const path = location.pathname;
 
@@ -12,47 +14,47 @@ const Breadcrumb = () => {
       "/login": [],
       "/signup": [],
       "/products-list": [
-        { label: "Home", href: "/" },
-        { label: "Products List", href: "/products-list" },
+        { label: t("Home"), href: "/" },
+        { label: t("Products List"), href: "/products-list" },
       ],
       "/create-product": [
-        { label: "Home", href: "/" },
-        { label: "Products List", href: "/products-list" },
-        { label: "Create Product", href: "/create-product" },
+        { label: t("Home"), href: "/" },
+        { label: t("Products List"), href: "/products-list" },
+        { label: t("Create Product"), href: "/create-product" },
       ],
       "/create-client": [
-        { label: "Home", href: "/" },
-        { label: "Clients List", href: "/clients-list" },
-        { label: "Create Client", href: "/create-client" },
+        { label: t("Home"), href: "/" },
+        { label: t("Clients List"), href: "/clients-list" },
+        { label: t("Create Client"), href: "/create-client" },
       ],
       "/quotes-list": [
-        { label: "Home", href: "/" },
-        { label: "Quote List", href: "/quotes-list" },
+        { label: t("Home"), href: "/" },
+        { label: t("Quote List"), href: "/quotes-list" },
       ],
       "/create-document": [
-        { label: "Home", href: "/" },
-        { label: "Documents List", href: "/documents-list" },
-        { label: "Create Document", href: "/create-document" },
+        { label: t("Home"), href: "/" },
+        { label: t("Documents List"), href: "/documents-list" },
+        { label: t("Create Document"), href: "/create-document" },
       ],
       "/users-list": [
-        { label: "Home", href: "/" },
-        { label: "Users List", href: "/users-list" },
+        { label: t("Home"), href: "/" },
+        { label: t("Users List"), href: "/users-list" },
       ],
       "/clients-list": [
-        { label: "Home", href: "/" },
-        { label: "Clients List", href: "/clients-list" },
+        { label: t("Home"), href: "/" },
+        { label: t("Clients List"), href: "/clients-list" },
       ],
       "/documents-list": [
-        { label: "Home", href: "/" },
-        { label: "Documents List", href: "/documents-list" },
+        { label: t("Home"), href: "/" },
+        { label: t("Documents List"), href: "/documents-list" },
       ],
       "/profile": [
-        { label: "Home", href: "/" },
-        { label: "My Profile", href: "/profile" },
+        { label: t("Home"), href: "/" },
+        { label: t("My Profile"), href: "/profile" },
       ],
       "/pdf-management": [
-        { label: "Home", href: "/" },
-        { label: "PDF Management", href: "/pdf-management" },
+        { label: t("Home"), href: "/" },
+        { label: t("PDF Management"), href: "/pdf-management" },
       ],
     };
 
@@ -60,9 +62,9 @@ const Breadcrumb = () => {
     if (path.startsWith("/product/")) {
       const productId = path.split("/").pop();
       breadcrumbMap[path] = [
-        { label: "Home", href: "/" },
-        { label: "Products List", href: "/products-list" },
-        { label: `Product ${productId}`, href: `/product/${productId}` },
+        { label: t("Home"), href: "/" },
+        { label: t("Products List"), href: "/products-list" },
+        { label: `${t("Product")} ${productId}`, href: `/product/${productId}` },
       ];
     }
 
@@ -70,9 +72,9 @@ const Breadcrumb = () => {
     if (path.startsWith("/documents/")) {
       const docId = path.split("/").pop();
       breadcrumbMap[path] = [
-        { label: "Home", href: "/" },
-        { label: "Document List", href: "/documents-list" },
-        { label: `Document Hash ${docId}`, href: `/product/${docId}` },
+        { label: t("Home"), href: "/" },
+        { label: t("Documents List"), href: "/documents-list" },
+        { label: `${t("Document")} ${docId}`, href: `/documents/${docId}` },
       ];
     }
 
@@ -80,9 +82,9 @@ const Breadcrumb = () => {
     if (path.startsWith("/quote/")) {
       const quoteId = path.split("/").pop();
       breadcrumbMap[path] = [
-        { label: "Home", href: "/" },
-        { label: "Quote List", href: "/quotes-list" },
-        { label: `Quote ${quoteId}`, href: `/quote/${quoteId}` },
+        { label: t("Home"), href: "/" },
+        { label: t("Quote List"), href: "/quotes-list" },
+        { label: `${t("Quote")} ${quoteId}`, href: `/quote/${quoteId}` },
       ];
     }
 
@@ -90,9 +92,9 @@ const Breadcrumb = () => {
     if (path.startsWith("/user/")) {
       const userId = path.split("/").pop();
       breadcrumbMap[path] = [
-        { label: "Home", href: "/" },
-        { label: "Users List", href: "/users-list" },
-        { label: `User ${userId}`, href: `/user/${userId}` },
+        { label: t("Home"), href: "/" },
+        { label: t("Users List"), href: "/users-list" },
+        { label: `${t("User")} ${userId}`, href: `/user/${userId}` },
       ];
     }
 
@@ -100,9 +102,9 @@ const Breadcrumb = () => {
     if (path.startsWith("/client/")) {
       const userId = path.split("/").pop();
       breadcrumbMap[path] = [
-        { label: "Home", href: "/" },
-        { label: "Clients List", href: "/clients-list" },
-        { label: `Client ${userId}`, href: `/client/${userId}` },
+        { label: t("Home"), href: "/" },
+        { label: t("Clients List"), href: "/clients-list" },
+        { label: `${t("Client")} ${userId}`, href: `/client/${userId}` },
       ];
     }
 
@@ -110,10 +112,10 @@ const Breadcrumb = () => {
     if (path.startsWith("/edit-product/")) {
       const productId = path.split("/").pop();
       breadcrumbMap[path] = [
-        { label: "Home", href: "/" },
-        { label: "Products List", href: "/products-list" },
-        { label: `Product ${productId}`, href: `/product/${productId}` },
-        { label: `Edit Product ${productId}`, href: path },
+        { label: t("Home"), href: "/" },
+        { label: t("Products List"), href: "/products-list" },
+        { label: `${t("Product")} ${productId}`, href: `/product/${productId}` },
+        { label: `${t("Edit Product")} ${productId}`, href: path },
       ];
     }
 
@@ -121,21 +123,21 @@ const Breadcrumb = () => {
     if (path.startsWith("/edit-user/")) {
       const userId = path.split("/").pop();
       breadcrumbMap[path] = [
-        { label: "Home", href: "/" },
-        { label: "User List", href: "/users-list" },
-        { label: `User ${userId}`, href: `/user/${userId}` },
-        { label: `Edit Product ${userId}`, href: path },
+        { label: t("Home"), href: "/" },
+        { label: t("Users List"), href: "/users-list" },
+        { label: `${t("User")} ${userId}`, href: `/user/${userId}` },
+        { label: `${t("Edit User")} ${userId}`, href: path },
       ];
     }
 
-    // Handle edit-user/:userId route
+    // Handle edit-client/:clientId route
     if (path.startsWith("/edit-client/")) {
       const clientId = path.split("/").pop();
       breadcrumbMap[path] = [
-        { label: "Home", href: "/" },
-        { label: "Clients List", href: "/clients-list" },
-        { label: `Client ${clientId}`, href: `/client/${clientId}` },
-        { label: `Edit Client ${clientId}`, href: path },
+        { label: t("Home"), href: "/" },
+        { label: t("Clients List"), href: "/clients-list" },
+        { label: `${t("Client")} ${clientId}`, href: `/client/${clientId}` },
+        { label: `${t("Edit Client")} ${clientId}`, href: path },
       ];
     }
 

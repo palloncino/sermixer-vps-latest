@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Business, Description, Subject } from "@mui/icons-material";
 import ReactMarkdown from 'react-markdown';
 import MarkdownEditor from '../../components/MarkdownEditor';
+import Button from '../../components/Button';
 
 const EMPTY_QUOTE_DETAILS = {
   company: "",
@@ -22,29 +23,37 @@ const QuoteDetails = ({ onDetailsChange }) => {
 
   return (
     <Paper 
-      elevation={2} 
+      elevation={0} 
       sx={{ 
-        backgroundColor: 'background.paper', 
-        borderRadius: 2, 
+        backgroundColor: '#ffffff', 
+        borderRadius: 1, 
         overflow: 'hidden',
-        border: '1px solid',
-        borderColor: 'divider'
+        border: '2px solid #000000',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
       }}
     >
       {/* Header */}
       <Box 
         sx={{ 
-          px: 2.5, 
-          py: 1.5, 
-          backgroundColor: 'primary.main',
-          color: 'primary.contrastText',
+          px: 3, 
+          py: 2, 
+          backgroundColor: '#000000',
+          color: '#ffffff',
           display: 'flex',
           alignItems: 'center',
-          gap: 1
+          gap: 2
         }}
       >
-        <Business fontSize="small" />
-        <Typography variant="subtitle1" fontWeight={600}>
+        <Business sx={{ fontSize: 20 }} />
+        <Typography 
+          variant="h6" 
+          fontWeight={900}
+          sx={{
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            fontSize: '1rem'
+          }}
+        >
           {t("QuoteDetails")}
         </Typography>
       </Box>
@@ -61,23 +70,41 @@ const QuoteDetails = ({ onDetailsChange }) => {
               <Chip
                 label="Sermixer"
                 variant={company === 'Sermixer' ? 'filled' : 'outlined'}
-                color={company === 'Sermixer' ? 'primary' : 'default'}
                 onClick={() => setQuoteHeadDetails({ ...quoteHeadDetails, company: 'Sermixer' })}
                 sx={{ 
                   cursor: 'pointer',
                   fontSize: '0.875rem',
-                  '&:hover': { backgroundColor: company === 'Sermixer' ? 'primary.dark' : 'action.hover' }
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  backgroundColor: company === 'Sermixer' ? '#000000' : 'transparent',
+                  color: company === 'Sermixer' ? '#ffffff' : '#000000',
+                  borderColor: '#000000',
+                  borderWidth: '2px',
+                  '&:hover': { 
+                    backgroundColor: company === 'Sermixer' ? '#333333' : '#f8f9fa',
+                    borderColor: '#000000',
+                  }
                 }}
               />
               <Chip
                 label="S2 Truck Service"
                 variant={company === 'S2 Truck Service' ? 'filled' : 'outlined'}
-                color={company === 'S2 Truck Service' ? 'primary' : 'default'}
                 onClick={() => setQuoteHeadDetails({ ...quoteHeadDetails, company: 'S2 Truck Service' })}
                 sx={{ 
                   cursor: 'pointer',
                   fontSize: '0.875rem',
-                  '&:hover': { backgroundColor: company === 'S2 Truck Service' ? 'primary.dark' : 'action.hover' }
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  backgroundColor: company === 'S2 Truck Service' ? '#000000' : 'transparent',
+                  color: company === 'S2 Truck Service' ? '#ffffff' : '#000000',
+                  borderColor: '#000000',
+                  borderWidth: '2px',
+                  '&:hover': { 
+                    backgroundColor: company === 'S2 Truck Service' ? '#333333' : '#f8f9fa',
+                    borderColor: '#000000',
+                  }
                 }}
               />
             </Stack>
@@ -104,7 +131,25 @@ const QuoteDetails = ({ onDetailsChange }) => {
               placeholder={t("EnterObjectPlaceholder") || "Inserisci oggetto..."}
               sx={{ 
                 '& .MuiOutlinedInput-root': {
-                  backgroundColor: 'background.default'
+                  border: '2px solid #000000',
+                  borderRadius: 1,
+                  backgroundColor: '#ffffff',
+                  '& fieldset': {
+                    border: 'none',
+                  },
+                  '&:hover': {
+                    borderColor: '#000000',
+                    backgroundColor: '#f8f9fa',
+                  },
+                  '&.Mui-focused': {
+                    borderColor: '#000000',
+                    backgroundColor: '#ffffff',
+                    boxShadow: '0 0 0 2px rgba(0, 0, 0, 0.1)',
+                  },
+                },
+                '& .MuiInputBase-input': {
+                  fontWeight: 600,
+                  color: '#000000',
                 }
               }}
             />

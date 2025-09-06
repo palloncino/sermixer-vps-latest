@@ -68,7 +68,6 @@ const ClientPage: FC = () => {
 
     // Show 404 if the client is not found after fetching
     if (!theClient) {
-        console.log("404 Error: No client found");
         return (
             <Container maxWidth="sm" sx={{ mt: 4, display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <Typography variant="h4" gutterBottom color="error">

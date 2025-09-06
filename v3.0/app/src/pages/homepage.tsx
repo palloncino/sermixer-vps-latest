@@ -55,6 +55,7 @@ const Homepage: React.FC = () => {
 const DesktopContainer = styled.div`
   display: flex;
   overflow: hidden;
+  margin-top: 10px;
 `;
 
 const MobileContainer = styled.div`

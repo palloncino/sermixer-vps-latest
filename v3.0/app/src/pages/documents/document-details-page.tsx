@@ -10,7 +10,6 @@ import {
   Alert,
   alpha,
   Box,
-  Button,
   Chip,
   CircularProgress,
   Container,
@@ -28,6 +27,7 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
+import Button from '../../components/Button';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -1537,7 +1537,14 @@ const DocumentDetailsPage: React.FC = () => {
         <Container maxWidth="xl" disableGutters>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
             <Box>
-              <Typography variant="h3" sx={{ fontWeight: 700, color: theme.palette.text.primary, mb: 1 }}>
+              <Typography variant="h4" sx={{ 
+                fontWeight: 900, 
+                color: '#000000', 
+                mb: 1,
+                textTransform: 'uppercase',
+                letterSpacing: '-0.02em',
+                fontSize: { xs: '1.5rem', md: '2rem' }
+              }}>
                 {document.data?.quoteHeadDetails?.object || t('Document Preview')}
               </Typography>
               {document.data?.quoteHeadDetails?.description && (
@@ -1560,33 +1567,83 @@ const DocumentDetailsPage: React.FC = () => {
               {t('Back to Documents')}
             </Button>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, flexWrap: 'wrap' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
             <Chip 
               label={`${t('Hash')}: ${document.hash}`} 
               variant="outlined" 
               size="small"
-              sx={{ fontFamily: 'monospace', fontSize: '0.75rem' }}
+              sx={{ 
+                fontFamily: 'monospace', 
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                border: '2px solid #000000',
+                backgroundColor: '#f8f9fa',
+                color: '#000000',
+                '&:hover': {
+                  backgroundColor: '#000000',
+                  color: '#ffffff',
+                }
+              }}
             />
             <Chip 
               label={`${t('Client')}: ${document.data?.selectedClient?.companyName || t('N/A')}`} 
               variant="outlined" 
               size="small"
+              sx={{ 
+                fontWeight: 700,
+                border: '2px solid #000000',
+                backgroundColor: '#f8f9fa',
+                color: '#000000',
+                '&:hover': {
+                  backgroundColor: '#000000',
+                  color: '#ffffff',
+                }
+              }}
             />
             <Chip 
               label={`${t('Company')}: ${document.company || document.data?.quoteHeadDetails?.company || t('N/A')}`} 
               variant="outlined" 
               size="small"
+              sx={{ 
+                fontWeight: 700,
+                border: '2px solid #000000',
+                backgroundColor: '#f8f9fa',
+                color: '#000000',
+                '&:hover': {
+                  backgroundColor: '#000000',
+                  color: '#ffffff',
+                }
+              }}
             />
             <Chip 
               label={`${t('Created')}: ${dateText(document.createdAt)}`} 
               variant="outlined" 
               size="small"
+              sx={{ 
+                fontWeight: 700,
+                border: '2px solid #000000',
+                backgroundColor: '#f8f9fa',
+                color: '#000000',
+                '&:hover': {
+                  backgroundColor: '#000000',
+                  color: '#ffffff',
+                }
+              }}
             />
             <Chip 
               label={`${t('Status')}: ${getStatusText(document.status)}`} 
               color={getStatusColor(document.status) as any}
               size="small"
-              sx={{ fontWeight: 500 }}
+              sx={{ 
+                fontWeight: 700,
+                border: '2px solid #000000',
+                backgroundColor: getStatusColor(document.status) === 'success' ? '#000000' : '#f8f9fa',
+                color: getStatusColor(document.status) === 'success' ? '#ffffff' : '#000000',
+                '&:hover': {
+                  backgroundColor: '#000000',
+                  color: '#ffffff',
+                }
+              }}
             />
           </Box>
         </Container>

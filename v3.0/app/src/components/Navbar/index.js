@@ -1,11 +1,11 @@
 import {
+  Build,
   Description,
   Folder,
   Inventory,
   People,
   Psychology
 } from "@mui/icons-material";
-import MenuIcon from "@mui/icons-material/Menu";
 import {
   Avatar,
   Box,
@@ -34,16 +34,17 @@ import { useAppState } from "../../state/stateContext";
 import { isAdmin, isUser } from "../../utils/isWho";
 
 const StyledAppBar = styled.div`
-  background: ${PALETTE.HeaderBackground};
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #000000 100%);
   color: #fff;
   width: 100%;
   height: 210px;
   top: 0;
-  z-index: 1100; /* Ensure it stays above other components */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1100;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
   position: relative;
+  border-bottom: 2px solid #000000;
   
-  /* Add pattern overlay with ::before */
+  /* Add subtle pattern overlay */
   &::before {
     content: '';
     position: absolute;
@@ -54,7 +55,7 @@ const StyledAppBar = styled.div`
     background-image: ${PALETTE.HeaderPattern2};
     background-size: 88px 24px;
     background-repeat: repeat;
-    opacity: 0.15;
+    opacity: 0.08;
     pointer-events: none;
     z-index: 1;
   }
@@ -280,11 +281,25 @@ function Navbar() {
           minWidth: 600,
           maxWidth: 800,
           mt: 1,
-          p: 2,
+          p: 3,
+          backgroundColor: '#ffffff',
+          border: '2px solid #000000',
+          borderRadius: 1,
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
         }
       }}
     >
-      <Typography variant="h6" sx={{ mb: 3, fontWeight: 600, color: '#333' }}>
+      <Typography 
+        variant="h5" 
+        sx={{ 
+          mb: 4, 
+          fontWeight: 900, 
+          color: '#000000',
+          textTransform: 'uppercase',
+          letterSpacing: '-0.02em',
+          textAlign: 'center'
+        }}
+      >
         Quick Navigation
       </Typography>
       
@@ -294,28 +309,40 @@ function Navbar() {
             <Card 
               elevation={0}
               sx={{ 
-                border: '1px solid #e5e7eb',
+                border: '2px solid #000000',
                 borderRadius: 1,
-                transition: 'border-color 0.2s ease',
+                backgroundColor: '#ffffff',
+                transition: 'all 0.2s ease',
                 '&:hover': {
-                  borderColor: '#d1d5db'
+                  borderColor: '#000000',
+                  backgroundColor: '#f8f9fa',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
                 }
               }}
             >
-              <CardContent sx={{ p: 2 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+              <CardContent sx={{ p: 2.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <Box sx={{ 
-                    mr: 1.5,
+                    mr: 2,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    width: 32,
+                    height: 32,
+                    backgroundColor: '#000000',
+                    borderRadius: 1
                   }}>
-                    <section.icon sx={{ fontSize: 20, color: '#6b7280' }} />
+                    <section.icon sx={{ fontSize: 18, color: '#ffffff' }} />
                   </Box>
                   <Typography 
                     variant="subtitle1" 
-                    fontWeight={600} 
-                    sx={{ color: '#374151' }}
+                    fontWeight={800} 
+                    sx={{ 
+                      color: '#000000',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      fontSize: '0.9rem'
+                    }}
                   >
                     {section.category}
                   </Typography>
@@ -326,20 +353,46 @@ function Navbar() {
                     key={item.label}
                     onClick={() => handleQuickLinkClick(item.route)}
                     sx={{
-                      p: 1,
+                      p: 1.5,
                       borderRadius: 1,
                       cursor: 'pointer',
-                      mb: 0.5,
-                      transition: 'background-color 0.2s ease',
+                      mb: 1,
+                      border: '1px solid #e5e7eb',
+                      transition: 'all 0.2s ease',
                       '&:hover': {
-                        backgroundColor: '#f9fafb'
+                        backgroundColor: '#000000',
+                        borderColor: '#000000',
+                        '& .link-text': {
+                          color: '#ffffff'
+                        },
+                        '& .link-desc': {
+                          color: '#e5e7eb'
+                        }
                       }
                     }}
                   >
-                    <Typography variant="body2" fontWeight={500} sx={{ color: '#374151' }}>
+                    <Typography 
+                      variant="body2" 
+                      fontWeight={700} 
+                      className="link-text"
+                      sx={{ 
+                        color: '#000000',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.025em',
+                        fontSize: '0.8rem'
+                      }}
+                    >
                       {item.label}
                     </Typography>
-                    <Typography variant="caption" sx={{ color: '#6b7280' }}>
+                    <Typography 
+                      variant="caption" 
+                      className="link-desc"
+                      sx={{ 
+                        color: '#6b7280',
+                        fontSize: '0.75rem',
+                        fontWeight: 500
+                      }}
+                    >
                       {item.description}
                     </Typography>
                   </Box>
@@ -362,30 +415,41 @@ function Navbar() {
           <LogoButton to="/">
             <LogoImage src={Logo} alt="Logo" />
             <LogoText>
-              <span style={{ fontSize: "1.1rem", fontWeight: 600 }}>{t("LogoText")}</span>
-              <span style={{ fontSize: "0.8rem", opacity: 0.9 }}>{t("LogoTextSub")} v3.0</span>
+              <span style={{ 
+                fontSize: "1.3rem", 
+                fontWeight: 900, 
+                letterSpacing: '-0.02em',
+                textTransform: 'uppercase'
+              }}>{t("LogoText")}</span>
+              <span style={{ 
+                fontSize: "0.85rem", 
+                opacity: 0.8,
+                fontWeight: 600,
+                letterSpacing: '0.05em'
+              }}>{t("LogoTextSub")} v3.0</span>
             </LogoText>
           </LogoButton>
 
           {/* Center Column - Menu Button */}
           <Button
             onClick={handleBurgerMenuOpen}
-            startIcon={<MenuIcon />}
+            startIcon={<Build sx={{ fontSize: 20 }} />}
             sx={{
               color: '#fff',
-              fontWeight: 600,
-              textTransform: 'none',
-              borderRadius: 2,
-              px: 2,
-              py: 1,
-              background: 'rgba(255, 255, 255, 0.05)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              transition: 'all 0.3s ease',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              borderRadius: 1,
+              px: 3,
+              py: 1.5,
+              background: 'rgba(0, 0, 0, 0.3)',
+              border: '2px solid #ffffff',
+              fontSize: '0.9rem',
+              letterSpacing: '0.1em',
+              transition: 'all 0.2s ease',
               '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 8px 25px rgba(0, 0, 0, 0.2)',
+                backgroundColor: '#ffffff',
+                color: '#000000',
+                boxShadow: '0 4px 15px rgba(255, 255, 255, 0.3)',
               }
             }}
           >
@@ -400,7 +464,25 @@ function Navbar() {
                 {isUser(user) && renderUserLinks()}
                 {isAdmin(user) && renderAdminLinks()}
                 <Tooltip title={t("Toggle Language")}>
-                  <IconButton onClick={toggleLanguage} style={{ color: "#fff" }}>
+                  <IconButton 
+                    onClick={toggleLanguage} 
+                    sx={{
+                      color: "#fff",
+                      backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                      border: '2px solid #ffffff',
+                      borderRadius: 1,
+                      fontWeight: 800,
+                      fontSize: '0.8rem',
+                      letterSpacing: '0.05em',
+                      textTransform: 'uppercase',
+                      minWidth: '40px',
+                      height: '40px',
+                      '&:hover': {
+                        backgroundColor: '#ffffff',
+                        color: '#000000',
+                      }
+                    }}
+                  >
                     {i18n.language === "en" ? "IT" : "EN"}
                   </IconButton>
                 </Tooltip>
@@ -411,12 +493,42 @@ function Navbar() {
               <>
                 {/* Mobile user menu */}
                 {user && (
-                  <IconButton onClick={handleMenuOpen} color="inherit">
+                  <IconButton 
+                    onClick={handleMenuOpen} 
+                    sx={{
+                      color: "#fff",
+                      backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                      border: '2px solid #ffffff',
+                      borderRadius: 1,
+                      '&:hover': {
+                        backgroundColor: '#ffffff',
+                        color: '#000000',
+                      }
+                    }}
+                  >
                     <Avatar />
                   </IconButton>
                 )}
                 <Tooltip title={t("Toggle Language")}>
-                  <IconButton onClick={toggleLanguage} style={{ color: "#fff" }}>
+                  <IconButton 
+                    onClick={toggleLanguage} 
+                    sx={{
+                      color: "#fff",
+                      backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                      border: '2px solid #ffffff',
+                      borderRadius: 1,
+                      fontWeight: 800,
+                      fontSize: '0.8rem',
+                      letterSpacing: '0.05em',
+                      textTransform: 'uppercase',
+                      minWidth: '40px',
+                      height: '40px',
+                      '&:hover': {
+                        backgroundColor: '#ffffff',
+                        color: '#000000',
+                      }
+                    }}
+                  >
                     {i18n.language === "en" ? "IT" : "EN"}
                   </IconButton>
                 </Tooltip>
@@ -435,9 +547,48 @@ function Navbar() {
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
+        PaperProps={{
+          sx: {
+            backgroundColor: '#ffffff',
+            border: '2px solid #000000',
+            borderRadius: 1,
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+            minWidth: 200,
+          }
+        }}
       >
-        <MenuItem onClick={handleProfileClick}>{t("ViewProfile")}</MenuItem>
-        <MenuItem onClick={handleLogoutClick}>{t("Logout")}</MenuItem>
+        <MenuItem 
+          onClick={handleProfileClick}
+          sx={{
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            fontSize: '0.9rem',
+            color: '#000000',
+            '&:hover': {
+              backgroundColor: '#000000',
+              color: '#ffffff',
+            }
+          }}
+        >
+          {t("ViewProfile")}
+        </MenuItem>
+        <MenuItem 
+          onClick={handleLogoutClick}
+          sx={{
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            fontSize: '0.9rem',
+            color: '#000000',
+            '&:hover': {
+              backgroundColor: '#000000',
+              color: '#ffffff',
+            }
+          }}
+        >
+          {t("Logout")}
+        </MenuItem>
       </Menu>
     </StyledAppBar>
   );

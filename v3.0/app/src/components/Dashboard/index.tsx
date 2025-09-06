@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 
 import styled from 'styled-components';
+import Button from '../Button';
 import { useDocumentContext } from '../../state/documentContext';
 import { useFlashMessage } from '../../state/FlashMessageContext';
 import Loading from '../Loading';
@@ -27,6 +28,7 @@ const ChatContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;
   width: 100%;
+  padding-top: 20px;
 `;
 
 // Loading animation with three dots
@@ -83,36 +85,37 @@ const LoadingDots = styled.div`
   }
 `;
 
-// Styled component for markdown content - GPT-like styling
+// Styled component for markdown content - ChatGPT-like styling
 const MarkdownContainer = styled.div`
   color: #374151;
-  font-size: 14px;
-  line-height: 1.7;
+  font-size: 15px;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   
   h1, h2, h3, h4, h5, h6 {
     color: #1f2937;
-    margin: 1.5em 0 0.75em 0;
+    margin: 1.2em 0 0.6em 0;
     font-weight: 600;
     line-height: 1.3;
   }
   
-  h1 { font-size: 1.5em; }
-  h2 { font-size: 1.3em; }
-  h3 { font-size: 1.2em; }
+  h1 { font-size: 1.4em; }
+  h2 { font-size: 1.25em; }
+  h3 { font-size: 1.15em; }
   h4 { font-size: 1.1em; }
   h5, h6 { font-size: 1em; }
   
   p {
-    margin: 0.75em 0;
+    margin: 0.8em 0;
   }
   
   ul, ol {
-    margin: 0.75em 0;
-    padding-left: 1.5em;
+    margin: 0.8em 0;
+    padding-left: 1.2em;
   }
   
   li {
-    margin: 0.25em 0;
+    margin: 0.3em 0;
   }
   
   strong {
@@ -128,32 +131,32 @@ const MarkdownContainer = styled.div`
   hr {
     border: none;
     border-top: 1px solid #e5e7eb;
-    margin: 1.5em 0;
+    margin: 1.2em 0;
   }
   
   blockquote {
-    border-left: 3px solid #2563eb;
+    border-left: 3px solid #10a37f;
     padding-left: 1em;
     margin: 1em 0;
     background: #f8fafc;
-    padding: 0.75em 1em;
-    border-radius: 4px;
+    padding: 0.8em 1em;
+    border-radius: 6px;
     color: #4b5563;
   }
   
   code {
     background: #f1f5f9;
-    padding: 0.125em 0.25em;
-    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
     font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
-    font-size: 0.875em;
+    font-size: 0.9em;
     color: #1e293b;
   }
   
   pre {
     background: #f8fafc;
     padding: 1em;
-    border-radius: 6px;
+    border-radius: 8px;
     overflow-x: auto;
     margin: 1em 0;
     border: 1px solid #e2e8f0;
@@ -170,11 +173,13 @@ const MarkdownContainer = styled.div`
     border-collapse: collapse;
     width: 100%;
     margin: 1em 0;
+    border-radius: 8px;
+    overflow: hidden;
   }
   
   th, td {
     border: 1px solid #e5e7eb;
-    padding: 0.5em 0.75em;
+    padding: 0.6em 0.8em;
     text-align: left;
   }
   
@@ -233,8 +238,6 @@ const Dashboard: React.FC = () => {
         return;
       }
       
-      console.log('Making AI analysis request with token:', token ? 'Token present' : 'No token');
-      console.log('Topic:', selectedTopic, 'Question:', question);
       
       const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://sermixer.micro-cloud.it:12923/api'}/ai/generate-analysis`, {
         method: 'POST',
@@ -319,54 +322,77 @@ const Dashboard: React.FC = () => {
     <ChatContainer>
       <Box sx={{ p: 2 }}>
 
-      {/* Header - Clean */}
-      <Typography variant="h5" sx={{ 
-        fontWeight: 600, 
-        color: '#1a1a1a',
-        mb: 1,
-        textAlign: 'center'
-      }}>
-        {t('AI Business Intelligence')}
-      </Typography>
-      <Typography variant="body1" sx={{ 
-        color: '#666', 
-        textAlign: 'center',
-        mb: 3
-      }}>
-        {t('Powered by DeepSeek')}
-      </Typography>
+      {/* Header - Bold & Manly */}
+      <Box sx={{ textAlign: 'center', mb: 4 }}>
+        <Typography variant="h3" sx={{ 
+          fontWeight: 900, 
+          color: '#000000',
+          mb: 1,
+          letterSpacing: '-0.02em',
+          textTransform: 'uppercase',
+          fontSize: { xs: '1.8rem', md: '2.2rem' }
+        }}>
+          {t('AI Business Intelligence')}
+        </Typography>
+        <Box sx={{ 
+          width: '60px', 
+          height: '4px', 
+          backgroundColor: '#000000', 
+          margin: '0 auto 16px auto',
+          borderRadius: '2px'
+        }} />
+        <Typography variant="h6" sx={{ 
+          color: '#374151', 
+          fontWeight: 700,
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          fontSize: '0.9rem'
+        }}>
+          {t('Powered by DeepSeek')}
+        </Typography>
+      </Box>
 
-      {/* Clean Topic Selection */}
-      <Stack direction="row" spacing={1} justifyContent="center" sx={{ mb: 3 }}>
+      {/* Bold Topic Selection */}
+      <Stack direction="row" spacing={2} justifyContent="center" sx={{ mb: 4 }}>
         {availableTopics.map((topic) => (
           <Chip
             key={topic.id}
             label={topic.label}
             onClick={() => setSelectedTopic(topic.id)}
             variant={selectedTopic === topic.id ? "filled" : "outlined"}
-            size="small"
+            size="medium"
             sx={{
-              backgroundColor: selectedTopic === topic.id ? '#2563eb' : 'transparent',
-              color: selectedTopic === topic.id ? 'white' : '#666',
-              borderColor: selectedTopic === topic.id ? '#2563eb' : '#d1d5db',
+              backgroundColor: selectedTopic === topic.id ? '#000000' : 'transparent',
+              color: selectedTopic === topic.id ? 'white' : '#000000',
+              borderColor: selectedTopic === topic.id ? '#000000' : '#000000',
+              borderWidth: '2px',
+              fontWeight: 800,
+              fontSize: '0.9rem',
+              letterSpacing: '0.05em',
+              textTransform: 'uppercase',
+              px: 3,
+              py: 1,
               '&:hover': {
-                backgroundColor: selectedTopic === topic.id ? '#1d4ed8' : '#f3f4f6',
+                backgroundColor: selectedTopic === topic.id ? '#333333' : '#f8f9fa',
+                borderColor: '#000000',
               }
             }}
           />
         ))}
       </Stack>
 
-      {/* Clean Chat Input */}
+      {/* Bold Chat Input */}
       <Paper 
-        elevation={0} 
+        elevation={2} 
         sx={{ 
-          border: '1px solid #e5e7eb',
-          borderRadius: 2,
-          mb: 3,
+          border: '2px solid #000000',
+          borderRadius: 1,
+          mb: 4,
+          backgroundColor: '#ffffff',
           '&:focus-within': {
-            borderColor: '#2563eb',
-            boxShadow: '0 0 0 3px rgba(37, 99, 235, 0.1)'
+            borderColor: '#000000',
+            boxShadow: '0 0 0 2px rgba(0, 0, 0, 0.1)',
+            backgroundColor: '#fafafa'
           }
         }}
       >
@@ -391,9 +417,19 @@ const Dashboard: React.FC = () => {
                   onClick={generateAISummary}
                   disabled={isGenerating || !question.trim()}
                   sx={{
-                    color: question.trim() ? '#2563eb' : '#9ca3af',
+                    color: question.trim() ? '#ffffff' : '#9ca3af',
+                    backgroundColor: question.trim() ? '#000000' : 'transparent',
+                    border: question.trim() ? '2px solid #000000' : '2px solid #e5e7eb',
+                    borderRadius: '50%',
+                    width: '48px',
+                    height: '48px',
+                    fontWeight: 700,
                     '&:hover': {
-                      backgroundColor: 'rgba(37, 99, 235, 0.1)'
+                      backgroundColor: question.trim() ? '#333333' : '#f8f9fa',
+                      borderColor: '#000000',
+                    },
+                    '&:disabled': {
+                      // No transform needed
                     }
                   }}
                 >
@@ -418,20 +454,63 @@ const Dashboard: React.FC = () => {
         />
       </Paper>
 
-      {/* Chat Conversation */}
-      {question && (
-        <Box sx={{ mb: 2 }}>
-          {/* User Message - Right */}
+      {/* Chat Conversation - Always Show */}
+      <Box sx={{ my: 2 }}>
+        {/* Show cached response if available */}
+        {aiSummary && !isGenerating && (
+          <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 2 }}>
+            <Paper 
+              elevation={0}
+              sx={{ 
+                backgroundColor: '#ffffff',
+                border: '1px solid #e5e7eb',
+                p: 3,
+                borderRadius: '12px',
+                maxWidth: '100%',
+                width: '100%'
+              }}
+            >
+              <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 2 }}>
+                <Box sx={{ 
+                  width: 32, 
+                  height: 32, 
+                  borderRadius: '50%', 
+                  backgroundColor: '#10a37f',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <Psychology sx={{ fontSize: 18, color: 'white' }} />
+                </Box>
+                <Typography variant="body2" sx={{ color: '#374151', fontWeight: 600 }}>
+                  {t('AI Assistant')}
+                </Typography>
+                {lastUpdated && (
+                  <Typography variant="caption" sx={{ color: '#9ca3af', ml: 'auto' }}>
+                    {getLastUpdatedText()}
+                  </Typography>
+                )}
+              </Stack>
+              <MarkdownContainer>
+                <ReactMarkdown>{aiSummary}</ReactMarkdown>
+              </MarkdownContainer>
+            </Paper>
+          </Box>
+        )}
+
+        {/* Show current question if typing */}
+        {question && (
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
             <Paper 
               elevation={0}
               sx={{ 
-                backgroundColor: '#2563eb',
-                color: 'white',
-                p: 2,
-                borderRadius: '18px 18px 4px 18px',
-                maxWidth: '70%',
-                wordWrap: 'break-word'
+                backgroundColor: '#f7f7f8',
+                color: '#374151',
+                p: 3,
+                borderRadius: '12px',
+                maxWidth: '100%',
+                width: '100%',
+                border: '1px solid #e5e7eb'
               }}
             >
               <Typography variant="body1">
@@ -439,64 +518,47 @@ const Dashboard: React.FC = () => {
               </Typography>
             </Paper>
           </Box>
+        )}
 
-          {/* AI Response - Left */}
-          {isGenerating ? (
-            <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 2 }}>
-              <Paper 
-                elevation={0}
-                sx={{ 
-                  backgroundColor: '#f8fafc',
-                  border: '1px solid #e2e8f0',
-                  p: 2,
-                  borderRadius: '18px 18px 18px 4px',
-                  maxWidth: '70%'
-                }}
-              >
-                <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
-                  <Psychology sx={{ fontSize: 16, color: '#2563eb' }} />
-                  <Typography variant="body2" sx={{ color: '#4a5568', fontWeight: 500 }}>
-                    {t('Analyzing...')}
-                  </Typography>
-                </Stack>
-                <LoadingDots>
-                  <span>{t('Generating analysis')}</span>
-                </LoadingDots>
-              </Paper>
-            </Box>
-          ) : aiSummary && (
-            <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 2 }}>
-              <Paper 
-                elevation={0}
-                sx={{ 
-                  backgroundColor: '#f8fafc',
-                  border: '1px solid #e2e8f0',
-                  p: 2,
-                  borderRadius: '18px 18px 18px 4px',
-                  maxWidth: '70%'
-                }}
-              >
-                <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
-                  <Psychology sx={{ fontSize: 16, color: '#2563eb' }} />
-                  <Typography variant="body2" sx={{ color: '#4a5568', fontWeight: 500 }}>
-                    {t('AI Assistant')}
-                  </Typography>
-                  {lastUpdated && (
-                    <Typography variant="caption" sx={{ color: '#9ca3af', ml: 'auto' }}>
-                      {getLastUpdatedText()}
-                    </Typography>
-                  )}
-                </Stack>
-                <MarkdownContainer>
-                  <ReactMarkdown>{aiSummary}</ReactMarkdown>
-                </MarkdownContainer>
-              </Paper>
-            </Box>
-          )}
-        </Box>
-      )}
+        {/* Show loading state */}
+        {isGenerating && (
+          <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 2 }}>
+            <Paper 
+              elevation={0}
+              sx={{ 
+                backgroundColor: '#ffffff',
+                border: '1px solid #e5e7eb',
+                p: 3,
+                borderRadius: '12px',
+                maxWidth: '100%',
+                width: '100%'
+              }}
+            >
+              <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 2 }}>
+                <Box sx={{ 
+                  width: 32, 
+                  height: 32, 
+                  borderRadius: '50%', 
+                  backgroundColor: '#10a37f',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <Psychology sx={{ fontSize: 18, color: 'white' }} />
+                </Box>
+                <Typography variant="body2" sx={{ color: '#374151', fontWeight: 600 }}>
+                  {t('Analyzing...')}
+                </Typography>
+              </Stack>
+              <LoadingDots>
+                <span>{t('Generating analysis')}</span>
+              </LoadingDots>
+            </Paper>
+          </Box>
+        )}
+      </Box>
 
-      {!aiSummary && !isGenerating && (
+      {!aiSummary && !isGenerating && !question && (
         <Box sx={{ 
           textAlign: 'center', 
           py: 8,

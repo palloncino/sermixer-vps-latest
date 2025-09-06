@@ -43,13 +43,11 @@ const ClientPreventiveHeadComponent = memo(() => {
   }, [updatedDocumentData]);
 
   const handleObjectChange = useCallback(() => {
-    console.log('Active Change: Document object updated', { newValue: objectValue });
     updateNestedDocumentField(['data', 'quoteHeadDetails', 'object'], objectValue);
     setObjectEditMode(false);
   }, [updateNestedDocumentField, objectValue]);
 
   const handleDescriptionChange = useCallback(() => {
-    console.log('Active Change: Document description updated', { newValue: descriptionValue });
     updateNestedDocumentField(['data', 'quoteHeadDetails', 'description'], descriptionValue);
     setDescriptionEditMode(false);
   }, [updateNestedDocumentField, descriptionValue]);
