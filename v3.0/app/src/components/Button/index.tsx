@@ -2,14 +2,15 @@ import React from 'react';
 import { Button as MuiButton, ButtonProps as MuiButtonProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-// Base styled button with manly/audacious design
+// Base styled button with flat design and minimum border radius
 const StyledButton = styled(MuiButton)(({ theme, variant, size }) => ({
   fontWeight: 800,
   textTransform: 'uppercase',
   letterSpacing: '0.05em',
-  borderRadius: 1, // Square corners
+  borderRadius: 4, // Minimum border radius for modern look
   border: '2px solid #000000',
-  transition: 'all 0.2s ease',
+  transition: 'background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease',
+  transform: 'none', // Ensure no transform effects
   
   // Base styles
   ...(variant === 'contained' && {
@@ -17,7 +18,8 @@ const StyledButton = styled(MuiButton)(({ theme, variant, size }) => ({
     color: '#ffffff',
   '&:hover': {
     backgroundColor: '#333333',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+    transform: 'none', // No movement on hover
   },
   }),
   
@@ -27,7 +29,8 @@ const StyledButton = styled(MuiButton)(({ theme, variant, size }) => ({
   '&:hover': {
     backgroundColor: '#000000',
     color: '#ffffff',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+    transform: 'none', // No movement on hover
   },
   }),
   
@@ -37,6 +40,7 @@ const StyledButton = styled(MuiButton)(({ theme, variant, size }) => ({
     border: 'none',
   '&:hover': {
     backgroundColor: '#f8f9fa',
+    transform: 'none', // No movement on hover
   },
   }),
   
@@ -66,6 +70,7 @@ const StyledButton = styled(MuiButton)(({ theme, variant, size }) => ({
     borderColor: '#e5e7eb',
     transform: 'none',
     boxShadow: 'none',
+    cursor: 'not-allowed',
   },
 }));
 
