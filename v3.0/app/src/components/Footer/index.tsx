@@ -8,7 +8,7 @@ const StyledFooter = styled.div`
   width: 100%;
   height: 210px;
   bottom: 0;
-  z-index: 1100;
+  z-index: 9999;
   box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.3);
   position: fixed;
   border-top: 2px solid #000000;
@@ -46,7 +46,10 @@ const Footer: React.FC = () => {
   return (
     <StyledFooter>
       <StyledContainer>
-        {/* Footer content will be added here in the future */}
+        <div style={{ textAlign: 'center', color: '#fff' }}>
+          <p style={{ margin: 0, fontSize: '14px' }}>© 2025 Sermixer & S2 Truck Service</p>
+          <p style={{ margin: '8px 0 0 0', fontSize: '12px', opacity: 0.8 }}>Professional Construction Equipment Solutions</p>
+        </div>
       </StyledContainer>
     </StyledFooter>
   );

@@ -134,7 +134,7 @@ const RecentDocuments: React.FC = () => {
                       color="text.secondary"
                       sx={{ fontSize: '0.75rem' }}
                     >
-                      {dateText(doc.updatedAt)}
+                      {dateText(doc.updatedAt, 'short_time')}
                     </Typography>
                   )}
                 </TableCell>
