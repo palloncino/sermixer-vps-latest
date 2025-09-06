@@ -38,7 +38,7 @@ const StyledAppBar = styled.div`
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #000000 100%);
   color: #fff;
   width: 100%;
-  height: 210px;
+  height: 220px;
   top: 0;
   z-index: 1100;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
@@ -65,7 +65,7 @@ const StyledAppBar = styled.div`
 const StyledContainer = styled.div`
   max-width: 1360px;
   margin: auto;
-  padding: 16px 24px;
+  padding: 24px;
   height: 100%;
   position: relative;
   z-index: 2;
