@@ -55,10 +55,12 @@ const Homepage: React.FC = () => {
         <Grid container spacing={3} sx={{ height: 'calc(100vh - 300px)' }}>
           {/* Chat Column */}
           <Grid item xs={12} lg={7}>
-            <WhitePaperContainer>
-              <Suspense fallback={<Loading />}>
-                <Dashboard />
-              </Suspense>
+            <WhitePaperContainer sx={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+              <Box sx={{ height: '100%', overflow: 'auto' }}>
+                <Suspense fallback={<Loading />}>
+                  <Dashboard />
+                </Suspense>
+              </Box>
             </WhitePaperContainer>
           </Grid>
           

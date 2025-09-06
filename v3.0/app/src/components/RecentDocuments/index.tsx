@@ -10,7 +10,8 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  Chip
+  Chip,
+  Tooltip
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -102,31 +103,50 @@ const RecentDocuments: React.FC = () => {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 600 }}>{t('Document')}</TableCell>
-              <TableCell sx={{ fontWeight: 600 }}>{t('Client')}</TableCell>
-              <TableCell sx={{ fontWeight: 600 }}>{t('Status')}</TableCell>
-              <TableCell sx={{ fontWeight: 600 }}>{t('Updated')}</TableCell>
-              <TableCell sx={{ fontWeight: 600, width: '120px' }}>{t('Actions')}</TableCell>
+              <TableCell sx={{ fontWeight: 600, width: '40%' }}>{t('Document')}</TableCell>
+              <TableCell sx={{ fontWeight: 600, width: '20%' }}>{t('Client')}</TableCell>
+              <TableCell sx={{ fontWeight: 600, width: '15%' }}>{t('Status')}</TableCell>
+              <TableCell sx={{ fontWeight: 600, width: '15%' }}>{t('Updated')}</TableCell>
+              <TableCell sx={{ fontWeight: 600, width: '10%' }}>{t('Actions')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {paginatedDocuments.map((doc: any) => (
               <TableRow key={doc.id || doc._id} hover>
                 <TableCell>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontWeight: 500,
-                      cursor: 'pointer',
-                      '&:hover': { textDecoration: 'underline' }
-                    }}
-                    onClick={() => handleViewDocument(doc.hash)}
-                  >
-                    {getDocumentTitle(doc)}
-                  </Typography>
+                  <Tooltip title={getDocumentTitle(doc)} placement="top">
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontWeight: 500,
+                        cursor: 'pointer',
+                        fontSize: '0.75rem',
+                        lineHeight: 1.2,
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        maxHeight: '2.4em',
+                        '&:hover': { textDecoration: 'underline' }
+                      }}
+                      onClick={() => handleViewDocument(doc.hash)}
+                    >
+                      {getDocumentTitle(doc)}
+                    </Typography>
+                  </Tooltip>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{
+                      fontSize: '0.75rem',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis'
+                    }}
+                  >
                     {getClientName(doc)}
                   </Typography>
                 </TableCell>
@@ -139,7 +159,11 @@ const RecentDocuments: React.FC = () => {
                   />
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary"
+                    sx={{ fontSize: '0.75rem' }}
+                  >
                     {dateText(doc.updatedAt)}
                   </Typography>
                 </TableCell>
