@@ -67,8 +67,6 @@ const StyledButton = styled(MuiButton)(({ theme, variant, size }) => ({
     transform: 'none',
     boxShadow: 'none',
   },
-
-  backgroundColor: 'red!important'
 }));
 
 export interface ButtonProps extends Omit<MuiButtonProps, 'variant'> {

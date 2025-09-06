@@ -14,6 +14,7 @@ import './App.css';
 import Loading from "./components/Loading";
 import Navbar from "./components/Navbar";
 import DocumentNavbar from "./components/Navbar/document-navbar";
+import Footer from "./components/Footer";
 import { useAuth } from "./hooks/useAuth";
 import { StyledLayout } from "./pages/documents/styled-components";
 import { AppStateProvider } from "./state/stateContext";
@@ -261,6 +262,7 @@ function App() {
                             <AnimatedRoutes />
                           </Suspense>
                         </Layout>
+                        <Footer />
                       </>
                     }
                   />
