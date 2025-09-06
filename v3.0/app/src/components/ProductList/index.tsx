@@ -41,7 +41,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleDeleteProduct
   const [orderBy, setOrderBy] = useState<keyof ProductType>("name");
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(25);
+  const [rowsPerPage, setRowsPerPage] = useState(50);
 
   const handleRequestSort = (property: keyof ProductType) => {
     const isAsc = orderBy === property && order === "asc";
