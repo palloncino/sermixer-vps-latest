@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -18,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import fallbackProductImg from "../../media/fallbackProduct.png";
 import { formatPrice } from "../../utils/format-price.ts";
+import Button from "../Button";
 
 
 const CustomCard = styled(Card)`
@@ -34,9 +34,6 @@ const CustomCard = styled(Card)`
   }
 `;
 
-const CustomButton = styled(Button)`
-  margin-right: 8px;
-`;
 
 const Description = styled(Typography)`
   display: -webkit-box;
@@ -144,20 +141,21 @@ const ProductCard = ({ product, handleDeleteProducts }) => {
         <Divider sx={{ my: 2 }} />
       </CardContent>
       <CardActionsWrapper>
-        <CustomButton
+        <Button
+          variant="outlined"
           size="small"
-          color="primary"
           onClick={() => navigate(`/product/${product.id}`)}
+          sx={{ mr: 1 }}
         >
           {t("ViewMore")}
-        </CustomButton>
-        <CustomButton
+        </Button>
+        <Button
+          variant="contained"
           size="small"
-          color="secondary"
           onClick={() => handleDeleteProducts(product.id)}
         >
           {t("Delete")}
-        </CustomButton>
+        </Button>
       </CardActionsWrapper>
     </CustomCard>
   );
