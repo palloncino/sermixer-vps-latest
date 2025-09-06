@@ -4,7 +4,7 @@ import ProductCard from "../ProductCard";
 
 const ProductGrid = ({ products, handleDeleteProducts }) => {
   const [page, setPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 25;
 
   const handleChangePage = (event, value) => {
     setPage(value);

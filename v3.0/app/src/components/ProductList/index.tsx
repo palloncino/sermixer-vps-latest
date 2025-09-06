@@ -41,7 +41,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleDeleteProduct
   const [orderBy, setOrderBy] = useState<keyof ProductType>("name");
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
 
   const handleRequestSort = (property: keyof ProductType) => {
     const isAsc = orderBy === property && order === "asc";
@@ -265,7 +265,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleDeleteProduct
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25, 50]}
         component="div"
         count={filteredProducts.length}
         rowsPerPage={rowsPerPage}
