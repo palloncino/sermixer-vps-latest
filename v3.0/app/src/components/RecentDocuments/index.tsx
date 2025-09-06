@@ -81,6 +81,12 @@ const RecentDocuments: React.FC = () => {
     }
   };
 
+  const isToday = (dateString: string) => {
+    const today = new Date();
+    const docDate = new Date(dateString);
+    return today.toDateString() === docDate.toDateString();
+  };
+
   return (
     <Paper elevation={0} sx={{ 
       backgroundColor: 'white', 
@@ -103,16 +109,35 @@ const RecentDocuments: React.FC = () => {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 600, width: '40%' }}>{t('Document')}</TableCell>
+              <TableCell sx={{ fontWeight: 600, width: '15%' }}>{t('Updated')}</TableCell>
+              <TableCell sx={{ fontWeight: 600, width: '35%' }}>{t('Document')}</TableCell>
               <TableCell sx={{ fontWeight: 600, width: '20%' }}>{t('Client')}</TableCell>
               <TableCell sx={{ fontWeight: 600, width: '15%' }}>{t('Status')}</TableCell>
-              <TableCell sx={{ fontWeight: 600, width: '15%' }}>{t('Updated')}</TableCell>
-              <TableCell sx={{ fontWeight: 600, width: '10%' }}>{t('Actions')}</TableCell>
+              <TableCell sx={{ fontWeight: 600, width: '15%' }}>{t('Actions')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {paginatedDocuments.map((doc: any) => (
               <TableRow key={doc.id || doc._id} hover>
+                <TableCell>
+                  {isToday(doc.updatedAt) ? (
+                    <Chip
+                      label="Today"
+                      color="success"
+                      size="small"
+                      variant="filled"
+                      sx={{ fontSize: '0.7rem', height: '20px' }}
+                    />
+                  ) : (
+                    <Typography 
+                      variant="body2" 
+                      color="text.secondary"
+                      sx={{ fontSize: '0.75rem' }}
+                    >
+                      {dateText(doc.updatedAt)}
+                    </Typography>
+                  )}
+                </TableCell>
                 <TableCell>
                   <Tooltip title={getDocumentTitle(doc)} placement="top">
                     <Typography
@@ -157,15 +182,6 @@ const RecentDocuments: React.FC = () => {
                     size="small"
                     variant="outlined"
                   />
-                </TableCell>
-                <TableCell>
-                  <Typography 
-                    variant="body2" 
-                    color="text.secondary"
-                    sx={{ fontSize: '0.75rem' }}
-                  >
-                    {dateText(doc.updatedAt)}
-                  </Typography>
                 </TableCell>
                 <TableCell>
                   <Box display="flex" gap={0.5}>

@@ -54,7 +54,7 @@ const Homepage: React.FC = () => {
       <Box sx={{ width: '100%', maxWidth: '1400px', margin: '0 auto', p: 2 }}>
         <Grid container spacing={3} sx={{ height: 'calc(100vh - 300px)' }}>
           {/* Chat Column */}
-          <Grid item xs={12} lg={7}>
+          <Grid item xs={12} lg={6}>
             <WhitePaperContainer sx={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
               <Box sx={{ height: '100%', overflow: 'auto' }}>
                 <Suspense fallback={<Loading />}>
@@ -65,7 +65,7 @@ const Homepage: React.FC = () => {
           </Grid>
           
           {/* Recent Documents Column */}
-          <Grid item xs={12} lg={5}>
+          <Grid item xs={12} lg={6}>
             <Suspense fallback={<Loading />}>
               <RecentDocuments />
             </Suspense>
