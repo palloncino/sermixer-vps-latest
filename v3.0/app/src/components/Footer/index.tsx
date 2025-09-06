@@ -10,7 +10,7 @@ const StyledFooter = styled.div`
   bottom: 0;
   z-index: 1100;
   box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.3);
-  position: relative;
+  position: fixed;
   border-top: 2px solid #000000;
   
   /* Add subtle pattern overlay */

@@ -52,11 +52,11 @@ const Homepage: React.FC = () => {
   return (
     <DesktopContainer>
       <Box sx={{ width: '100%', maxWidth: '1400px', margin: '0 auto', p: 2 }}>
-        <Grid container spacing={3} sx={{ height: 'calc(100vh - 300px)' }}>
+        <Grid container spacing={3} sx={{ minHeight: 'calc(100vh - 400px)' }}>
           {/* Chat Column */}
           <Grid item xs={12} lg={6}>
-            <WhitePaperContainer sx={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-              <Box sx={{ height: '100%', overflow: 'auto' }}>
+            <WhitePaperContainer sx={{ minHeight: '600px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+              <Box sx={{ flex: 1, overflow: 'auto', minHeight: '500px' }}>
                 <Suspense fallback={<Loading />}>
                   <Dashboard />
                 </Suspense>

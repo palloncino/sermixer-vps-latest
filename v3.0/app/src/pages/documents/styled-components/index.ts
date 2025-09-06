@@ -112,6 +112,7 @@ export const StyledLayout = styled.div<{
     $no_breadcrumbs === "true" ? `translateY(-120px)` : `translateY(-80px)`};
   margin: 0 auto;
   z-index: 1200;
+  padding-bottom: 210px; /* Account for fixed footer */
 `;
 
 export const WhitePaperContainer = styled.div<{ padding?: string, narrow_and_centered?: boolean }>`
