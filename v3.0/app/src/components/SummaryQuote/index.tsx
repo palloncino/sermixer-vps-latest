@@ -5,7 +5,7 @@ import {
     Typography, styled, Fab
 } from "@mui/material";
 import Tooltip from '@mui/material/Tooltip';
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
 import { useFlashMessage } from 'state/FlashMessageContext';
@@ -40,28 +40,36 @@ const SummaryQuote = ({
     discount,
 }: SummaryQuoteP) => {
 
-    
     const { t } = useTranslation();
     const { showMessage } = useFlashMessage();
     const { user } = useAppState();
     const [editableProducts, setEditableProducts] = useState<ProductType[]>([]);
     const [note, setNote] = useState("");
+    const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const lastAddedProductsRef = useRef<string>('');
 
+    // Initialize editableProducts only when addedProducts actually changes
     useEffect(() => {
-        // Only update if products actually changed (deep comparison)
-        const currentProductIds = editableProducts.map(p => p.id).join(',');
-        const newProductIds = addedProducts.map(p => p.id).join(',');
+        const currentIds = addedProducts.map(p => p.id).sort().join(',');
         
-        if (currentProductIds !== newProductIds) {
-            setEditableProducts(addedProducts.map(product => ({
-                ...product,
-                components: product.components.map(component => ({
-                    ...component,
-                    included: component.included ?? false
-                }))
-            })));
+        if (lastAddedProductsRef.current !== currentIds) {
+            lastAddedProductsRef.current = currentIds;
+            setEditableProducts(prevProducts => {
+                // Only update if the products actually changed
+                if (prevProducts.length !== addedProducts.length || 
+                    !prevProducts.every((p, i) => p.id === addedProducts[i]?.id)) {
+                    return addedProducts.map(product => ({
+                        ...product,
+                        components: product.components?.map(component => ({
+                            ...component,
+                            included: component.included ?? false
+                        })) || []
+                    }));
+                }
+                return prevProducts;
+            });
         }
-    }, [addedProducts, editableProducts]);
+    }, [addedProducts]);
 
     // Add page refresh confirmation
     useEffect(() => {
@@ -77,26 +85,85 @@ const SummaryQuote = ({
         };
     }, []);
 
+    // Cleanup debounce timeout on unmount
+    useEffect(() => {
+        return () => {
+            if (debounceTimeoutRef.current) {
+                clearTimeout(debounceTimeoutRef.current);
+            }
+        };
+    }, []);
+
+    // Create stable callbacks using refs to prevent re-renders
+    const onAddedProductsChangeRef = useRef(onAddedProductsChange);
+    onAddedProductsChangeRef.current = onAddedProductsChange;
+
+    // Create stable callbacks using useCallback to prevent re-renders
     const handleInputChange = useCallback((index: number, field: string, value: string) => {
-        // Only update if the value actually changed
-        const currentProduct = editableProducts[index];
-        if (currentProduct && currentProduct[field] === value) {
-            return;
-        }
+        console.log(`🚀 handleInputChange called - Field: ${field}, Index: ${index}, Value length: ${value.length}`);
         
-        const updatedProducts = editableProducts.map((product, i) =>
-            i === index ? { ...product, [field]: value } : product
-        );
-        setEditableProducts(updatedProducts);
-        onAddedProductsChange(updatedProducts);
-    }, [editableProducts, onAddedProductsChange]);
+        // For description field, use debouncing to reduce update frequency
+        if (field === 'description') {
+            // Clear existing timeout
+            if (debounceTimeoutRef.current) {
+                clearTimeout(debounceTimeoutRef.current);
+            }
+            
+            // Set new timeout
+            debounceTimeoutRef.current = setTimeout(() => {
+                setEditableProducts(prevProducts => {
+                    const currentProduct = prevProducts[index];
+                    if (currentProduct && (currentProduct as any)[field] === value) {
+                        console.log(`⏭️ handleInputChange (debounced) skipped - No change detected`);
+                        return prevProducts;
+                    }
+                    
+                    console.log(`📝 handleInputChange (debounced) updating - Field: ${field}, Index: ${index}`);
+                    
+                    const updatedProducts = prevProducts.map((product, i) =>
+                        i === index ? { ...product, [field as keyof ProductType]: value } : product
+                    );
+                    
+                    // Only call onAddedProductsChange if the value actually changed
+                    if (currentProduct && (currentProduct as any)[field] !== value) {
+                        console.log(`🔄 handleInputChange (debounced) calling onAddedProductsChange`);
+                        onAddedProductsChangeRef.current(updatedProducts);
+                    }
+                    
+                    return updatedProducts;
+                });
+            }, 500); // 500ms debounce delay for better performance
+        } else {
+            // For other fields, update immediately
+            setEditableProducts(prevProducts => {
+                const currentProduct = prevProducts[index];
+                if (currentProduct && (currentProduct as any)[field] === value) {
+                    console.log(`⏭️ handleInputChange skipped - No change detected`);
+                    return prevProducts;
+                }
+                
+                console.log(`📝 handleInputChange updating - Field: ${field}, Index: ${index}`);
+                
+                const updatedProducts = prevProducts.map((product, i) =>
+                    i === index ? { ...product, [field as keyof ProductType]: value } : product
+                );
+                
+                console.log(`🔄 handleInputChange calling onAddedProductsChange`);
+                onAddedProductsChangeRef.current(updatedProducts);
+                
+                return updatedProducts;
+            });
+        }
+    }, []); // Empty dependency array since we use refs
 
     const handleProductRemove = useCallback((productIndex: number) => {
-        const updatedProducts = editableProducts.filter((_, i) => i !== productIndex);
-        setEditableProducts(updatedProducts);
-        onAddedProductsChange(updatedProducts);
+        setEditableProducts(prevProducts => {
+            const updatedProducts = prevProducts.filter((_, i) => i !== productIndex);
+            onAddedProductsChangeRef.current(updatedProducts);
+            return updatedProducts;
+        });
         showMessage(t('productRemoved'), 'info');
-    }, [editableProducts, onAddedProductsChange, showMessage, t]);
+    }, [showMessage, t]);
 
     const handleComponentsChange = useCallback((productIndex: number, updatedComponents: ComponentType[]) => {
         setEditableProducts((prevProducts) => {
@@ -105,10 +172,11 @@ const SummaryQuote = ({
                     ? { ...product, components: updatedComponents }
                     : product
             );
-            onAddedProductsChange(newProducts); // Ensure this is called with the updated products
+            onAddedProductsChangeRef.current(newProducts);
             return newProducts;
         });
-    }, [onAddedProductsChange]);
+    }, []);
+
 
     const preHandleSubmit = () => {
 
@@ -135,10 +203,10 @@ const SummaryQuote = ({
             selectedClient,
             addedProducts: editableProducts.map(product => ({
                 ...product,
-                price: parseFloat(product.price),
+                price: typeof product.price === 'string' ? parseFloat(product.price) : product.price,
                 components: product.components?.map(component => ({
                     ...component,
-                    price: parseFloat(component.price),
+                    price: typeof component.price === 'string' ? parseFloat(component.price) : component.price,
                     quantity: component.quantity // Include quantity here
                 })),
             })),
@@ -192,12 +260,9 @@ const SummaryQuote = ({
                 <Box mb={2}>
                     <PageHeader title={t("Notes")} description={t("InternalNotesDescription")} />
                     <MarkdownEditor
-                        label={t("Note")}
-                        name="note"
                         value={note}
                         onChange={handleNoteChange}
                         readOnly={false}
-                        minRows={5}
                     />
                 </Box>
             </SectionBorderContainer>
@@ -301,6 +366,27 @@ const MemoizedProductItem = React.memo(({
     onComponentsChange: (index: number, components: ComponentType[]) => void;
     t: any;
 }) => {
+    const renderCountRef = React.useRef(0);
+    renderCountRef.current += 1;
+    console.log(`🔄 MemoizedProductItem render #${renderCountRef.current} - Product: ${product.name}, Index: ${productIndex}`);
+    
+    // Create stable callbacks to prevent re-renders
+    const handlePriceChange = useCallback((value: string) => {
+        onInputChange(productIndex, 'price', value);
+    }, [onInputChange, productIndex]);
+
+    const handleDescriptionChange = useCallback((value: string) => {
+        onInputChange(productIndex, 'description', value);
+    }, [onInputChange, productIndex]);
+
+    const handleRemove = useCallback(() => {
+        onProductRemove(productIndex);
+    }, [onProductRemove, productIndex]);
+
+    const handleComponentsChange = useCallback((updatedComponents: ComponentType[]) => {
+        onComponentsChange(productIndex, updatedComponents);
+    }, [onComponentsChange, productIndex]);
+
     return (
         <ProductContainer>
             <Grid container spacing={4}>
@@ -324,7 +410,7 @@ const MemoizedProductItem = React.memo(({
                                             color: '#ffffff',
                                         },
                                     }}
-                                    onClick={() => onProductRemove(productIndex)}
+                                    onClick={handleRemove}
                                 >
                                     <DeleteIcon />
                                 </IconButton>
@@ -333,16 +419,15 @@ const MemoizedProductItem = React.memo(({
                         <ProductImage src={product.imgUrl} alt={product.name} />
                         <EuroTextField
                             label={t("ProductPrice")}
-                            value={product.price}
-                            onChange={(value) => onInputChange(productIndex, 'price', value)}
-                            margin="dense"
+                            value={product.price.toString()}
+                            onChange={handlePriceChange}
                             fullWidth
                         />
                         <Box mt={2}>
                             <Typography variant="subtitle1">{t("Description")}</Typography>
                             <MarkdownEditor
                                 value={product.description || ""}
-                                onChange={(value) => onInputChange(productIndex, 'description', value)}
+                                onChange={handleDescriptionChange}
                             />
                         </Box>
                     </Box>
@@ -352,12 +437,34 @@ const MemoizedProductItem = React.memo(({
                         <Typography variant="h5" mb={2}>{t("Components")}</Typography>
                         <SummaryComponentList
                             components={product.components || []}
-                            onComponentChange={(updatedComponents) => onComponentsChange(productIndex, updatedComponents)}
+                            onComponentChange={handleComponentsChange}
                         />
                     </Box>
                 </Grid>
             </Grid>
         </ProductContainer>
+    );
+}, (prevProps, nextProps) => {
+    // Custom comparison function for better memoization
+    // Only compare the actual product data, not the callback functions
+    const componentsEqual = prevProps.product.components?.length === nextProps.product.components?.length &&
+        (prevProps.product.components?.every((comp, index) => 
+            comp.id === nextProps.product.components?.[index]?.id &&
+            comp.name === nextProps.product.components?.[index]?.name &&
+            comp.price === nextProps.product.components?.[index]?.price &&
+            comp.included === nextProps.product.components?.[index]?.included &&
+            comp.discount === nextProps.product.components?.[index]?.discount &&
+            comp.quantity === nextProps.product.components?.[index]?.quantity
+        ) ?? true);
+    
+    return (
+        prevProps.product.id === nextProps.product.id &&
+        prevProps.product.name === nextProps.product.name &&
+        prevProps.product.price === nextProps.product.price &&
+        prevProps.product.description === nextProps.product.description &&
+        prevProps.product.imgUrl === nextProps.product.imgUrl &&
+        prevProps.productIndex === nextProps.productIndex &&
+        componentsEqual
     );
 });
 

@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import styled from "styled-components";
-import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useFlashMessage } from "state/FlashMessageContext";
 import { ClientType, DocumentDataType, ProductType, QuoteHeadDetailsType } from "types";
@@ -30,7 +30,7 @@ const CreateQuotePage: FC<any> = () => {
   const [message, setMessage] = useState({ type: "", text: "" });
   const [discount, setDiscount] = useState(0);
   const [maxPrice, setMaxPrice] = useState(100000);
-  
+
   // Memoize discount to prevent unnecessary re-renders
   const memoizedDiscount = useMemo(() => discount, [discount]);
   
@@ -38,7 +38,7 @@ const CreateQuotePage: FC<any> = () => {
   // Fetch products when the component loads
   useEffect(() => {
     getProducts();
-  }, [getProducts]);
+  }, []); // Empty dependency array since getProducts should be stable
 
   // Set maxPrice and priceRange filter after fetching products
   useEffect(() => {
@@ -106,7 +106,7 @@ const CreateQuotePage: FC<any> = () => {
     }
   }, [createDocument, showMessage, t]);
 
-  // Optimized callbacks to prevent unnecessary re-renders
+  // Create stable callbacks using useCallback
   const handleQuoteDetailsChange = useCallback((details: QuoteHeadDetailsType) => {
     setQuoteHeadDetails(details);
   }, []);
@@ -116,7 +116,17 @@ const CreateQuotePage: FC<any> = () => {
   }, []);
 
   const handleAddedProductsChange = useCallback((products: ProductType[]) => {
-    setAddedProducts(products);
+    console.log(`🔄 CreateQuotePage: handleAddedProductsChange called with ${products.length} products`);
+    setAddedProducts(prevProducts => {
+      // Only update if the products actually changed
+      if (prevProducts.length !== products.length || 
+          !prevProducts.every((p, i) => p.id === products[i]?.id)) {
+        console.log(`📝 CreateQuotePage: Updating addedProducts from ${prevProducts.length} to ${products.length}`);
+        return products;
+      }
+      console.log(`⏭️ CreateQuotePage: Skipping addedProducts update - No change detected`);
+      return prevProducts;
+    });
   }, []);
 
   const productsFiltersConfig = useMemo(() => {
