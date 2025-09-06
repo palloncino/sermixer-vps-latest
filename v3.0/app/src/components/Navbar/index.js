@@ -2,6 +2,7 @@ import {
   Build,
   Description,
   Folder,
+  GridView,
   Inventory,
   People,
   Psychology
@@ -433,7 +434,7 @@ function Navbar() {
           {/* Center Column - Menu Button */}
           <Button
             onClick={handleBurgerMenuOpen}
-            startIcon={<Build sx={{ fontSize: 20 }} />}
+            startIcon={<GridView sx={{ fontSize: 20 }} />}
             sx={{
               color: '#fff',
               fontWeight: 800,
