@@ -52,6 +52,13 @@ const RecentDocuments: React.FC = () => {
     window.open(`/client-preventive/${hash}`, '_blank');
   };
 
+  const handleViewClient = (doc: any) => {
+    const clientId = doc.data?.selectedClient?.id || doc.clientId;
+    if (clientId) {
+      navigate(`/clients/${clientId}`);
+    }
+  };
+
   const getDocumentTitle = (doc: any) => {
     return doc.data?.quoteHeadDetails?.object || doc.object || 'Untitled Document';
   };
@@ -164,13 +171,20 @@ const RecentDocuments: React.FC = () => {
                 <TableCell>
                   <Typography 
                     variant="body2" 
-                    color="text.secondary"
+                    color="primary"
                     sx={{
                       fontSize: '0.75rem',
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
-                      textOverflow: 'ellipsis'
+                      textOverflow: 'ellipsis',
+                      cursor: 'pointer',
+                      fontWeight: 500,
+                      '&:hover': { 
+                        textDecoration: 'underline',
+                        color: '#1976d2'
+                      }
                     }}
+                    onClick={() => handleViewClient(doc)}
                   >
                     {getClientName(doc)}
                   </Typography>

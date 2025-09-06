@@ -59,7 +59,7 @@ const pageTransition = {
   duration: 0.3,
 };
 
-const AnimatedRoute = ({ element: Element, ...rest }: { element: any; [key: string]: any }) => {
+const AnimatedRoute = ({ element: Element, ...rest }: { element: any;[key: string]: any }) => {
   const location = useLocation();
   return (
     <motion.div
@@ -79,13 +79,13 @@ const AnimatedRoute = ({ element: Element, ...rest }: { element: any; [key: stri
 // Component to handle trailing slash normalization
 const TrailingSlashRedirect = () => {
   const location = useLocation();
-  
+
   // If URL has trailing slash (except for root), redirect without it
   if (location.pathname !== '/' && location.pathname.endsWith('/')) {
     const newPath = location.pathname.slice(0, -1);
     return <Navigate to={`${newPath}${location.search}${location.hash}`} replace />;
   }
-  
+
   return null;
 };
 
@@ -111,7 +111,7 @@ class NavigationErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorB
 
   componentDidCatch(error: any, errorInfo: any) {
     console.error('Navigation error caught by boundary:', error, errorInfo);
-    
+
     // If it's a router-related error, try to redirect to home
     if (error.message.includes('router') || error.message.includes('navigate')) {
       setTimeout(() => {
@@ -123,9 +123,9 @@ class NavigationErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorB
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{ 
-          padding: '2rem', 
-          textAlign: 'center', 
+        <div style={{
+          padding: '2rem',
+          textAlign: 'center',
           minHeight: '50vh',
           display: 'flex',
           flexDirection: 'column',
@@ -134,7 +134,7 @@ class NavigationErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorB
         }}>
           <h2>Navigation Error</h2>
           <p>Something went wrong with navigation. Redirecting to home...</p>
-          <button 
+          <button
             onClick={() => window.location.href = `${window.location.origin}/`}
             style={{
               padding: '0.5rem 1rem',
@@ -178,13 +178,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const fullWidth = location.pathname.startsWith("/client-preventive/") ? "true" : "false";
 
   return (
-          <StyledLayout $no_breadcrumbs={no_breadcrumbs} $full_width={fullWidth}>
-      <AnimatePresence mode="wait">
-        {React.isValidElement(children) ? 
-          React.cloneElement(children, { key: location.pathname }) : 
+    <StyledLayout $no_breadcrumbs={no_breadcrumbs} $full_width={fullWidth}>
+      {React.isValidElement(children) ?
+          React.cloneElement(children, { key: location.pathname }) :
           children
         }
-      </AnimatePresence>
     </StyledLayout>
   );
 };
@@ -241,7 +239,7 @@ const SharedDocumentLayout = () => (
 );
 
 function App() {
-  
+
   return (
     <NavigationErrorBoundary>
       <Router basename="/">
