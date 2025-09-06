@@ -4,7 +4,6 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box,
-  IconButton,
   Paper,
   Table,
   TableBody,
@@ -26,6 +25,7 @@ import { dateText } from '../../utils/date-text';
 import HighlightText from '../HighlightText';
 import StatusCell from './StatusCell';
 import { ROUTES } from '../../constants';
+import Button from '../Button';
 
 // PDF Status Dot Component
 const PdfStatusDot: React.FC<{ pdfUrls: any[] | [] }> = ({ pdfUrls }) => {
@@ -205,9 +205,14 @@ const DocumentsList: React.FC<any> = ({ documents, filters, onDeleteDocument }) 
               <TableCell>{doc.id || doc._id}</TableCell>
               <TableCell>
                 <Tooltip title={t('copy')}>
-                  <IconButton onClick={() => handleCopyHash(doc.hash)} size="small">
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={() => handleCopyHash(doc.hash)}
+                    sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                  >
                     <ContentCopyIcon fontSize="small" />
-                  </IconButton>
+                  </Button>
                 </Tooltip>
               </TableCell>
               <Tooltip title={t(doc.data?.quoteHeadDetails?.object || doc.object || '')}>
@@ -251,21 +256,36 @@ const DocumentsList: React.FC<any> = ({ documents, filters, onDeleteDocument }) 
                 </TableCell>
               </Tooltip>
               <TableCell>
-                <Box display="flex" justifyContent="space-between">
+                <Box display="flex" gap={1} justifyContent="space-between">
                   <Tooltip title={t('Preview')}>
-                    <IconButton onClick={() => handlePreview(doc.hash)} size="small">
-                      <VisibilityIcon />
-                    </IconButton>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={() => handlePreview(doc.hash)}
+                      sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                    >
+                      <VisibilityIcon fontSize="small" />
+                    </Button>
                   </Tooltip>
                   <Tooltip title={t('OpenDocument')}>
-                    <IconButton onClick={() => handleViewDocument(doc.hash)} size="small">
-                      <OpenInNewIcon />
-                    </IconButton>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={() => handleViewDocument(doc.hash)}
+                      sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                    >
+                      <OpenInNewIcon fontSize="small" />
+                    </Button>
                   </Tooltip>
                   <Tooltip title={t('DeleteDocument')}>
-                    <IconButton onClick={() => handleDelete(doc.id || doc._id)} size="small" color="error">
-                      <DeleteIcon />
-                    </IconButton>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={() => handleDelete(doc.id || doc._id)}
+                      sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </Button>
                   </Tooltip>
                 </Box>
               </TableCell>

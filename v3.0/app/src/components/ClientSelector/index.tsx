@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import {
     Box,
-    Button,
     Pagination,
     Table,
     TableBody,
@@ -19,6 +18,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useAppState } from "../../state/stateContext";
 import Highlight from "../../components/HighlightText"; // Import your Highlight component
+import Button from "../Button"; // Import your custom Button component
 import { CheckCircle, People, Search } from "@mui/icons-material";
 
 const ClientSelector = ({ onClientChange }) => {

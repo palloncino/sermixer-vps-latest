@@ -1,7 +1,6 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
-  IconButton,
   Pagination,
   Paper,
   Table,
@@ -10,6 +9,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import Highlight from "../../components/HighlightText/index";
 import { useAppState } from "../../state/stateContext";
 import { dateText } from "../../utils/date-text.ts";
+import Button from "../Button";
 
 function QuotesList({ quotes, handleDeleteQuotes, search }) {
   const { t } = useTranslation();
@@ -130,15 +131,19 @@ function QuotesList({ quotes, handleDeleteQuotes, search }) {
                   : "Not available"}
               </TableCell>
               <TableCell align="right">
-                <IconButton
-                  aria-label="delete"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDeleteQuotes(quote.id);
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton>
+                <Tooltip title={t('Delete')}>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteQuotes(quote.id);
+                    }}
+                    sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </Button>
+                </Tooltip>
               </TableCell>
             </TableRow>
           ))}

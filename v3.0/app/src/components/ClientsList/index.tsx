@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-    IconButton,
     Paper,
     Table,
     TableBody,
@@ -21,6 +20,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Highlight from "../HighlightText";
+import Button from "../Button";
 
 interface ClientsListProps {
     clients: ClientType[];
@@ -139,27 +139,38 @@ const ClientsList: React.FC<ClientsListProps> = ({
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <IconButton
-                                        onClick={() => navigate(ROUTES(client.id).clientPage)}
-                                        aria-label={t('View')}
-                                        size="small"
-                                    >
-                                        <VisibilityIcon fontSize="small" />
-                                    </IconButton>
-                                    <IconButton
-                                        onClick={() => navigate(ROUTES(client.id).editClient)}
-                                        aria-label={t('Edit')}
-                                        size="small"
-                                    >
-                                        <EditIcon fontSize="small" />
-                                    </IconButton>
-                                    <IconButton
-                                        onClick={() => handleDeleteClients([client.id])}
-                                        aria-label={t('Delete')}
-                                        size="small"
-                                    >
-                                        <DeleteIcon fontSize="small" />
-                                    </IconButton>
+                                    <Box display="flex" gap={1} justifyContent="center">
+                                        <Tooltip title={t('View')}>
+                                            <Button
+                                                variant="outlined"
+                                                size="small"
+                                                onClick={() => navigate(ROUTES(client.id).clientPage)}
+                                                sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                                            >
+                                                <VisibilityIcon fontSize="small" />
+                                            </Button>
+                                        </Tooltip>
+                                        <Tooltip title={t('Edit')}>
+                                            <Button
+                                                variant="outlined"
+                                                size="small"
+                                                onClick={() => navigate(ROUTES(client.id).editClient)}
+                                                sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                                            >
+                                                <EditIcon fontSize="small" />
+                                            </Button>
+                                        </Tooltip>
+                                        <Tooltip title={t('Delete')}>
+                                            <Button
+                                                variant="outlined"
+                                                size="small"
+                                                onClick={() => handleDeleteClients([client.id])}
+                                                sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                                            >
+                                                <DeleteIcon fontSize="small" />
+                                            </Button>
+                                        </Tooltip>
+                                    </Box>
                                 </TableCell>
                             </TableRow>
                         ))}

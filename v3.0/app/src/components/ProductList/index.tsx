@@ -3,7 +3,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Box,
-  IconButton,
   Paper,
   Table,
   TableBody,
@@ -26,6 +25,7 @@ import { dateText } from "../../utils/date-text";
 import { formatPrice } from "../../utils/format-price";
 import { isAdmin } from "../../utils/isWho.js";
 import Highlight from "../HighlightText/index";
+import Button from "../Button";
 
 interface ProductListProps {
   products: ProductType[];
@@ -224,36 +224,38 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleDeleteProduct
                     </Tooltip>
                   </TableCell>
                   <TableCell align="center">
-                    <Box display="flex" justifyContent="center">
+                    <Box display="flex" gap={1} justifyContent="center">
                       <Tooltip title={t('View')}>
-                        <IconButton
+                        <Button
+                          variant="outlined"
                           size="small"
                           onClick={() => handleViewProduct(product.id)}
+                          sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
                         >
                           <VisibilityIcon fontSize="small" />
-                        </IconButton>
+                        </Button>
                       </Tooltip>
                       <Tooltip title={t('Edit')}>
-                        <span>
-                          <IconButton
-                            size="small"
-                            disabled={!isAdmin(user)}
-                            onClick={(e) => handleEditProduct(product.id, e)}
-                          >
-                            <EditIcon fontSize="small" />
-                          </IconButton>
-                        </span>
+                        <Button
+                          variant="outlined"
+                          size="small"
+                          disabled={!isAdmin(user)}
+                          onClick={(e) => handleEditProduct(product.id, e)}
+                          sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                        >
+                          <EditIcon fontSize="small" />
+                        </Button>
                       </Tooltip>
                       <Tooltip title={t('Delete')}>
-                        <span>
-                          <IconButton
-                            size="small"
-                            disabled={!isAdmin(user)}
-                            onClick={(e) => handleDeleteProduct(product.id, e)}
-                          >
-                            <DeleteIcon fontSize="small" />
-                          </IconButton>
-                        </span>
+                        <Button
+                          variant="outlined"
+                          size="small"
+                          disabled={!isAdmin(user)}
+                          onClick={(e) => handleDeleteProduct(product.id, e)}
+                          sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                        >
+                          <DeleteIcon fontSize="small" />
+                        </Button>
                       </Tooltip>
                     </Box>
                   </TableCell>

@@ -2,7 +2,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
-  IconButton,
   Pagination,
   Paper,
   Table,
@@ -12,6 +11,7 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
+  Tooltip,
 } from "@mui/material";
 import React, { ChangeEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -22,6 +22,7 @@ import { UserType } from "../../types";
 import { dateText } from "../../utils/date-text";
 import { isAdmin } from "../../utils/isWho";
 import Highlight from '../HighlightText/index';
+import Button from '../Button';
 
 interface UsersListProps {
   users: UserType[];
@@ -125,25 +126,35 @@ const UsersList: React.FC<UsersListProps> = ({ users, handleDeleteUsers, search 
                   {dateText(tableRowUser.createdAt)}
                 </TableCell>
                 <TableCell align="right">
-                  <IconButton
-                    disabled={!isAdmin(user)}
-                    aria-label="edit"
-                    component={Link}
-                    to={ROUTES(tableRowUser.id).editUser}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    disabled={!isAdmin(user)}
-                    aria-label="delete"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteUsers(tableRowUser.id);
-                    }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
+                  <Box display="flex" gap={1} justifyContent="flex-end">
+                    <Tooltip title={t('Edit')}>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        disabled={!isAdmin(user)}
+                        component={Link}
+                        to={ROUTES(tableRowUser.id).editUser}
+                        onClick={(e) => e.stopPropagation()}
+                        sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                      >
+                        <EditIcon fontSize="small" />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title={t('Delete')}>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        disabled={!isAdmin(user)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteUsers(tableRowUser.id);
+                        }}
+                        sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </Button>
+                    </Tooltip>
+                  </Box>
                 </TableCell>
               </TableRow>
             ))}
