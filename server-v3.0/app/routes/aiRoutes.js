@@ -774,7 +774,7 @@ router.post('/generate-analysis', authMiddleware, async (req, res) => {
         
       case 'products':
         const { Product } = await import('../models/index.js');
-        data = await Product.findAll({ limit: 100 });
+        data = await Product.findAll();
         dataCount = data.length;
         break;
         

@@ -578,33 +578,56 @@ const DocumentDetailsPage: React.FC = () => {
 
     return (
       <Container maxWidth="xl" disableGutters>
-        <Grid container spacing={3}>
-          {/* Document Information Section - Left Column */}
-          <Grid item xs={12} md={4}>
-            <Box sx={{ 
-              p: 2, 
-              height: '100%',
-              border: `1px solid ${alpha(theme.palette.divider, 0.12)}`,
-              borderRadius: 2,
-              backgroundColor: 'white'
-            }}>
-              <Typography variant="h6" gutterBottom sx={{ mb: 2, fontWeight: 600, color: theme.palette.text.primary }}>
+        <Box sx={{ 
+          backgroundColor: '#f8f9fa',
+          minHeight: '100vh',
+          p: 3
+        }}>
+          <Grid container spacing={3}>
+            {/* Document Information Section - Left Column */}
+            <Grid item xs={12} md={4}>
+              <Box sx={{ 
+                p: 2, 
+                height: '100%',
+                border: '1px solid #e0e0e0',
+                borderRadius: 1,
+                backgroundColor: '#ffffff'
+              }}>
+              <Typography variant="h6" gutterBottom sx={{ 
+                mb: 2, 
+                fontWeight: 800, 
+                color: '#000000',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                fontSize: '1rem',
+                borderBottom: '1px solid #e0e0e0',
+                pb: 1
+              }}>
                 {t('Document Information')}
               </Typography>
               
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                 <InfoRow label={t('Hash')} value={document.hash} monospace index={0} />
                 <InfoRow label={t('Status')} value={
-                  <Chip 
-                    label={getStatusText(document.status)} 
-                    color={getStatusColor(document.status) as any}
-                    size="small"
-                    sx={{ 
-                      fontWeight: 500,
-                      minWidth: 80,
-                      '& .MuiChip-label': { px: 1.5 }
-                    }}
-                  />
+                  <Box sx={{
+                    display: 'inline-block',
+                    px: 2,
+                    py: 0.5,
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 1,
+                    backgroundColor: getStatusColor(document.status) === 'success' ? '#000000' : 
+                                   getStatusColor(document.status) === 'error' ? '#000000' : 
+                                   getStatusColor(document.status) === 'warning' ? '#000000' : '#000000',
+                    color: '#ffffff',
+                    fontWeight: 800,
+                    fontSize: '0.75rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    minWidth: 80,
+                    textAlign: 'center'
+                  }}>
+                    {getStatusText(document.status)}
+                  </Box>
                 } index={1} />
                 {/* Client Information with Link */}
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -618,17 +641,20 @@ const DocumentDetailsPage: React.FC = () => {
                     {document.data?.selectedClient?.id && (
                       <Button
                         size="small"
-                        variant="text"
+                        variant="outlined"
                         startIcon={<PersonIcon />}
                         onClick={() => navigate(ROUTES.clientDetail(document.data.selectedClient.id.toString()))}
                         sx={{ 
-                          fontSize: '0.7rem',
+                          fontSize: '0.75rem',
                           minWidth: 'auto',
-                          px: 1,
-                          py: 0.25,
-                          color: theme.palette.primary.main,
+                          px: 2,
+                          py: 0.5,
+                          height: 28,
+                          fontWeight: 800,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
                           '&:hover': {
-                            backgroundColor: alpha(theme.palette.primary.main, 0.05),
+                            transform: 'none',
                           }
                         }}
                       >
@@ -838,16 +864,25 @@ const DocumentDetailsPage: React.FC = () => {
             </Grid>
           )}
 
-          {/* Financial Summary Section - Right Column */}
-          <Grid item xs={12} md={4}>
-            <Box sx={{ 
-              p: 2, 
-              height: '100%',
-              border: `1px solid ${alpha(theme.palette.divider, 0.12)}`,
-              borderRadius: 2,
-              backgroundColor: 'white'
-            }}>
-              <Typography variant="h6" gutterBottom sx={{ mb: 2, fontWeight: 600, color: theme.palette.text.primary }}>
+            {/* Financial Summary Section - Right Column */}
+            <Grid item xs={12} md={4}>
+              <Box sx={{ 
+                p: 2, 
+                height: '100%',
+                border: '1px solid #e0e0e0',
+                borderRadius: 1,
+                backgroundColor: '#ffffff'
+              }}>
+              <Typography variant="h6" gutterBottom sx={{ 
+                mb: 2, 
+                fontWeight: 800, 
+                color: '#000000',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                fontSize: '1rem',
+                borderBottom: '1px solid #e0e0e0',
+                pb: 1
+              }}>
                 {t('Financial Summary')}
               </Typography>
               
@@ -971,7 +1006,8 @@ const DocumentDetailsPage: React.FC = () => {
 
 
 
-        </Grid>
+          </Grid>
+        </Box>
       </Container>
     );
   };
@@ -1168,7 +1204,17 @@ const DocumentDetailsPage: React.FC = () => {
         return renderOverview();
       case 'client':
         return (
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ 
+            backgroundColor: '#f8f9fa',
+            minHeight: '100vh',
+            p: 3
+          }}>
+            <Box sx={{ 
+              backgroundColor: '#ffffff',
+              border: '1px solid #e0e0e0',
+              borderRadius: 1,
+              p: 3
+            }}>
             {/* Client Header with Link */}
             <Box sx={{ 
               display: 'flex', 
@@ -1342,11 +1388,22 @@ const DocumentDetailsPage: React.FC = () => {
                 </Grid>
               </Box>
             )}
+            </Box>
           </Box>
         );
       case 'products':
         return (
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ 
+            backgroundColor: '#f8f9fa',
+            minHeight: '100vh',
+            p: 3
+          }}>
+            <Box sx={{ 
+              backgroundColor: '#ffffff',
+              border: '1px solid #e0e0e0',
+              borderRadius: 1,
+              p: 3
+            }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
               <Typography variant="h6" sx={{ fontWeight: 600, color: theme.palette.text.primary }}>
                 {t('Products & Components')}
@@ -1420,13 +1477,24 @@ const DocumentDetailsPage: React.FC = () => {
             ) : (
               <AddedProductsViewer products={document.data?.addedProducts || []} />
             )}
+            </Box>
           </Box>
         );
       case 'documents':
         return renderDocumentsList();
       case 'raw':
         return (
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ 
+            backgroundColor: '#f8f9fa',
+            minHeight: '100vh',
+            p: 3
+          }}>
+            <Box sx={{ 
+              backgroundColor: '#ffffff',
+              border: '1px solid #e0e0e0',
+              borderRadius: 1,
+              p: 3
+            }}>
             <Typography variant="h6" gutterBottom sx={{ mb: 3, fontWeight: 600, color: theme.palette.text.primary }}>
               {t('Raw Document Data')}
             </Typography>
@@ -1464,6 +1532,7 @@ const DocumentDetailsPage: React.FC = () => {
               border: `1px solid ${alpha(theme.palette.divider, 0.08)}`
             }}>
               <pre style={{ margin: 0, lineHeight: 1.5 }}>{JSON.stringify(document, null, 2)}</pre>
+            </Box>
             </Box>
           </Box>
         );
@@ -1576,7 +1645,7 @@ const DocumentDetailsPage: React.FC = () => {
                 fontFamily: 'monospace', 
                 fontSize: '0.75rem',
                 fontWeight: 700,
-                border: '2px solid #000000',
+                border: '1px solid #e0e0e0',
                 backgroundColor: '#f8f9fa',
                 color: '#000000',
                 '&:hover': {
@@ -1591,7 +1660,7 @@ const DocumentDetailsPage: React.FC = () => {
               size="small"
               sx={{ 
                 fontWeight: 700,
-                border: '2px solid #000000',
+                border: '1px solid #e0e0e0',
                 backgroundColor: '#f8f9fa',
                 color: '#000000',
                 '&:hover': {
@@ -1606,7 +1675,7 @@ const DocumentDetailsPage: React.FC = () => {
               size="small"
               sx={{ 
                 fontWeight: 700,
-                border: '2px solid #000000',
+                border: '1px solid #e0e0e0',
                 backgroundColor: '#f8f9fa',
                 color: '#000000',
                 '&:hover': {
@@ -1621,7 +1690,7 @@ const DocumentDetailsPage: React.FC = () => {
               size="small"
               sx={{ 
                 fontWeight: 700,
-                border: '2px solid #000000',
+                border: '1px solid #e0e0e0',
                 backgroundColor: '#f8f9fa',
                 color: '#000000',
                 '&:hover': {
@@ -1636,7 +1705,7 @@ const DocumentDetailsPage: React.FC = () => {
               size="small"
               sx={{ 
                 fontWeight: 700,
-                border: '2px solid #000000',
+                border: '1px solid #e0e0e0',
                 backgroundColor: getStatusColor(document.status) === 'success' ? '#000000' : '#f8f9fa',
                 color: getStatusColor(document.status) === 'success' ? '#ffffff' : '#000000',
                 '&:hover': {
@@ -1655,22 +1724,32 @@ const DocumentDetailsPage: React.FC = () => {
       }}>
         <Container maxWidth="xl" disableGutters>
           <Box sx={{ px: 4, py: 2 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, overflow: 'auto' }}>
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 1, 
+              overflow: 'auto',
+              backgroundColor: '#f8f9fa',
+              borderRadius: 1,
+              p: 0.5
+            }}>
               {tabs.map((tab) => (
                 <Button
                   key={tab.key}
-                  variant={activeSection === tab.key ? 'contained' : 'outlined'}
+                  variant={activeSection === tab.key ? 'contained' : 'text'}
                   startIcon={tab.icon}
                   onClick={() => handleTabChange(tab.key)}
                   sx={{ 
-                    borderRadius: 2, 
+                    borderRadius: 1,
                     px: 3, 
                     py: 1.5, 
                     minWidth: 'auto',
-                    textTransform: 'none',
-                    fontWeight: 500,
-                    '&.MuiButton-contained': {
-                      boxShadow: `0 4px 12px ${alpha(theme.palette.primary.main, 0.3)}`
+                    fontWeight: 800,
+                    fontSize: '0.875rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    '&:hover': {
+                      transform: 'none',
                     }
                   }}
                 >
@@ -1709,23 +1788,38 @@ const InfoRow = ({
     <Box sx={{ 
       display: 'flex', 
       justifyContent: 'space-between', 
-      alignItems: 'flex-start',
-      p: 1.5,
+      alignItems: 'center',
+      p: 2,
+      border: '1px solid #e0e0e0',
       borderRadius: 1,
-      backgroundColor: index % 2 === 0 ? 'transparent' : alpha(theme.palette.grey[50], 0.6),
+      backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fa',
+      mb: 1,
+      transition: 'background-color 0.2s ease',
       '&:hover': {
-        backgroundColor: alpha(theme.palette.grey[100], 0.8),
-        transition: 'background-color 0.2s ease'
+        backgroundColor: '#f0f0f0',
+        transform: 'none'
       }
     }}>
-      <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500, minWidth: 120 }}>
-        {label}
+      <Typography 
+        variant="body2" 
+        sx={{ 
+          fontWeight: 800, 
+          minWidth: 140,
+          fontSize: '0.875rem',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+          color: '#000000'
+        }}
+      >
+        {label}:
       </Typography>
       <Box sx={{ 
         flex: 1, 
         textAlign: 'right',
         fontFamily: monospace ? 'Monaco, Menlo, "Ubuntu Mono", monospace' : 'inherit',
-        fontSize: monospace ? '0.75rem' : 'inherit'
+        fontSize: monospace ? '0.8rem' : '0.875rem',
+        fontWeight: 600,
+        color: '#000000'
       }}>
         {value}
       </Box>

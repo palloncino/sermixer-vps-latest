@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import SignatureCanvas from 'react-signature-canvas';
-import { Box, Button, IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
+import Button from '../Button';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';

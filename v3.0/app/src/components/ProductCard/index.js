@@ -27,7 +27,7 @@ const CustomCard = styled(Card)`
   margin: auto;
   display: flex;
   flex-direction: column;
-  height: 500px;
+  height: 600px; /* Increased height for consistency */
   overflow: hidden;
   position: relative;
   border: 3px solid #000000;
@@ -139,7 +139,13 @@ const ProductCard = ({ product, handleDeleteProducts }) => {
           objectFit: 'cover'
         }}
       />
-      <CardContent sx={{ flexGrow: 1, overflow: "hidden" }}>
+      <CardContent sx={{ 
+        flexGrow: 1, 
+        overflow: "hidden", 
+        display: "flex", 
+        flexDirection: "column",
+        paddingBottom: "80px" /* Space for fixed actions */
+      }}>
         <Typography gutterBottom variant="h5" component="div">
           {product.name}
         </Typography>
@@ -156,8 +162,13 @@ const ProductCard = ({ product, handleDeleteProducts }) => {
           <strong>{formatPrice(product.price)}</strong>
         </Typography>
         <Divider sx={{ my: 2 }} />
-        {renderComponentDetails(components)}
-        <Divider sx={{ my: 2 }} />
+        <Box sx={{ 
+          flexGrow: 1, 
+          overflow: "auto", 
+          maxHeight: "200px" /* Limit component details height */
+        }}>
+          {renderComponentDetails(components)}
+        </Box>
       </CardContent>
       <CardActionsWrapper>
         <Button

@@ -17,11 +17,68 @@ export async function generatePDF(quote, isConfirmation) {
     company: quote.company
   });
 
-  const browser = await puppeteer.launch({
-    executablePath: process.env.BROWSER_EXECUTABLE,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    timeout: 30000,
-  });
+  let browser;
+  try {
+    console.log('Launching browser with executable:', process.env.BROWSER_EXECUTABLE);
+    
+    browser = await puppeteer.launch({
+      executablePath: process.env.BROWSER_EXECUTABLE,
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-gpu",
+        "--no-first-run",
+        "--disable-web-security",
+        "--disable-features=VizDisplayCompositor",
+        "--disable-background-timer-throttling",
+        "--disable-backgrounding-occluded-windows",
+        "--disable-renderer-backgrounding",
+        "--disable-extensions",
+        "--disable-default-apps",
+        "--disable-sync",
+        "--disable-translate",
+        "--hide-scrollbars",
+        "--mute-audio",
+        "--no-default-browser-check",
+        "--disable-logging",
+        "--disable-background-networking",
+        "--disable-component-extensions-with-background-pages",
+        "--disable-client-side-phishing-detection",
+        "--disable-desktop-notifications",
+        "--disable-domain-reliability",
+        "--disable-hang-monitor",
+        "--disable-ipc-flooding-protection",
+        "--disable-prompt-on-repost",
+        "--disable-sync-preferences",
+        "--disable-web-resources",
+        "--force-color-profile=srgb",
+        "--metrics-recording-only",
+        "--safebrowsing-disable-auto-update",
+        "--enable-automation",
+        "--password-store=basic",
+        "--use-mock-keychain",
+        "--disable-accelerated-2d-canvas",
+        "--disable-background-downloads",
+        "--disable-add-to-shelf",
+        "--disable-datasaver-prompt",
+        "--disable-features=TranslateUI",
+        "--disable-xss-auditor",
+        "--disable-blink-features=AutomationControlled"
+      ],
+      timeout: 60000,
+      headless: true,
+      ignoreHTTPSErrors: true,
+      defaultViewport: { width: 1920, height: 1080 }
+    });
+    
+    console.log('✅ Browser launched successfully!');
+  } catch (browserError) {
+    console.error('❌ Failed to launch browser:', browserError.message);
+    console.error('Browser executable path:', process.env.BROWSER_EXECUTABLE);
+    console.error('Full error:', browserError);
+    throw new Error(`Browser launch failed: ${browserError.message}`);
+  }
 
   // Function to convert image file path to base64
   const convertImagePathToBase64 = async (imagePath) => {
@@ -359,6 +416,25 @@ export async function generatePDF(quote, isConfirmation) {
 
   });
 
-  await browser.close();
-  return pdfBuffer;
+  try {
+
+    await browser.close();
+    console.log('✅ PDF generated successfully!');
+    return pdfBuffer;
+  } catch (error) {
+    console.error('❌ PDF Generation Error:', error.message);
+    console.error('Error details:', error);
+    
+    // Ensure browser is closed even if there's an error
+    if (browser) {
+      try {
+        await browser.close();
+        console.log('✅ Browser closed after error');
+      } catch (closeError) {
+        console.error('❌ Error closing browser:', closeError.message);
+      }
+    }
+    
+    throw error;
+  }
 }

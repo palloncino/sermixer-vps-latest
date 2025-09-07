@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Typography, IconButton, Collapse, Avatar, Chip, Divider, useTheme, alpha, Button } from '@mui/material';
+import { Box, Typography, IconButton, Collapse, Avatar, Chip, Divider, useTheme, alpha } from '@mui/material';
+import Button from '../Button';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { useNavigate } from 'react-router-dom';

@@ -32,6 +32,7 @@ export const getProductsFiltersConfig = () => {
       options: [
         { value: "all", label: i18n.t("AllCategories") },
         { value: "Vasche", label: i18n.t("VASCA") },
+        { value: "SEMIRIMORCHI", label: "Semirimorchi" },
         { value: "CIFA", label: i18n.t("CIFA") },
         { value: "TELAI", label: i18n.t("TELAI") },
         { value: "INTERCAMBIABILE", label: i18n.t("INTERCAMBIABILE") },

@@ -7,7 +7,7 @@ import {
   ToggleButton,
   ToggleButtonGroup
 } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { useFlashMessage } from "state/FlashMessageContext";
@@ -34,18 +34,18 @@ function ProductListPage() {
     company: 'all'
   });
   const [successMessage, setSuccessMessage] = useState("");
-  const [viewMode, setViewMode] = useState("list"); // list | grid
+  const [viewMode, setViewMode] = useState("grid"); // list | grid
 
   useEffect(() => {
     getProducts();
   }, [getProducts]);
 
-  const handleFilterChange = (filterId: string, value: any) => {
+  const handleFilterChange = useCallback((filterId: string, value: any) => {
     setFilters(prevFilters => ({
       ...prevFilters,
       [filterId]: value
     }));
-  };
+  }, []);
 
   const handleDeleteProducts = async (id) => {
     try {

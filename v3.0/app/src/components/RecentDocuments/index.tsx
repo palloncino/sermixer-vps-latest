@@ -55,7 +55,7 @@ const RecentDocuments: React.FC = () => {
   const handleViewClient = (doc: any) => {
     const clientId = doc.data?.selectedClient?.id || doc.clientId;
     if (clientId) {
-      navigate(`/clients/${clientId}`);
+      navigate(`/client/${clientId}`);
     }
   };
 
@@ -203,8 +203,16 @@ const RecentDocuments: React.FC = () => {
                       <Button
                         variant="outlined"
                         size="small"
-                        onClick={() => handlePreviewDocument(doc.hash)}
-                        sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                        onClick={() => handleViewDocument(doc.hash)}
+                        sx={{ 
+                          minWidth: 'auto', 
+                          px: 1, 
+                          py: 0.5,
+                          border: '2px solid transparent !important', // Prevent layout shift
+                          '&:hover': {
+                            transform: 'none'
+                          }
+                        }}
                       >
                         <VisibilityIcon fontSize="small" />
                       </Button>
@@ -213,8 +221,16 @@ const RecentDocuments: React.FC = () => {
                       <Button
                         variant="outlined"
                         size="small"
-                        onClick={() => handleViewDocument(doc.hash)}
-                        sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                        onClick={() => handlePreviewDocument(doc.hash)}
+                        sx={{ 
+                          minWidth: 'auto', 
+                          px: 1, 
+                          py: 0.5,
+                          border: '2px solid transparent !important', // Prevent layout shift
+                          '&:hover': {
+                            transform: 'none'
+                          }
+                        }}
                       >
                         <OpenInNewIcon fontSize="small" />
                       </Button>

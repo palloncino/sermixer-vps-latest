@@ -135,7 +135,15 @@ const UsersList: React.FC<UsersListProps> = ({ users, handleDeleteUsers, search 
                         component={Link}
                         to={ROUTES(tableRowUser.id).editUser}
                         onClick={(e) => e.stopPropagation()}
-                        sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                        sx={{ 
+                          minWidth: 'auto', 
+                          px: 1, 
+                          py: 0.5,
+                          border: '2px solid transparent !important',
+                          '&:hover': {
+                            transform: 'none'
+                          }
+                        }}
                       >
                         <EditIcon fontSize="small" />
                       </Button>
@@ -149,7 +157,15 @@ const UsersList: React.FC<UsersListProps> = ({ users, handleDeleteUsers, search 
                           e.stopPropagation();
                           handleDeleteUsers(tableRowUser.id);
                         }}
-                        sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                        sx={{ 
+                          minWidth: 'auto', 
+                          px: 1, 
+                          py: 0.5,
+                          border: '2px solid transparent !important',
+                          '&:hover': {
+                            transform: 'none'
+                          }
+                        }}
                       >
                         <DeleteIcon fontSize="small" />
                       </Button>

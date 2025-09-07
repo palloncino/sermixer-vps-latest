@@ -8,7 +8,7 @@ const StyledButton = styled(MuiButton)(({ theme, variant, size }) => ({
   textTransform: 'uppercase',
   letterSpacing: '0.05em',
   borderRadius: 4, // Minimum border radius for modern look
-  border: '2px solid #000000',
+  border: '2px solid transparent', // Always transparent border to prevent layout shift
   transition: 'background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease',
   transform: 'none', // Ensure no transform effects
   
@@ -16,6 +16,7 @@ const StyledButton = styled(MuiButton)(({ theme, variant, size }) => ({
   ...(variant === 'contained' && {
     backgroundColor: '#000000',
     color: '#ffffff',
+    border: '2px solid #000000',
   '&:hover': {
     backgroundColor: '#333333',
     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
@@ -26,10 +27,12 @@ const StyledButton = styled(MuiButton)(({ theme, variant, size }) => ({
   ...(variant === 'outlined' && {
     backgroundColor: 'transparent',
     color: '#000000',
+    border: '2px solid transparent', // Transparent border to prevent layout shift
+    boxShadow: 'inset 0 0 0 2px #000000', // Use inset box-shadow for outline effect
   '&:hover': {
     backgroundColor: '#000000',
     color: '#ffffff',
-    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+    boxShadow: 'inset 0 0 0 2px #000000, 0 2px 8px rgba(0, 0, 0, 0.2)', // Keep outline + add shadow
     transform: 'none', // No movement on hover
   },
   }),
@@ -37,7 +40,7 @@ const StyledButton = styled(MuiButton)(({ theme, variant, size }) => ({
   ...(variant === 'text' && {
     backgroundColor: 'transparent',
     color: '#000000',
-    border: 'none',
+    border: '2px solid transparent', // Transparent border to prevent layout shift
   '&:hover': {
     backgroundColor: '#f8f9fa',
     transform: 'none', // No movement on hover

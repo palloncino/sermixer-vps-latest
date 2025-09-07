@@ -1,10 +1,11 @@
 import FlagIcon from '@mui/icons-material/Flag';
-import { Box, Button, Tooltip, Typography } from '@mui/material';
+import { Box, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { Revision } from 'types';
 import { dateText } from '../../../utils/date-text';
+import Button from '../../../components/Button';
 
 const BadgeContainer = styled.div`
     display: flex;

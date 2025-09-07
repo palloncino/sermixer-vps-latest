@@ -6,6 +6,11 @@ export const CATEGORY_COLORS = {
     color: '#1565c0',
     border: '#bbdefb'
   },
+  'SEMIRIMORCHI': {
+    background: '#e0f7fa',
+    color: '#006064',
+    border: '#b2ebf2'
+  },
   'CIFA': {
     background: '#f3e5f5',
     color: '#7b1fa2',
@@ -78,6 +83,7 @@ export const getCategoryColor = (category: string) => {
 export const getCategoryDisplayName = (category: string) => {
   const categoryMap: Record<string, string> = {
     'Vasche': 'Vasca',
+    'SEMIRIMORCHI': 'Semirimorchi',
     'CIFA': 'CIFA',
     'TELAI': 'Telai',
     'INTERCAMBIABILE': 'Intercambiabile',

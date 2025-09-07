@@ -74,14 +74,10 @@ export const ThemeProvider = ({ children }) => {
             },
           },
           contained: {
-            background: mode === "light"
-              ? "linear-gradient(to right, #4a5a6e 0%, #333d44 100%)"
-              : "linear-gradient(to right, #4a5a6e 0%, #333d44 100%)",
+            background: "#000000",
             color: "#ffffff",
             '&:hover': {
-              background: mode === "light"
-                ? "linear-gradient(to right, #5b6c7e 0%, #444e57 100%)"
-                : "linear-gradient(to right, #5b6c7e 0%, #444e57 100%)",
+              background: "#333333",
             },
           },
           outlined: {

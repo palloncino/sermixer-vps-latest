@@ -230,7 +230,15 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleDeleteProduct
                           variant="outlined"
                           size="small"
                           onClick={() => handleViewProduct(product.id)}
-                          sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                          sx={{ 
+                            minWidth: 'auto', 
+                            px: 1, 
+                            py: 0.5,
+                            border: '2px solid transparent !important',
+                            '&:hover': {
+                              transform: 'none'
+                            }
+                          }}
                         >
                           <VisibilityIcon fontSize="small" />
                         </Button>
@@ -241,7 +249,15 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleDeleteProduct
                           size="small"
                           disabled={!isAdmin(user)}
                           onClick={(e) => handleEditProduct(product.id, e)}
-                          sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                          sx={{ 
+                            minWidth: 'auto', 
+                            px: 1, 
+                            py: 0.5,
+                            border: '2px solid transparent !important',
+                            '&:hover': {
+                              transform: 'none'
+                            }
+                          }}
                         >
                           <EditIcon fontSize="small" />
                         </Button>
@@ -252,7 +268,15 @@ const ProductList: React.FC<ProductListProps> = ({ products, handleDeleteProduct
                           size="small"
                           disabled={!isAdmin(user)}
                           onClick={(e) => handleDeleteProduct(product.id, e)}
-                          sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                          sx={{ 
+                            minWidth: 'auto', 
+                            px: 1, 
+                            py: 0.5,
+                            border: '2px solid transparent !important',
+                            '&:hover': {
+                              transform: 'none'
+                            }
+                          }}
                         >
                           <DeleteIcon fontSize="small" />
                         </Button>

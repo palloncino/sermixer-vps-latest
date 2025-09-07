@@ -118,12 +118,15 @@ const AIInsights: React.FC<AIInsightsProps> = ({ metrics }) => {
 
     try {
       
-      const response = await fetch('/api/ai/analyze-dashboard', {
+      const response = await fetch('/api/ai/generate-analysis', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ metrics }),
+        body: JSON.stringify({ 
+          topic: 'products', 
+          question: 'How many products do we have? Provide a comprehensive analysis of our product inventory including total count, categories, pricing, and recommendations.' 
+        }),
       });
 
 
@@ -207,7 +210,7 @@ const AIInsights: React.FC<AIInsightsProps> = ({ metrics }) => {
   // Test if backend endpoint exists
   const testBackendEndpoint = async () => {
     try {
-      const response = await fetch('/api/ai/analyze-dashboard', {
+      const response = await fetch('/api/ai/generate-analysis', {
         method: 'OPTIONS',
       });
       return response.status !== 404;
@@ -319,51 +322,87 @@ const AIInsights: React.FC<AIInsightsProps> = ({ metrics }) => {
               </Tooltip>
             </Box>
             
-            <Box display="flex" alignItems="center" gap={0.5}>
+            <Box display="flex" alignItems="center" gap={1}>
               {lastUpdate && (
                 <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
                   {t('Updated')}: {lastUpdate.toLocaleTimeString()}
                 </Typography>
               )}
-              <IconButton
-                size="small"
-                onClick={handleRefresh}
-                title={t('Refresh analysis')}
-                sx={{ width: 24, height: 24 }}
-              >
-                <RefreshOutlined fontSize="small" />
-              </IconButton>
-              <IconButton
-                size="small"
-                onClick={handleForceRefresh}
-                title={t('Force refresh - bypass cache')}
-                color="secondary"
-                sx={{ width: 24, height: 24 }}
-              >
-                <RefreshOutlined fontSize="small" />
-              </IconButton>
-              <IconButton
-                size="small"
-                onClick={handleTogglePopup}
-                title={t('View detailed insights')}
-                color="primary"
-                sx={{ width: 24, height: 24 }}
-              >
-                <Visibility fontSize="small" />
-              </IconButton>
-              <IconButton
-                size="small"
-                onClick={() => setExpanded(!expanded)}
-                title={expanded ? t('Collapse') : t('Expand')}
-                sx={{ width: 24, height: 24 }}
-              >
-                {expanded ? <ExpandLess fontSize="small" /> : <ExpandMore fontSize="small" />}
-              </IconButton>
+              <Box display="flex" alignItems="center" gap={0.5}>
+                <IconButton
+                  size="small"
+                  onClick={handleRefresh}
+                  title={t('Refresh analysis')}
+                  sx={{ 
+                    width: 28, 
+                    height: 28,
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 1,
+                    '&:hover': {
+                      backgroundColor: '#f8f9fa',
+                      borderColor: '#000000'
+                    }
+                  }}
+                >
+                  <RefreshOutlined fontSize="small" />
+                </IconButton>
+                <IconButton
+                  size="small"
+                  onClick={handleForceRefresh}
+                  title={t('Force refresh - bypass cache')}
+                  sx={{ 
+                    width: 28, 
+                    height: 28,
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 1,
+                    '&:hover': {
+                      backgroundColor: '#f8f9fa',
+                      borderColor: '#000000'
+                    }
+                  }}
+                >
+                  <RefreshOutlined fontSize="small" />
+                </IconButton>
+                <IconButton
+                  size="small"
+                  onClick={handleTogglePopup}
+                  title={t('View detailed insights')}
+                  sx={{ 
+                    width: 28, 
+                    height: 28,
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 1,
+                    '&:hover': {
+                      backgroundColor: '#f8f9fa',
+                      borderColor: '#000000'
+                    }
+                  }}
+                >
+                  <Visibility fontSize="small" />
+                </IconButton>
+                <IconButton
+                  size="small"
+                  onClick={() => setExpanded(!expanded)}
+                  title={expanded ? t('Collapse') : t('Expand')}
+                  sx={{ 
+                    width: 28, 
+                    height: 28,
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 1,
+                    '&:hover': {
+                      backgroundColor: '#f8f9fa',
+                      borderColor: '#000000'
+                    }
+                  }}
+                >
+                  {expanded ? <ExpandLess fontSize="small" /> : <ExpandMore fontSize="small" />}
+                </IconButton>
+              </Box>
             </Box>
           </Box>
 
           {/* Summary */}
-          <Typography variant="body2" color="text.secondary" mb={1} sx={{ lineHeight: 1.4, fontSize: '0.8rem' }}>
+          <Typography variant="body2" color="text.secondary" mb={2} sx={{ lineHeight: 1.4, fontSize: '0.8rem' }}>
             {analysis.summary}
           </Typography>
 
@@ -530,12 +569,12 @@ const AnalysisSection: React.FC<{
 const StyledCard = styled(Card)`
   width: 100%;
   background: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   
   &:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
     transition: box-shadow 0.2s ease;
   }
 `;

@@ -139,7 +139,15 @@ function QuotesList({ quotes, handleDeleteQuotes, search }) {
                       e.stopPropagation();
                       handleDeleteQuotes(quote.id);
                     }}
-                    sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                    sx={{ 
+                      minWidth: 'auto', 
+                      px: 1, 
+                      py: 0.5,
+                      border: '2px solid transparent !important',
+                      '&:hover': {
+                        transform: 'none'
+                      }
+                    }}
                   >
                     <DeleteIcon fontSize="small" />
                   </Button>

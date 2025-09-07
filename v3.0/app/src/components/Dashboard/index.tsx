@@ -1,6 +1,7 @@
 import {
   Psychology,
-  Send
+  Send,
+  Clear
 } from '@mui/icons-material';
 import {
   Box,
@@ -405,7 +406,7 @@ const Dashboard: React.FC = () => {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+            if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();
               generateAISummary();
             }
@@ -485,11 +486,34 @@ const Dashboard: React.FC = () => {
                 <Typography variant="body2" sx={{ color: '#374151', fontWeight: 600 }}>
                   {t('AI Assistant')}
                 </Typography>
-                {lastUpdated && (
-                  <Typography variant="caption" sx={{ color: '#9ca3af', ml: 'auto' }}>
-                    {getLastUpdatedText()}
-                  </Typography>
-                )}
+                <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center', gap: 1 }}>
+                  {lastUpdated && (
+                    <Typography variant="caption" sx={{ color: '#9ca3af' }}>
+                      {getLastUpdatedText()}
+                    </Typography>
+                  )}
+                  <IconButton
+                    size="small"
+                    onClick={() => {
+                      setAiSummary('');
+                      setQuestion('');
+                      setLastUpdated(null);
+                    }}
+                    title={t('Clear chat')}
+                    sx={{ 
+                      width: 24, 
+                      height: 24,
+                      border: '1px solid #e0e0e0',
+                      borderRadius: 1,
+                      '&:hover': {
+                        backgroundColor: '#f8f9fa',
+                        borderColor: '#000000'
+                      }
+                    }}
+                  >
+                    <Clear fontSize="small" />
+                  </IconButton>
+                </Box>
               </Stack>
               <MarkdownContainer>
                 <ReactMarkdown>{aiSummary}</ReactMarkdown>
@@ -569,7 +593,7 @@ const Dashboard: React.FC = () => {
             {t('Select a topic and ask a question to get started')}
           </Typography>
           <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
-            {t('Tip: Press Cmd/Ctrl + Enter to submit')}
+            {t('Tip: Press Enter to submit, Shift+Enter for new line')}
           </Typography>
         </Box>
       )}

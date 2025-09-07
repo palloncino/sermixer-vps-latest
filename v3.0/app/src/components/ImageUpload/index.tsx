@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-import { Box, Button, styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
+import Button from '../Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 const ImagePreviewContainer = styled(Box)(({ theme }) => ({
@@ -53,9 +54,18 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ previewUrl, onChange, label, 
       <ImagePreview style={{ backgroundImage: `url(${previewUrl})`, ...imageStyle }} />
       <UploadOverlay className="upload-overlay">
         <Button
-          variant="contained"
+          variant="outlined"
           startIcon={<CloudUploadIcon />}
-          sx={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', color: 'black' }}
+          sx={{ 
+            backgroundColor: 'rgba(255, 255, 255, 0.9) !important', 
+            color: '#000000 !important',
+            border: '2px solid #000000 !important',
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 1) !important',
+              color: '#000000 !important',
+              transform: 'none'
+            }
+          }}
         >
           {label}
         </Button>

@@ -145,7 +145,15 @@ const ClientsList: React.FC<ClientsListProps> = ({
                                                 variant="outlined"
                                                 size="small"
                                                 onClick={() => navigate(ROUTES(client.id).clientPage)}
-                                                sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                                                sx={{ 
+                                                    minWidth: 'auto', 
+                                                    px: 1, 
+                                                    py: 0.5,
+                                                    border: '2px solid transparent !important',
+                                                    '&:hover': {
+                                                        transform: 'none'
+                                                    }
+                                                }}
                                             >
                                                 <VisibilityIcon fontSize="small" />
                                             </Button>
@@ -155,7 +163,15 @@ const ClientsList: React.FC<ClientsListProps> = ({
                                                 variant="outlined"
                                                 size="small"
                                                 onClick={() => navigate(ROUTES(client.id).editClient)}
-                                                sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                                                sx={{ 
+                                                    minWidth: 'auto', 
+                                                    px: 1, 
+                                                    py: 0.5,
+                                                    border: '2px solid transparent !important',
+                                                    '&:hover': {
+                                                        transform: 'none'
+                                                    }
+                                                }}
                                             >
                                                 <EditIcon fontSize="small" />
                                             </Button>
@@ -165,7 +181,15 @@ const ClientsList: React.FC<ClientsListProps> = ({
                                                 variant="outlined"
                                                 size="small"
                                                 onClick={() => handleDeleteClients([client.id])}
-                                                sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                                                sx={{ 
+                                                    minWidth: 'auto', 
+                                                    px: 1, 
+                                                    py: 0.5,
+                                                    border: '2px solid transparent !important',
+                                                    '&:hover': {
+                                                        transform: 'none'
+                                                    }
+                                                }}
                                             >
                                                 <DeleteIcon fontSize="small" />
                                             </Button>

@@ -262,7 +262,15 @@ const DocumentsList: React.FC<any> = ({ documents, filters, onDeleteDocument }) 
                       variant="outlined"
                       size="small"
                       onClick={() => handlePreview(doc.hash)}
-                      sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                      sx={{ 
+                        minWidth: 'auto', 
+                        px: 1, 
+                        py: 0.5,
+                        border: '2px solid transparent !important',
+                        '&:hover': {
+                          transform: 'none'
+                        }
+                      }}
                     >
                       <VisibilityIcon fontSize="small" />
                     </Button>
@@ -272,7 +280,15 @@ const DocumentsList: React.FC<any> = ({ documents, filters, onDeleteDocument }) 
                       variant="outlined"
                       size="small"
                       onClick={() => handleViewDocument(doc.hash)}
-                      sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                      sx={{ 
+                        minWidth: 'auto', 
+                        px: 1, 
+                        py: 0.5,
+                        border: '2px solid transparent !important',
+                        '&:hover': {
+                          transform: 'none'
+                        }
+                      }}
                     >
                       <OpenInNewIcon fontSize="small" />
                     </Button>
@@ -282,7 +298,15 @@ const DocumentsList: React.FC<any> = ({ documents, filters, onDeleteDocument }) 
                       variant="outlined"
                       size="small"
                       onClick={() => handleDelete(doc.id || doc._id)}
-                      sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                      sx={{ 
+                        minWidth: 'auto', 
+                        px: 1, 
+                        py: 0.5,
+                        border: '2px solid transparent !important',
+                        '&:hover': {
+                          transform: 'none'
+                        }
+                      }}
                     >
                       <DeleteIcon fontSize="small" />
                     </Button>
