@@ -199,22 +199,26 @@ const RecentDocuments: React.FC = () => {
                 </TableCell>
                 <TableCell>
                   <Box display="flex" gap={0.5}>
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      onClick={() => handlePreviewDocument(doc.hash)}
-                      sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
-                    >
-                      <VisibilityIcon fontSize="small" />
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      onClick={() => handleViewDocument(doc.hash)}
-                      sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
-                    >
-                      <OpenInNewIcon fontSize="small" />
-                    </Button>
+                    <Tooltip title={t('Preview')}>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() => handlePreviewDocument(doc.hash)}
+                        sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                      >
+                        <VisibilityIcon fontSize="small" />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title={t('OpenDocument')}>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() => handleViewDocument(doc.hash)}
+                        sx={{ minWidth: 'auto', px: 1, py: 0.5 }}
+                      >
+                        <OpenInNewIcon fontSize="small" />
+                      </Button>
+                    </Tooltip>
                   </Box>
                 </TableCell>
               </TableRow>
